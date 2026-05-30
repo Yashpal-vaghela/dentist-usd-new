@@ -1,0 +1,466 @@
+/* ==========================================================================
+   ULTIMATE SMILE DESIGNING - PREMIUM CSS DESIGN SYSTEM
+   ========================================================================== */
+
+/* --- ROOT VARIABLES --- */
+:root {
+    --color-bg-primary: #0a0a0a;
+    --color-bg-header: rgba(10, 10, 10, 0.8);
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+    --color-text-primary: #ffffff;
+    --color-text-muted: #b0b0b0;
+    --color-text-hover: #ffffff;
+
+    /* Premium Gold Palette (Matches Logo) */
+    --color-gold-primary: #D4AF37;
+    --color-gold-hover: #FFD700;
+    --color-gold-glow: rgba(212, 175, 55, 0.4);
+
+    /* Metallic Silver/Chrome Button Gradient */
+    --gradient-metallic: linear-gradient(135deg, #ECEFF1 0%, #FFFFFF 35%, #CFD8DC 65%, #90A4AE 100%);
+    --gradient-metallic-hover: linear-gradient(135deg, #FFFFFF 0%, #ECEFF1 35%, #90A4AE 65%, #CFD8DC 100%);
+
+    /* Animation Speeds */
+    --transition-fast: 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition-normal: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition-slow: 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    --text-gradient: linear-gradient(130deg,
+            #c3942f 0%,
+            #d89c27 18%,
+            #dfc86f 37%,
+            #e7dc96 50%,
+            #dfc86f 64%,
+            #d89c27 82%,
+            #c99c30 100%);
+    --button-gradient: linear-gradient(130deg,
+            #636363 0%,
+            #9b9b9b 20%,
+            #b1b1b1 36%,
+            #e1e1e1 50%,
+            #b1b1b1 62%,
+            #9b9b9b 75%,
+            #636363 100%);
+    --new-button-gradient: linear-gradient(101.58deg, #636363 0.97%, #9B9B9B 20.97%, #B1B1B1 37.13%, #E1E1E1 50.61%, #B1B1B1 62.82%, #9B9B9B 76.44%, #636363 100.96%);
+    --white: #fff;
+    --black: #000;
+    --bg-content-color: rgba(34, 34, 34, 0.6);
+    --light-gray: rgba(255, 255, 255, 0.8);
+    --bg-content: rgba(52, 52, 52, 0.6);
+    --font-Montserrat: "Montserrat", sans-serif;
+    --font-Glida-Display: "Gilda Display", serif;
+    --fw-400: 400;
+    --fw-500: 500;
+    --fw-600: 600;
+    --fw-700: 700;
+    --fw-900: 900;
+}
+
+/* --- BASICS & SCROLLBARS --- */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-Montserrat);
+    background-color: var(--bg-content);
+    color: var(--color-text-primary);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Base Anchor Styling */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+
+/* Custom Scrollbar to match premium dark theme */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0d0d0d;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #252525;
+    border-radius: 4px;
+    border: 1px solid #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-gradient);
+}
+
+/* Scroll Lock */
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* Main Content Spacing to offset fixed header */
+.usd-main-content {
+    min-height: calc(100vh - 80px);
+}
+
+.bat {
+    background: var(--new-button-gradient) !important;
+    font-weight: var(--fw-600) !important;
+    transition: background 2s ease-in-out;
+    border-radius: 8px;
+    border: none;
+}
+
+.cool {
+    background: var(--text-gradient) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    color: transparent !important;
+    background-color: #2d2d2d !important;
+    display: inline-block;
+}
+
+/* ==========================================================================
+   PREMIUM HEADER & NAVBAR STYLES
+   ========================================================================== */
+
+.usd-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: rgba(10, 10, 10, 0.2);
+    /* highly transparent glass base */
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    /* subtle reflective glass edge */
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    transition: all var(--transition-normal);
+}
+
+/* Compact header on scroll */
+.usd-header.scrolled {
+    height: 70px;
+    background: rgba(10, 10, 10, 0.2);
+    /* slightly more filled but clearly glassmorphic */
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+}
+
+.usd-header-container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* --- LOGO --- */
+.usd-logo {
+    display: flex;
+    align-items: center;
+    height: 52px;
+    transition: transform var(--transition-normal);
+}
+
+.usd-logo:hover {
+    transform: scale(1.02);
+}
+
+.usd-logo img {
+    height: 100%;
+    max-height: 52px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* --- DESKTOP NAV --- */
+.usd-nav-desktop {
+    display: flex;
+    align-items: center;
+}
+
+.usd-nav-list {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.usd-nav-link {
+    color: var(--color-text-muted);
+    font-size: 15px;
+    font-weight: 500;
+    text-transform: capitalize;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    position: relative;
+    padding: 6px 0;
+    transition: color var(--transition-fast);
+}
+
+.usd-nav-link:hover,
+.usd-nav-link.active {
+    background: var(--text-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+}
+
+/* --- METALLIC ACTION BUTTON --- */
+.usd-btn-metallic {
+    display: inline-block;
+    color: #111111;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* --- HAMBURGER MENU --- */
+.usd-hamburger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: none;
+    /* Hidden on desktop */
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    padding: 0;
+    z-index: 1100;
+    position: relative;
+    transition: transform var(--transition-fast);
+}
+
+.usd-hamburger-line {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: var(--color-text-primary);
+    border-radius: 2px;
+    transition: all var(--transition-normal);
+    transform-origin: left center;
+}
+
+/* Morph Hamburger to "X" close state */
+.usd-hamburger.active .line-1 {
+    transform: rotate(45deg) translate(3px, -2px);
+    background-color: var(--color-gold-primary);
+}
+
+.usd-hamburger.active .line-2 {
+    width: 0%;
+    opacity: 0;
+}
+
+.usd-hamburger.active .line-3 {
+    transform: rotate(-45deg) translate(3px, 2px);
+    background-color: var(--color-gold-primary);
+}
+
+/* ==========================================================================
+   OFF-CANVAS SIDE DRAWER FOR TABLET & MOBILE
+   ========================================================================== */
+
+.usd-drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1050;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-slow);
+}
+
+.usd-drawer-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.usd-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 340px;
+    max-width: 85%;
+    height: 100vh;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-left: 1px solid var(--color-border-subtle);
+    z-index: 1060;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
+    transform: translateX(100%);
+    transition: transform var(--transition-slow);
+}
+
+.usd-drawer.active {
+    transform: translateX(0);
+}
+
+.usd-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.usd-drawer-logo {
+    height: 40px;
+}
+
+.usd-drawer-logo img {
+    height: 100%;
+    width: auto;
+}
+
+.usd-drawer-close {
+    background: none;
+    border: none;
+    color: var(--color-text-primary);
+    font-size: 32px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    transition: color var(--transition-fast);
+}
+
+.usd-drawer-close:hover {
+    color: var(--color-gold-primary);
+}
+
+.usd-nav-mobile-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.usd-nav-mobile-link {
+    color: var(--white) !important;
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 0;
+    position: relative;
+    transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.usd-nav-mobile-link:hover,
+.usd-nav-mobile-link.active {
+    color: var(--color-text-hover);
+    transform: translateX(6px);
+}
+
+.usd-nav-mobile-link::before {
+    content: '';
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-gold-primary);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.usd-nav-mobile-link.active::before,
+.usd-nav-mobile-link:hover::before {
+    opacity: 1;
+}
+
+.usd-drawer-btn-container {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid var(--color-border-subtle);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN BREAKPOINTS
+   ========================================================================== */
+
+/* Tablet Screens (under 1024px) */
+@media screen and (max-width: 1024px) {
+    .usd-header {
+        height: 75px;
+    }
+
+    .usd-nav-desktop,
+    .usd-action {
+        display: none;
+        /* Hide standard nav and CTA */
+    }
+
+    .usd-hamburger {
+        display: flex;
+        /* Show responsive toggle */
+    }
+}
+
+/* Mobile Screens (under 768px) */
+@media screen and (max-width: 768px) {
+    .usd-header-container {
+        padding: 0 20px;
+    }
+
+    .usd-logo {
+        height: 42px;
+    }
+
+    .usd-logo img {
+        max-height: 42px;
+    }
+
+    .usd-drawer {
+        width: 100%;
+        /* Take full width on small mobile screens */
+        padding: 24px;
+    }
+}
+
+/* ==========================================================================
+   OPTIONAL PREMIUM SCROLLER SCRIPT COMPANION CLASS
+   ========================================================================== */
+.w-100 {
+    width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}

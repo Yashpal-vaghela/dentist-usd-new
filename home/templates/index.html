@@ -1,11 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>hrllo</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo %}
+<title>Ultimate Smile Designing | Premium Aesthetic Dental Solutions</title>
+<meta name="description" content="Get premium aesthetic dental solutions with Ultimate Smile Designing. Flaunt your smile.">
+{% endblock %}
+{% block css%}
+<link href="{% static 'css/style.css' %}" rel="stylesheet">  
+{% endblock %}
+{% block content %}
+<!-- Hero Section -->
+<section id="home" class="hero-section" style="background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%); min-height: 100vh; padding-top: 120px; display: flex; align-items: center; justify-content: center; color: #fff; text-align: center; font-family: 'Outfit', sans-serif;">
+    <div class="container" style="max-width: 800px; padding: 20px;">
+        <h1 style="font-size: 3.5rem; font-weight: 700; margin-bottom: 20px; letter-spacing: -1px;" class="cool font-Glida-Display">Flaunt Your Smile</h1>
+        <p style="font-size: 1.25rem; font-weight: 300; color: #b0b0b0; max-width: 600px; margin: 0 auto 40px; line-height: 1.6;" class="font-Montserrat">Experience state-of-the-art aesthetic dental treatments tailored to perfection.</p>
+        <a href="#contact" class="usd-btn-metallic bat" style="display: inline-block; padding: 14px 32px; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1rem;">Get in Touch</a>
+    </div>
+</section>
+
+<!-- Placeholder sections to test navigation scrolling -->
+<section id="about-usd" style="padding: 100px 0; background: #121212; color: #fff; min-height: 60vh; display: flex; align-items: center; justify-content: center;">
+    <div class="container" style="text-align: center;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 20px;" class="cool font-Glida-Display">About USD</h2>
+        <p style="max-width: 600px; margin: 0 auto; color: #aaa; font-weight: 300;" class="font-Montserrat">Ultimate Smile Designing is the leading choice for premium aesthetic dental work globally.</p>
+    </div>
+</section>
+
+<section id="why-usd" style="padding: 100px 0; background: #0c0c0c; color: #fff; min-height: 60vh; display: flex; align-items: center; justify-content: center;">
+    <div class="container" style="text-align: center;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 20px;" class="cool font-Glida-Display">Why USD</h2>
+        <p style="max-width: 600px; margin: 0 auto; color: #aaa; font-weight: 300;" class="font-Montserrat">Advanced digital smile design systems matching your facial profile perfectly.</p>
+    </div>
+</section>
+
+<section id="testimonial" style="padding: 100px 0; background: #121212; color: #fff; min-height: 60vh; display: flex; align-items: center; justify-content: center;">
+    <div class="container" style="text-align: center;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 20px;" class="cool font-Glida-Display">Testimonial</h2>
+        <p style="max-width: 600px; margin: 0 auto; color: #aaa; font-weight: 300;" class="font-Montserrat">See what our verified patients say about their smile transformations.</p>
+    </div>
+</section>
+
+<section id="certification" style="padding: 100px 0; background: #0c0c0c; color: #fff; min-height: 60vh; display: flex; align-items: center; justify-content: center;">
+    <div class="container" style="text-align: center;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 20px;" class="cool font-Glida-Display">Certification</h2>
+        <p style="max-width: 600px; margin: 0 auto; color: #aaa; font-weight: 300;" class="font-Montserrat">Globally recognized aesthetic dental standards & certified clinics.</p>
+    </div>
+</section>
+
+<section id="benefits" style="padding: 100px 0; background: #121212; color: #fff; min-height: 60vh; display: flex; align-items: center; justify-content: center;">
+    <div class="container" style="text-align: center;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 20px;" class="cool font-Glida-Display">Benefits</h2>
+        <p style="max-width: 600px; margin: 0 auto; color: #aaa; font-weight: 300;" class="font-Montserrat">Enhance your confidence, oral health, and facial symmetry with our custom designs.</p>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- MOBILE SPECIFIC -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    {% block seo %} {% endblock %}	
+    
+    <!-- FAVICONS ICON -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon_io/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_io/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon_io/site.webmanifest' %}">
+    <link rel="shortcut icon" href="{% static 'favicon_io/favicon.ico' %}" type="image/x-icon">
+    
+    <!-- BOOTSTRAP STYLE SHEET -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    
+    <!-- GOOGLE FONTS (Outfit) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- MAIN STYLE SHEET -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">   
+    
+    <!-- Swiper.js Style-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    {% block css %} {% endblock css %}
+</head>
+
+<body>
+
+    <!-- HEADER START -->
+    <header class="usd-header">
+        <div class="usd-header-container">
+            <!-- Logo Container -->
+            <div class="usd-logo">
+                <a href="/">
+                    <img src="{% static 'images/USD_NEW_LOGO.svg' %}" alt="Ultimate Smile Design logo">
+                </a>
+            </div>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="usd-nav-desktop">
+                <ul class="usd-nav-list">
+                    <li><a href="/" class="usd-nav-link active">Home</a></li>
+                    <li><a href="#about-usd" class="usd-nav-link">About USD</a></li>
+                    <li><a href="#why-usd" class="usd-nav-link">Why USD</a></li>
+                    <li><a href="#testimonial" class="usd-nav-link">Testimonial</a></li>
+                    <li><a href="#certification" class="usd-nav-link">Certification</a></li>
+                    <li><a href="#benefits" class="usd-nav-link">Benefits</a></li>
+                </ul>
+            </nav>
+
+            <!-- Metallic Pill Button -->
+            <div class="usd-action">
+                <a href="#contact" class="usd-btn-metallic bat">Get in Touch</a>
+            </div>
+
+            <!-- Morphing Hamburger Menu for Tablet/Mobile -->
+            <button class="usd-hamburger" id="usd-hamburger-btn" aria-label="Toggle menu">
+                <span class="usd-hamburger-line line-1"></span>
+                <span class="usd-hamburger-line line-2"></span>
+                <span class="usd-hamburger-line line-3"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Off-Canvas Mobile Drawer -->
+    <div class="usd-drawer-overlay" id="usd-drawer-overlay"></div>
+    <div class="usd-drawer" id="usd-drawer">
+        <div class="usd-drawer-header">
+            <div class="usd-drawer-logo">
+                <img src="{% static 'images/USD_NEW_LOGO.svg' %}" alt="Ultimate Smile Design logo">
+            </div>
+            <button class="usd-drawer-close" id="usd-drawer-close-btn" aria-label="Close menu">&times;</button>
+        </div>
+        <nav class="usd-nav-mobile">
+            <ul class="usd-nav-mobile-list">
+                <li><a href="/" class="usd-nav-mobile-link active">Home</a></li>
+                <li><a href="#about-usd" class="usd-nav-mobile-link">About USD</a></li>
+                <li><a href="#why-usd" class="usd-nav-mobile-link">Why USD</a></li>
+                <li><a href="#testimonial" class="usd-nav-mobile-link">Testimonial</a></li>
+                <li><a href="#certification" class="usd-nav-mobile-link">Certification</a></li>
+                <li><a href="#benefits" class="usd-nav-mobile-link">Benefits</a></li>
+                <li class="usd-drawer-btn-container">
+                    <a href="#contact" class="usd-btn-metallic w-100 text-center">Get in Touch</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- MAIN DYNAMIC CONTENT -->
+    <main class="usd-main-content">
+        {% block content %} {% endblock content %}
+    </main>
+
+    <!-- FOOTER START -->
+    <footer class="new-footer">
+        <div class="container">
+            <div class="new-footer-content">
+                <div class="overlay">
+                    <div class="new-footer-bottom">
+                        <span class="new-footer-copyright cool mb-0">Copyright 2026 | <a href="https://advancedentalexport.com/" target="_blank">Advance Dental Export.</a> All Rights Resevred</span>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </footer>
+
+    <!-- Swiper.js CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+
+    <!-- Vanilla Javascript for Premium Micro-interactions & Mobile Menu Drawer -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerBtn = document.getElementById('usd-hamburger-btn');
+            const drawerCloseBtn = document.getElementById('usd-drawer-close-btn');
+            const drawer = document.getElementById('usd-drawer');
+            const drawerOverlay = document.getElementById('usd-drawer-overlay');
+            const navMobileLinks = document.querySelectorAll('.usd-nav-mobile-link');
+            const navDesktopLinks = document.querySelectorAll('.usd-nav-link');
+
+            function toggleMenu() {
+                hamburgerBtn.classList.toggle('active');
+                drawer.classList.toggle('active');
+                drawerOverlay.classList.toggle('active');
+                document.body.classList.toggle('no-scroll');
+            }
+
+            function closeMenu() {
+                hamburgerBtn.classList.remove('active');
+                drawer.classList.remove('active');
+                drawerOverlay.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            }
+
+            hamburgerBtn.addEventListener('click', toggleMenu);
+            drawerCloseBtn.addEventListener('click', closeMenu);
+            drawerOverlay.addEventListener('click', closeMenu);
+
+            // Handle smooth drawer close on link selection
+            navMobileLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navMobileLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    closeMenu();
+                });
+            });
+
+            // Smooth scroll anchor transitions
+            const allLinks = document.querySelectorAll('a[href^="#"]');
+            allLinks.forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
+                    
+                    const targetElement = document.querySelector(href);
+                    if (targetElement) {
+                        e.preventDefault();
+                        const headerOffset = 80;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Active section tracking on scroll
+            const sections = document.querySelectorAll('section[id]');
+            const header = document.querySelector('.usd-header');
+            
+            function trackScroll() {
+                let current = '';
+                const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+                // Toggle scrolled class for premium glass dynamic opacity
+                if (scrollPosition > 30) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 120; // accounting for fixed header height
+                    const sectionHeight = section.offsetHeight;
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navDesktopLinks.forEach(link => {
+                    link.classList.remove('active');
+                    const href = link.getAttribute('href');
+                    if (href === `#${current}` || (current === 'home' && href === '/')) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', trackScroll);
+            trackScroll(); // trigger once on load
+        });
+    </script>
+</body>
+
+</html>
