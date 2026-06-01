@@ -23,7 +23,7 @@
     /* Animation Speeds */
     --transition-fast: 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
     --transition-normal: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    --transition-slow: 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition-slow: 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
 
     --text-gradient: linear-gradient(130deg,
             #c3942f 0%,
@@ -85,11 +85,9 @@ a:hover {
 /* Custom Scrollbar to match premium dark theme */
 ::-webkit-scrollbar {
     width: 8px;
+    display: none;
 }
 
-::-webkit-scrollbar-track {
-    background: #0d0d0d;
-}
 
 ::-webkit-scrollbar-thumb {
     background: #252525;
@@ -259,7 +257,7 @@ body.no-scroll {
     display: block;
     height: 2px;
     width: 100%;
-    background-color: var(--color-text-primary);
+    background: var(--text-gradient);
     border-radius: 2px;
     transition: all var(--transition-normal);
     transform-origin: left center;
@@ -268,7 +266,7 @@ body.no-scroll {
 /* Morph Hamburger to "X" close state */
 .usd-hamburger.active .line-1 {
     transform: rotate(45deg) translate(3px, -2px);
-    background-color: var(--color-gold-primary);
+    background: var(--color-gold-primary);
 }
 
 .usd-hamburger.active .line-2 {
@@ -278,7 +276,7 @@ body.no-scroll {
 
 .usd-hamburger.active .line-3 {
     transform: rotate(-45deg) translate(3px, 2px);
-    background-color: var(--color-gold-primary);
+    background: var(--color-gold-primary);
 }
 
 /* ==========================================================================
@@ -320,13 +318,15 @@ body.no-scroll {
     display: flex;
     flex-direction: column;
     padding: 30px;
-    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
     transform: translateX(100%);
-    transition: transform var(--transition-slow);
+    visibility: hidden;
+    transition: transform var(--transition-slow), visibility var(--transition-slow), box-shadow var(--transition-slow);
 }
 
 .usd-drawer.active {
     transform: translateX(0);
+    visibility: visible;
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
 }
 
 .usd-drawer-header {
@@ -353,7 +353,7 @@ body.no-scroll {
     line-height: 1;
     cursor: pointer;
     padding: 0;
-    transition: color var(--transition-fast);
+    transition: color var(--transition-slow);
 }
 
 .usd-drawer-close:hover {
@@ -361,54 +361,45 @@ body.no-scroll {
 }
 
 .usd-nav-mobile-list {
-    list-style: none;
+    list-style: none !important;
     padding: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
 }
 
 .usd-nav-mobile-link {
     color: var(--white) !important;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
+    letter-spacing: 0.7px;
     text-decoration: none;
     display: inline-block;
-    padding: 8px 0;
+    padding: 5px 0;
     position: relative;
     transition: color var(--transition-fast), transform var(--transition-fast);
 }
 
 .usd-nav-mobile-link:hover,
 .usd-nav-mobile-link.active {
-    color: var(--color-text-hover);
-    transform: translateX(6px);
+    background: var(--text-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+    text-decoration: none !important;
 }
 
-.usd-nav-mobile-link::before {
-    content: '';
-    position: absolute;
-    left: -15px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: var(--color-gold-primary);
-    opacity: 0;
-    transition: opacity var(--transition-fast);
-}
-
-.usd-nav-mobile-link.active::before,
-.usd-nav-mobile-link:hover::before {
-    opacity: 1;
-}
 
 .usd-drawer-btn-container {
-    margin-top: 40px;
-    padding-top: 30px;
-    border-top: 1px solid var(--color-border-subtle);
+    margin: 0px 50px 0px 0px;
+}
+
+.new-footer-bottom {
+    background-color: #121212;
+    width: 100%;
+    text-align: center;
 }
 
 /* ==========================================================================
@@ -416,9 +407,13 @@ body.no-scroll {
    ========================================================================== */
 
 /* Tablet Screens (under 1024px) */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 991px) {
     .usd-header {
-        height: 75px;
+        height: 70px;
+    }
+
+    .usd-header-container {
+        padding: 10px 20px;
     }
 
     .usd-nav-desktop,
@@ -452,6 +447,23 @@ body.no-scroll {
         /* Take full width on small mobile screens */
         padding: 24px;
     }
+}
+
+@media screen and (max-width: 576px) {
+    .usd-drawer {
+        max-width: 100%;
+        padding: 20px !important;
+    }
+
+    .usd-drawer-overlay.active {
+        width: 100%;
+    }
+
+    .usd-btn-metallic {
+        letter-spacing: 0.7px;
+        padding: 10px 20px;
+    }
+
 }
 
 /* ==========================================================================
