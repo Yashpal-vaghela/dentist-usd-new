@@ -1,0 +1,924 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000000;
+  overflow-x: hidden;
+}
+
+/* =====================================================
+   MAIN SECTION (Base style: flex-based for laptops)
+===================================================== */
+
+.usd-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #000000;
+  overflow: hidden;
+}
+
+/* =====================================================
+   BACKGROUND OVERLAY
+===================================================== */
+
+.usd-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg,
+      rgba(0, 0, 0, 0.72) 0%,
+      rgba(0, 0, 0, 0.78) 100%),
+    url("../video/11ab18cac71ec5c8637897d2bba3a2b9df330413 (1).gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.5;
+}
+
+/* =====================================================
+   CONTAINER (Base style: flex-based for laptops)
+===================================================== */
+
+.usd-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  padding: 0 5%;
+  gap: 40px;
+}
+
+/* =====================================================
+   LEFT COLUMN — HEADING (Base Style)
+===================================================== */
+
+
+
+.usd-left {
+  position: relative;
+  flex: 0 0 25%;
+  max-width: 340px;
+  align-self: flex-start;
+  /* margin-top: 2px; */
+  /* padding-top: px; */
+  display: flex;
+  flex-direction: column;
+  /* height: auto; */
+  margin-bottom: 30pxs;
+
+  /* border: 1px solid red; */
+}
+
+.usd-heading {
+  margin-top: 0px;
+  font-family: 'Gilda Display', serif;
+  font-style: normal;
+  font-weight: 400px;
+  font-size: 36px;
+  line-height: 190%;
+  letter-spacing: 0.05em;
+  color: #FFFFFF;
+  white-space: nowrap;
+}
+
+.usd-heading span {
+  color: #FFFFFF;
+}
+
+.usd-heading br~span {
+  color: #C89A2B;
+}
+
+/* =====================================================
+   CENTER COLUMN — IMAGE & FRAME (Base Style)
+===================================================== */
+
+
+.usd-center {
+  position: relative;
+  flex: 0 0 auto;
+  align-self: center;
+  height: auto;
+  /* margin-left: -55px; */
+}
+
+.usd-image-box {
+  position: relative;
+  width: 250px;
+  height: 220px;
+  overflow: visible;
+
+  clip-path: inset(-70px -15px 0px -15px);
+}
+
+.usd-frame {
+  position: absolute;
+  top: 0;
+  left: 18px;
+  width: 214px;
+  height: 220px;
+  border: 7px solid rgba(120, 120, 120, 0.65);
+  z-index: 1;
+}
+
+.usd-image {
+  position: absolute;
+  width: 190px;
+  height: 290px;
+  top: -70px;
+  left: 30px;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* =====================================================
+   RIGHT COLUMN — TEXT (Base Style)
+==================================================== */
+
+.usd-right {
+  position: relative;
+  flex: 0 0 28%;
+  max-width: 380px;
+  align-self: flex-end;
+  padding-bottom: 12vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+}
+
+.usd-right p {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 160%;
+  letter-spacing: 0.03em;
+  color: #FFFFFF;
+}
+
+
+/* =====================================================
+   LARGE DESKTOP OVERRIDE (Width > 1600px AND Height > 750px)
+   Applies Figma exact coordinates only when screen has enough space.
+===================================================== */
+
+@media (min-width: 1600px) and (min-height: 751px) {
+  .usd-section {
+    min-height: 900px;
+  }
+
+  .usd-container {
+    display: block;
+    /* disable flex */
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+
+  .usd-left {
+    position: absolute;
+    width: 436px;
+    max-width: none;
+
+    height: 170px;
+    left: calc(50% - 150px - 450px);
+    /* top: calc(50% - 20px - 50px); */
+
+    top: 21px;
+    padding-top: 0;
+  }
+
+  .usd-heading {
+    font-size: 46px;
+    line-height: 190%;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .usd-center {
+    position: absolute;
+    width: 422px;
+    height: 602px;
+    left: calc(50% - 211px - 143px);
+    /* Figma: calc(50% - 422px/2 - 143px) */
+    top: 322px;
+    margin-left: 42px;
+    /* Reset base style negative margin */
+  }
+
+  .usd-image-box {
+    width: 422px;
+    height: 370px;
+    clip-path: inset(-115px -50px 0px -50px);
+  }
+
+  .usd-frame {
+    left: 31px;
+    width: 360px;
+    height: 370px;
+    border-width: 10px;
+  }
+
+  .usd-image {
+    width: 327px;
+    height: 481px;
+    top: -122px;
+    left: 50px;
+  }
+
+  .usd-right {
+    position: absolute;
+    width: 591px;
+    max-width: none;
+    /* Reset base style constraints */
+    height: 492px;
+    left: calc(50% - 313.5px + 474.5px);
+    /* Figma: calc(50% - 591px/2 + 474.5px) */
+    top: 584px;
+    /* Exact Figma top coordinate */
+    padding-bottom: 0;
+    padding-left: 21px;
+    gap: 36px;
+  }
+
+  .usd-right p {
+    font-size: 24px;
+    line-height: 170%;
+    letter-spacing: 0.04em;
+  }
+
+  /* Desktop height adjustment: short viewport (e.g. 919px height) */
+  @media (max-height: 930px) {
+    .usd-right {
+      top: 450px;
+    }
+  }
+
+  /* Desktop height adjustment: very short viewport (e.g. < 840px height) */
+  @media (max-height: 840px) {
+    .usd-heading {
+      font-size: 38px;
+    }
+
+    .usd-center {
+      top: 170px;
+    }
+
+    .usd-image-box {
+      width: 350px;
+      height: 308px;
+      clip-path: inset(-95px -40px 0px -40px);
+    }
+
+    .usd-frame {
+      left: 25px;
+      width: 300px;
+      height: 308px;
+      border-width: 8px;
+    }
+
+    .usd-image {
+      width: 266px;
+      height: 403px;
+      top: -95px;
+      left: 42px;
+    }
+
+    .usd-right {
+      top: 450px;
+      width: 480px;
+      gap: 30px;
+    }
+
+    .usd-right p {
+      font-size: 20px;
+    }
+  }
+}
+
+
+
+
+/* =====================================================
+   WIDTH-BASED BREAKPOINTS
+===================================================== */
+
+/* ── Large laptop (1401px – 1599px) ── */
+@media (min-width: 1400px) and (max-width: 1599px) {
+  .usd-container {
+    display: block;
+    max-width: 1599px;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+    height: 100%;
+  }
+
+  .usd-left {
+    position: absolute;
+    width: 400px;
+    left: calc(50% - 600px);
+    top: 20px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .usd-heading {
+    font-size: 42px;
+    line-height: 170%;
+    letter-spacing: 0.05em;
+  }
+
+  .usd-center {
+    position: absolute;
+    width: 422px;
+    height: 370px;
+    left: calc(50% - 211px - 100px);
+    top: 250px;
+    margin: 0;
+  }
+
+  .usd-image-box {
+    width: 422px;
+    height: 370px;
+    clip-path: inset(-115px -50px 0px -50px);
+  }
+
+  .usd-frame {
+    left: 31px;
+    width: 360px;
+    height: 370px;
+    border-width: 10px;
+  }
+
+  .usd-image {
+    width: 320px;
+    height: 474px;
+    top: -115px;
+    left: 51px;
+  }
+
+  .usd-right {
+    position: absolute;
+    width: 500px;
+    left: calc(50% + 180px);
+    top: 435px;
+    padding: 0;
+    gap: 15px;
+  }
+
+  .usd-right p {
+    font-size: 23px;
+    line-height: 150%;
+  }
+
+  /* Height adjustments for smaller laptop screens */
+  @media (max-height: 840px) {
+    .usd-left {
+      top: 50px;
+    }
+
+    .usd-center {
+      top: 170px;
+    }
+
+    .usd-right {
+      top: 430px;
+    }
+  }
+
+  @media (max-height: 650px) {
+    .usd-left {
+      top: 30px;
+    }
+
+    .usd-heading {
+      font-size: 32px;
+    }
+
+    .usd-center {
+      top: 120px;
+    }
+
+    .usd-image-box {
+      width: 250px;
+      height: 220px;
+      /* clip-path: inset(-70px -15px 0px -15px); */
+      /* clip-path: inset(-53px -12px 0px -12px); */
+    }
+
+    .usd-frame {
+      left: 18px;
+      width: 214px;
+      height: 220px;
+      border-width: 7px;
+    }
+
+    .usd-image {
+      width: 190px;
+      height: 290px;
+      top: -70px;
+      left: 30px;
+    }
+
+    .usd-right {
+      top: 340px;
+      gap: 15px;
+    }
+
+    .usd-right p {
+      font-size: 14px;
+    }
+  }
+}
+
+
+@media (min-width: 1201px) and (max-width:1399px) {
+  .usd-container {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+
+  .usd-left {
+    position: absolute;
+    width: calc(240px + (100vw - 992px) * 0.3846);
+    left: 10%;
+    top: 16px;
+    margin: 0;
+  }
+
+  .usd-heading {
+    font-size: calc(32px + (100vw - 1200px) * 0.0285);
+    line-height: 160%;
+    letter-spacing: 0.02em;
+  }
+
+  .usd-center {
+    position: absolute;
+    width: calc(250px + (100vw - 992px) * 0.5096);
+    height: calc(200px + (100vw - 992px) * 0.4471);
+    left: calc(50% - 255px - (100vw - 992px) * 0.4086);
+    top: 250px;
+    margin: 0;
+  }
+
+  .usd-image-box {
+    width: calc(316px + (100vw - 992px) * 0.5096);
+    height: calc(277px + (100vw - 992px) * 0.4471);
+    clip-path: inset(calc(-86px - (100vw - 992px) * 0.1394) calc(-37.5px - (100vw - 992px) * 0.0601) 0px calc(-37.5px - (100vw - 992px) * 0.0601));
+  }
+
+  .usd-frame {
+    left: calc(23px + (100vw - 992px) * 0.0385);
+    width: calc(270px + (100vw - 992px) * 0.4327);
+    height: calc(277px + (100vw - 992px) * 0.4471);
+    border-width: calc(7px + (100vw - 992px) * 0.0144);
+  }
+
+  .usd-image {
+    width: calc(240px + (100vw - 992px) * 0.3846);
+    height: calc(358px + (100vw - 992px) * 0.5721);
+    top: calc(-87px - (100vw - 992px) * 0.1394);
+    left: calc(38px + (100vw - 992px) * 0.0625);
+  }
+
+  .usd-right {
+    position: absolute;
+    width: calc(337px + (100vw - 992px) * 0.5433);
+    left: calc(50% + 110px + (100vw - 992px) * 0.1346);
+    top: 443px;
+    padding: 0;
+    gap: calc(18px + (100vw - 992px) * 0.0337);
+  }
+
+  .usd-right p {
+    font-size: calc(20px + (100vw - 1200px) * 0.0088);
+    line-height: 160%;
+  }
+
+  /* Height adjustments for smaller screens */
+  @media (max-height: 840px) {
+    .usd-left {
+      top: 50px;
+    }
+
+    .usd-center {
+      top: 170px;
+    }
+
+    .usd-right {
+      top: 410px;
+    }
+  }
+
+  @media (max-height: 650px) {
+    .usd-left {
+      top: 30px;
+      margin-left: 90px;
+      width: 320px;
+    }
+
+    .usd-heading {
+      font-size: 29px;
+    }
+
+    .usd-center {
+      top: 156px;
+      width: 350px;
+      height: 308px;
+      left: calc(50% - 220px);
+    }
+
+    .usd-image-box {
+      width: 350px;
+      height: 308px;
+      clip-path: inset(-95px -40px 0px -40px);
+    }
+
+    .usd-frame {
+      left: 25px;
+      width: 300px;
+      height: 308px;
+      border-width: 8px;
+    }
+
+    .usd-image {
+      width: 266px;
+      height: 395px;
+      top: -95px;
+      left: 42px;
+    }
+
+    .usd-right {
+      top: 333px;
+      width: 350px;
+      left: calc(50% + 165px);
+      right: auto;
+      gap: 23px;
+    }
+
+    .usd-right p {
+      font-size: 14px;
+    }
+  }
+}
+
+
+@media (min-width: 992px) and (max-width:1200px) {
+  .usd-container {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+
+  .usd-left {
+    position: absolute;
+    width: calc(240px + (100vw - 992px) * 0.3846);
+    left: 10%;
+    top: 20px;
+    margin: 0;
+  }
+
+  .usd-heading {
+    font-size: calc(30px + (100vw - 992px) * 0.0485);
+    line-height: 160%;
+    letter-spacing: 0.02em;
+  }
+
+  .usd-center {
+    position: absolute;
+    width: calc(316px + (100vw - 992px) * 0.5096);
+    height: calc(200px + (100vw - 992px) * 0.4471);
+    left: calc(50% - 255px - (100vw - 992px) * 0.4086);
+    top: 250px;
+    margin: 0;
+  }
+
+  .usd-image-box {
+    width: calc(316px + (100vw - 992px) * 0.5096);
+    height: calc(277px + (100vw - 992px) * 0.4471);
+    clip-path: inset(calc(-86px - (100vw - 992px) * 0.1394) calc(-37.5px - (100vw - 992px) * 0.0601) 0px calc(-37.5px - (100vw - 992px) * 0.0601));
+  }
+
+  .usd-frame {
+    left: calc(23px + (100vw - 992px) * 0.0385);
+    width: calc(270px + (100vw - 992px) * 0.4327);
+    height: calc(277px + (100vw - 992px) * 0.4471);
+    border-width: calc(7px + (100vw - 992px) * 0.0144);
+  }
+
+  .usd-image {
+    width: calc(240px + (100vw - 992px) * 0.3846);
+    height: calc(358px + (100vw - 992px) * 0.5721);
+    top: calc(-87px - (100vw - 992px) * 0.1394);
+    left: calc(38px + (100vw - 992px) * 0.0625);
+  }
+
+  .usd-right {
+    position: absolute;
+    width: calc(337px + (100vw - 992px) * 0.5433);
+    left: calc(50% + 112px + (100vw - 992px) * 0.1346);
+    top: 443px;
+    padding: 0;
+    gap: calc(18px + (100vw - 992px) * 0.0337);
+  }
+
+  .usd-right p {
+    font-size: calc(20px + (100vw - 992px) * 0.0088);
+    line-height: 160%;
+  }
+
+  /* Height adjustments for smaller screens */
+  @media (max-height: 840px) {
+    .usd-left {
+      top: 50px;
+    }
+
+    .usd-center {
+      top: 170px;
+    }
+
+    .usd-right {
+      top: 410px;
+    }
+  }
+
+  @media (max-height: 650px) {
+    .usd-left {
+      top: 30px;
+      width: 320px;
+    }
+
+    .usd-heading {
+      font-size: 28px;
+    }
+
+    .usd-center {
+      top: 110px;
+      width: 250px;
+      height: 220px;
+      left: calc(50% - 125px - 40px);
+    }
+
+    .usd-image-box {
+      width: 250px;
+      height: 220px;
+      clip-path: inset(-70px -15px 0px -15px);
+    }
+
+    .usd-frame {
+      left: 18px;
+      width: 214px;
+      height: 220px;
+      border-width: 7px;
+    }
+
+    .usd-image {
+      width: 190px;
+      height: 290px;
+      top: -70px;
+      left: 30px;
+    }
+
+    .usd-right {
+      top: 320px;
+      width: 350px;
+      left: calc(50% + 85px + 20px);
+      right: auto;
+      gap: 12px;
+    }
+
+    .usd-right p {
+      font-size: 13px;
+    }
+  }
+}
+
+/* @media (max-height: 650px) {
+  .usd-left {
+    top: 30px;
+    margin-left: 90px;
+    width: 320px;
+  }
+
+  .usd-heading {
+    font-size: 29px;
+  }
+
+  .usd-center {
+    top: 156px;
+    width: 350px;
+    height: 308px;
+    left: calc(50% - 220px);
+  }
+
+  .usd-image-box {
+    width: 350px;
+    height: 308px;
+    clip-path: inset(-95px -40px 0px -40px);
+  }
+
+  .usd-frame {
+    left: 25px;
+    width: 300px;
+    height: 308px;
+    border-width: 8px;
+  }
+
+  .usd-image {
+    width: 266px;
+    height: 395px;
+    top: -95px;
+    left: 42px;
+  }
+
+  .usd-right {
+    top: 333px;
+    width: 350px;
+    left: calc(50% + 165px);
+    right: auto;
+    gap: 23px;
+  }
+
+  .usd-right p {
+    font-size: 14px;
+  }
+} */
+
+
+/* =====================================================
+   TABLET & MOBILE (≤ 992px)
+   Stacks vertically, optimized to fit within 100vh height.
+===================================================== */
+
+@media (max-width: 992px) {
+  .usd-section {
+    height: 100vh;
+    min-height: 480px;
+    overflow: hidden;
+  }
+
+  .usd-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4vh 30px;
+    gap: 3.9vh;
+    height: 100%;
+  }
+
+  .usd-left,
+  .usd-center,
+  .usd-right {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    align-self: center;
+  }
+
+  .usd-heading {
+    font-size: 30px;
+    white-space: nowrap;
+    line-height: 140%;
+    letter-spacing: 0.02em;
+  }
+
+  .usd-heading br {
+    display: none;
+  }
+
+  .usd-center {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .usd-image-box {
+    width: 250px;
+    height: 220px;
+    clip-path: inset(-70px -15px 0px -15px);
+    margin: 0;
+  }
+
+  .usd-frame {
+    left: 18px;
+    width: 214px;
+    height: 220px;
+    border-width: 7px;
+  }
+
+  .usd-image {
+    width: 190px;
+    height: 281px;
+    top: -70px;
+    left: 30px;
+  }
+
+  .usd-right {
+    gap: 2vh;
+  }
+
+  .usd-right p {
+    font-size: 21px;
+    line-height: 150%;
+  }
+}
+
+/* ── Mobile phones (≤ 480px) ── */
+@media (max-width: 480px) {
+  .usd-container {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+
+  .usd-left {
+    position: absolute;
+    top: 5vh;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    text-align: center;
+  }
+
+  .usd-heading {
+    font-size: clamp(15px, 6.3vw, 25px);
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .usd-center {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 176px;
+    margin: 0 !important;
+  }
+
+  .usd-image-box {
+    position: relative;
+    width: 200px;
+    height: 176px;
+    clip-path: inset(-56px -12px 0px -12px);
+    margin: 0;
+  }
+
+  .usd-frame {
+    left: 14px;
+    width: 172px;
+    height: 176px;
+    border-width: 5px;
+    top: 0;
+  }
+
+  .usd-image {
+    width: 152px;
+    height: 227px;
+    top: -56px;
+    left: 24px;
+  }
+
+  .usd-right {
+    position: absolute;
+    top: calc(50% + 70px + 15px);
+    left: 5%;
+    width: 90%;
+    margin: 0;
+    gap: 1.5vh;
+    text-align: center;
+  }
+
+  .usd-right p {
+    font-size: 17px;
+    line-height: 140%;
+    text-align: center;
+  }
+}
