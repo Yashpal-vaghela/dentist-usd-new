@@ -576,35 +576,69 @@ pre code {
     overflow-y: scroll
 }
 
-.container {
+.container,
+.container-fluid,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl,
+.container-xxl {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
     width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: calc(var(--bs-gutter-x) * 0.5);
     margin-right: auto;
     margin-left: auto
 }
 
 @media (min-width:576px) {
-    .container {
+
+    .container,
+    .container-sm {
         max-width: 540px
     }
 }
 
 @media (min-width:768px) {
-    .container {
+
+    .container,
+    .container-md,
+    .container-sm {
         max-width: 720px
     }
 }
 
 @media (min-width:992px) {
-    .container {
+
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm {
         max-width: 960px
     }
 }
 
 @media (min-width:1200px) {
-    .container {
-        max-width: 1340px
+
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl {
+        max-width: 1140px
+    }
+}
+
+@media (min-width:1400px) {
+
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+        max-width: 1320px
     }
 }
 
