@@ -1,0 +1,154 @@
+{% load static %}
+{% block css%}
+<link href="{% static 'css/work-flow-section_2.css' %}" rel="stylesheet" />
+{% endblock %}
+{% block content %}
+
+<div class="work_flow_section_2_main">
+    <div class="container">
+        <div class="work_flow_tag_2_main">
+            <div class="work_flow_2_dot"></div>
+            <p class="work_flow_2_text">Workflow</p>
+        </div>
+        <h2 class="work_flow_2_title">Ultimate Smile Design Workflow</h2>
+    </div>
+    <div class="container work_flow_2_content_main">
+        <!-- 1 card  -->
+        <div class="work_flow_details_and_image_mian">
+            <div class="work_flow_left_side_details_main">
+                <div class="work_flow_top_title">
+                    <h3>Smile Analysis:</h3>
+                </div>
+                <div class="work_flow_bottom_discrptions">
+                    <p>Digitally analyse the patient’s face, teeth, and smile to identify aesthetic goals and possibilities.Digitally analyse the patient’s face, teeth, and smile to identify aesthetic goals and possibilities.Digitally analyse the patient’s face, teeth, and smile to identify aesthetic goals and possibilities.</p>
+                </div>
+            </div>
+            <div class="work_flow_right_side_image_main">
+                <img src="{%static 'images/SmileAnalysis_img.png'%}" alt="SmileAnalysis_img" class="img-fluid">
+            </div>
+        </div>
+        <!-- 2 card  -->
+        <div class="work_flow_details_and_image_mian">
+            <div class="work_flow_left_side_details_main">
+                <div class="work_flow_top_title">
+                    <h3>Digital Design</h3>
+                </div>
+                <div class="work_flow_bottom_discrptions">
+                    <p>Digitally analyse the patient’s face, teeth, and smile to identify aesthetic goals and possibilities.Digitally analyse the patient’s face, teeth, and smile to identify aesthetic goals and possibilities.Digitally analyse the patient’s face, teeth, and smile to identify aesthetic goals and possibilities.</p>
+                </div>
+            </div>
+            <div class="work_flow_right_side_image_main">
+                <img src="{%static 'images/Digital_design_image.png'%}" alt="SmileAnalysis_img" class="img-fluid">
+            </div>
+        </div>
+        <!-- 3 card  -->
+        <div class="work_flow_details_and_image_mian">
+            <div class="work_flow_left_side_details_main">
+                <div class="work_flow_top_title">
+                    <h3>Mock-Up & Approval</h3>
+                </div>
+                <div class="work_flow_bottom_discrptions">
+                    <p>Digitally analyse the patient’s face, teeth, and smile to identify aesthetic goals and possibilities.Digitally analyse the patient’s face, teeth, and smile to identify aesthetic goals and possibilities.Digitally analyse the patient’s face, teeth, and smile to identify aesthetic goals and possibilities.</p>
+                </div>
+            </div>
+            <div class="work_flow_right_side_image_main">
+                <img src="{%static 'images/Mock-Up&Approval_image.png'%}" alt="SmileAnalysis_img" class="img-fluid">
+            </div>
+        </div>
+        <!-- 4 card  -->
+        <div class="work_flow_details_and_image_mian">
+            <div class="work_flow_left_side_details_main">
+                <div class="work_flow_top_title">
+                    <h3>Lab Fabrication</h3>
+                </div>
+                <div class="work_flow_bottom_discrptions">
+                    <p>Digitally analyse the patient’s face, teeth, and smile to identify aesthetic goals and possibilities.Digitally analyse the patient’s face, teeth, and smile to identify aesthetic goals and possibilities.Digitally analyse the patient’s face, teeth, and smile to identify aesthetic goals and possibilities.</p>
+                </div>
+            </div>
+            <div class="work_flow_right_side_image_main">
+                <img src="{%static 'images/Lab_fabrication_image.png'%}" alt="SmileAnalysis_img" class="img-fluid">
+            </div>
+        </div>
+        <!-- 5 card  -->
+        <div class="work_flow_details_and_image_mian">
+            <div class="work_flow_left_side_details_main">
+                <div class="work_flow_top_title">
+                    <h3>Final Delivery</h3>
+                </div>
+                <div class="work_flow_bottom_discrptions">
+                   <p>Place the restorations with minimal adjustments, delivering the anticipated result. The patient walks away with the precise smile that was planned from the start.Place the restorations with minimal adjustments, delivering the anticipated result. The patient walks away with the precise smile that was planned from the start.</p>
+                </div>
+            </div>
+            <div class="work_flow_right_side_image_main">
+                <img src="{%static 'images/Final_delivery_image.png'%}" alt="SmileAnalysis_img" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- GSAP and ScrollTrigger Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const section = document.querySelector('.work_flow_section_2_main');
+        const cards = gsap.utils.toArray('.work_flow_details_and_image_mian');
+
+        if (!section || cards.length === 0) return;
+
+        // Set initial stack z-indexes and initial state for cards
+        cards.forEach((card, index) => {
+            gsap.set(card, {
+                zIndex: index + 1
+            });
+            if (index > 0) {
+                // Start other cards hidden off-screen (translated down), faded out, and scaled slightly down
+                gsap.set(card, {
+                    yPercent: 150,
+                    scale: 0.95
+                });
+            }
+        });
+
+        // Create Master Timeline for ScrollTrigger
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: section,
+                start: "top 70px",
+                // Total scrolling distance. Using 80vh per card transition to keep it smooth and responsive
+                end: () => `+=${(cards.length - 1) * 80}%`,
+                pin: true,
+                scrub: 1,
+                anticipatePin: 1,
+                invalidateOnRefresh: true
+            }
+        });
+
+        // Animate subsequent cards one by one
+        cards.forEach((card, index) => {
+            if (index === 0) return; // First card is already visible
+
+            // Smooth transition steps:
+            // 1. Current card slides up, scales up, and fades in completely
+            // 2. Previous card scales down slightly, shifts up, and dims (layering depth)
+            tl.to(card, {
+                yPercent: 0,
+                scale: 1,
+                ease: "power2.out",
+                duration: 1
+            }, `card-${index}`)
+            .to(cards[index - 1], {
+                scale: 0.92,
+                yPercent: -8, // shift previous card up slightly to show layering
+                opacity: 0,
+                ease: "power2.out",
+                duration: 1
+            }, `card-${index}`);
+        });
+    });
+</script>
+
+{% endblock %}

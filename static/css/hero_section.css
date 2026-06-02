@@ -70,7 +70,16 @@
   letter-spacing: 0.03em;
   margin-bottom: 15px;
   text-align: center;
-  background: var(--text-gradient);
+  background: linear-gradient(
+    270deg,
+    #be9644 0.01%,
+    #aa803c 15.01%,
+    #f3dc87 43.01%,
+    #fbefac 59.01%,
+    #f3dc87 73.01%,
+    #aa803c 93.01%,
+    #c49d47 100.01%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

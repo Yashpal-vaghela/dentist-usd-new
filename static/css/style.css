@@ -160,7 +160,7 @@ body.no-scroll {
 .usd-header-wrapper {
     width: 100%;
     margin: 0 auto;
-    padding: 0px;
+    padding: 0px 12px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -396,9 +396,13 @@ body.no-scroll {
 }
 
 .new-footer-bottom {
-    background-color: #121212;
+    padding: 20px 0px;
+    background-color:rgba(85, 84, 84, 0.756);
     width: 100%;
     text-align: center;
+}
+.new-footer-copyright{
+    font-size: 18px;
 }
 
 /* ==========================================================================
@@ -412,7 +416,7 @@ body.no-scroll {
     }
 
     .usd-header-wrapper {
-        padding: 10px 20px;
+        padding: 10px 12px;
     }
 
     .usd-nav-desktop,
@@ -430,7 +434,7 @@ body.no-scroll {
 /* Mobile Screens (under 768px) */
 @media screen and (max-width: 768px) {
     .usd-header-wrapper {
-        padding: 0 20px;
+        padding: 0 12px;
     }
 
     .usd-logo {
