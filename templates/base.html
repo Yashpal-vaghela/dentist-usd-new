@@ -36,10 +36,9 @@
 </head>
 
 <body>
-
     <!-- HEADER START -->
     <header class="usd-header">
-        <div class="usd-header-container">
+        <div class="container usd-header-wrapper">
             <!-- Logo Container -->
             <div class="usd-logo">
                 <a href="/">
@@ -211,6 +210,7 @@
             trackScroll(); // trigger once on load
         });
     </script>
+    {% block javascript %} {% endblock javascript %}
 </body>
 
 </html>

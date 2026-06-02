@@ -8,7 +8,7 @@
     --color-bg-header: rgba(10, 10, 10, 0.8);
     --color-border-subtle: rgba(255, 255, 255, 0.08);
     --color-text-primary: #ffffff;
-    --color-text-muted: #b0b0b0;
+    --color-text-muted: #ffffff;
     --color-text-hover: #ffffff;
 
     /* Premium Gold Palette (Matches Logo) */
@@ -46,7 +46,7 @@
     --black: #000;
     --bg-content-color: rgba(34, 34, 34, 0.6);
     --light-gray: rgba(255, 255, 255, 0.8);
-    --bg-content: rgba(52, 52, 52, 0.6);
+    --bg-content: #000;
     --font-Montserrat: "Montserrat", sans-serif;
     --font-Glida-Display: "Gilda Display", serif;
     --fw-400: 400;
@@ -157,11 +157,10 @@ body.no-scroll {
     -webkit-backdrop-filter: blur(25px) saturate(180%);
 }
 
-.usd-header-container {
+.usd-header-wrapper {
     width: 100%;
-    max-width: 1300px;
     margin: 0 auto;
-    padding: 0 30px;
+    padding: 0px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -412,7 +411,7 @@ body.no-scroll {
         height: 70px;
     }
 
-    .usd-header-container {
+    .usd-header-wrapper {
         padding: 10px 20px;
     }
 
@@ -430,7 +429,7 @@ body.no-scroll {
 
 /* Mobile Screens (under 768px) */
 @media screen and (max-width: 768px) {
-    .usd-header-container {
+    .usd-header-wrapper {
         padding: 0 20px;
     }
 
