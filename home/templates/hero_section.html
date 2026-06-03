@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block css%}
+{% load static %} {% block css%}
 <link href="{% static 'css/hero_section.css' %}" rel="stylesheet" />
 {% endblock %} {% block content %}
 <!-- Premium Video Hero Section (100vh) -->
@@ -44,12 +44,12 @@
   </div>
 </section>
 
-{% include 'work-flow-section.html' %}
+{% comment %} {% include 'work-flow-section.html' %}
 {% include 'work-flow-section_2.html' %}
 {% include 'guide_section.html' %}
 {% include 'review_section.html' %}
 {% include 'testimonials_section.html' %}
-{% include 'contact_section.html' %}
+{% include 'contact_section.html' %} {% endcomment %}
 {% endblock %}
 
 {% block js %}
