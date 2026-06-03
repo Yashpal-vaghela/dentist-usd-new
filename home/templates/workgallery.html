@@ -139,27 +139,32 @@
         recalculate();
         renderDepth();
 
-        // Autoplay controller
-        let tween;
-        function startAutoplay() {
-            if (tween) tween.kill();
+        // Autoplay controller (Infinite looping tween)
+        let autoplayTween;
+        function initAutoplay() {
+            if (autoplayTween) autoplayTween.kill();
+
+            // Set track to start position
+            gsap.set(track, { x: startX });
+
+            autoplayTween = gsap.to(track, {
+                x: startX - loopDistance,
+                duration: 15,
+                ease: 'none',
+                repeat: -1,
+                onUpdate: renderDepth
+            });
+        }
+
+        function resumeAutoplay() {
+            if (!autoplayTween) return;
 
             const curX = gsap.getProperty(track, 'x');
-            const targetX = startX - loopDistance;
-            const distance = curX - targetX;
-            const progress = distance / loopDistance;
-            const duration = progress > 0 ? progress * 15 : 15;
+            let progress = (startX - curX) / loopDistance;
+            progress = gsap.utils.clamp(0, 0.9999, progress);
 
-            tween = gsap.to(track, {
-                x: targetX,
-                duration: duration,
-                ease: 'none',
-                onUpdate: renderDepth,
-                onComplete: function () {
-                    gsap.set(track, { x: startX });
-                    startAutoplay();
-                }
-            });
+            autoplayTween.progress(progress);
+            autoplayTween.play();
         }
 
         // Drag/Swipe Interaction logic
@@ -188,7 +193,7 @@
             startXPointer = e.clientX;
             startXTrack = gsap.getProperty(track, 'x');
 
-            if (tween) tween.kill();
+            if (autoplayTween) autoplayTween.pause();
             slider.style.cursor = 'grabbing';
             try {
                 slider.setPointerCapture(e.pointerId);
@@ -217,16 +222,16 @@
                 slider.releasePointerCapture(e.pointerId);
             } catch (err) { }
 
-            startAutoplay();
+            resumeAutoplay();
         }
 
         // Kick off initial autoplay
-        startAutoplay();
+        initAutoplay();
 
         // Handle window resizing
         window.addEventListener('resize', function () {
             recalculate();
-            startAutoplay();
+            initAutoplay();
         });
     });
 </script>

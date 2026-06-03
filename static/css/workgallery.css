@@ -90,7 +90,7 @@
 
 /* Base image styling: height adapts to viewport height, width scales proportionally */
 .gallery-track img {
-    height: clamp(140px, 40vh, 406px);
+    height: clamp(140px, 35vh, 360px);
     width: auto;
     aspect-ratio: 228 / 406;
     object-fit: cover;
@@ -172,7 +172,7 @@
 .gallery-slider.gsap-coverflow-ready {
     overflow: hidden;
     perspective: clamp(700px, 70vw, 1400px);
-    padding: 5vh 0;
+    padding: 8vh 0;
     /* Add top/bottom padding to prevent clipping when center card scales */
     position: relative;
     z-index: 1;
@@ -188,7 +188,7 @@
 }
 
 .gallery-track.gsap-coverflow-track img {
-    height: clamp(140px, 40vh, 406px);
+    height: clamp(140px, 35vh, 360px);
     /* Strictly constrain height */
     width: auto;
     aspect-ratio: 228 / 406;
@@ -227,7 +227,7 @@
 
     /* Fallback image sizing when GSAP is not loaded/failed on tablet */
     .gallery-track img {
-        height: clamp(120px, 38vh, 320px);
+        height: clamp(120px, 35vh, 300px);
         width: auto;
     }
 }
@@ -259,11 +259,11 @@
     }
 
     .gallery-slider.gsap-coverflow-ready {
-        padding: 3vh 0;
+        padding: 8vh 0;
     }
 
     .gallery-track.gsap-coverflow-track img,
     .gallery-track img {
-        height: clamp(100px, 35vh, 180px);
+        height: clamp(100px, 30vh, 150px);
     }
 }
