@@ -1,8 +1,7 @@
-{% load static %} {% block css%}
-<link href="{% static 'css/contact_section.css' %}" rel="stylesheet" />
-{% endblock %}
-{% block content %}
-<div class="contact_section_main">
+{% load static %}
+<link href="{% static 'css/contact_section.css' %}?v=1.3" rel="stylesheet" />
+
+<div class="contact_section_main" id="contact">
     <div class="container">
         <div class="contact_section_tag_main">
             <div class="contact_section_dot"></div>
@@ -11,7 +10,44 @@
         <h2 class="contact_section_title">Start Your Journey as Ultimate Smile Designer</h2>
         <p class="contact_section_sub_title">Hear from dentists who have integrated Ultimate Smile Design into their practice and experienced remarkable improvements.</p>
     </div>
-
+    
+    <div class="container contact_section_container">
+        <div class="contact_section_form_wrapper">
+            <form class="contact_form" method="POST">
+                {% csrf_token %}
+                <div class="contact_section_form_main">
+                    <div class="contact_form_grid">
+                        <div class="form_group half_width">
+                            <label for="first_name" class="form_label">First Name</label>
+                            <input type="text" id="first_name" name="first_name" class="form_input" required autocomplete="off">
+                        </div>
+                        <div class="form_group half_width">
+                            <label for="last_name" class="form_label">Last Name</label>
+                            <input type="text" id="last_name" name="last_name" class="form_input" required autocomplete="off">
+                        </div>
+                        <div class="form_group half_width">
+                            <label for="email" class="form_label">Email</label>
+                            <input type="email" id="email" name="email" class="form_input" required autocomplete="off">
+                        </div>
+                        <div class="form_group half_width">
+                            <label for="phone" class="form_label">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="form_input" required autocomplete="off">
+                        </div>
+                        <div class="form_group full_width">
+                            <label for="city" class="form_label">City</label>
+                            <input type="text" id="city" name="city" class="form_input" required autocomplete="off">
+                        </div>
+                        <div class="form_group full_width">
+                            <label for="message" class="form_label">Massage</label>
+                            <textarea id="message" name="message" class="form_input form_textarea" required autocomplete="off" rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form_submit_container">
+                    <button type="submit" class="contact_submit_btn">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-
-{% endblock %}

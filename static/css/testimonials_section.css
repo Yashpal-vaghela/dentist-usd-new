@@ -1,6 +1,7 @@
 .testimonials_section_main {
   width: 100%;
   height: calc(100vh - 70px);
+  /* border: 1px solid red; */
 }
 
 .testimonials_tag_main {

@@ -1,47 +1,48 @@
-{% load static %} {% block css%}
+{% load static %} 
+{% block css%}
 <link href="{% static 'css/testimonials_section.css' %}" rel="stylesheet" />
 {% endblock %}
 {% block content %}
 <div class="testimonials_section_main">
     <div class="container">
-        <div class="testimonials_tag_main">
-            <div class="testimonials_dot"></div>
-            <p class="testimonials_text">Testimonials</p>
-        </div>
-        <h2 class="testimonials_title">How to Become an Ultimate Smile Designer?</h2>
-        <div class="testimonials_section_cards_main">
-            <!-- card 1 -->
-            <div class="testimonials_section_card">
-                <div class="testimonials_section_card_number">01</div>
-                <div class="testimonials_section_card_details">
-                    <h3>Contact Us</h3>
-                    <p>Fill below contact form below or reach out to us via official contact channels to express your interest.</p>
+                <div class="testimonials_tag_main">
+                    <div class="testimonials_dot"></div>
+                    <p class="testimonials_text">Testimonials</p>
                 </div>
-            </div>
-            <!-- card 2 -->
-            <div class="testimonials_section_card">
-                <div class="testimonials_section_card_number">02</div>
-                <div class="testimonials_section_card_details">
-                    <h3>Eligibility Review</h3>
-                    <p>Our team will review your practice profile and experience to ensure you meet the basic criteria.</p>
-                </div>
-            </div>
-            <!-- card 3 -->
-            <div class="testimonials_section_card">
-                <div class="testimonials_section_card_number">03</div>
-                <div class="testimonials_section_card_details">
-                    <h3>Onboarding & Orientation</h3>
-                    <p>Once approved, we guide you through a quick onboarding process. You’ll learn through a brief orientation.</p>
-                </div>
-            </div>
-            <!-- card 4 -->
-            <div class="testimonials_section_card">
-                <div class="testimonials_section_card_number">04</div>
-                <div class="testimonials_section_card_details">
-                    <h3>Portal Listing</h3>
-                    <p>Finally, your practice is added to the Ultimate Smile Design online portal as a certified provider.</p>
-                </div>
-            </div>
+                <h2 class="testimonials_title">How to Become an Ultimate Smile Designer?</h2>
+                <div class="testimonials_section_cards_main">
+                    <!-- card 1 -->
+                    <div class="testimonials_section_card">
+                        <div class="testimonials_section_card_number">01</div>
+                        <div class="testimonials_section_card_details">
+                            <h3>Contact Us</h3>
+                            <p>Fill below contact form below or reach out to us via official contact channels to express your interest.</p>
+                        </div>
+                    </div>
+                    <!-- card 2 -->
+                    <div class="testimonials_section_card">
+                        <div class="testimonials_section_card_number">02</div>
+                        <div class="testimonials_section_card_details">
+                            <h3>Eligibility Review</h3>
+                            <p>Our team will review your practice profile and experience to ensure you meet the basic criteria.</p>
+                        </div>
+                    </div>
+                    <!-- card 3 -->
+                    <div class="testimonials_section_card">
+                        <div class="testimonials_section_card_number">03</div>
+                        <div class="testimonials_section_card_details">
+                            <h3>Onboarding & Orientation</h3>
+                            <p>Once approved, we guide you through a quick onboarding process. You’ll learn the USD workflow and protocols through a brief orientation.</p>
+                        </div>
+                    </div>
+                    <!-- card 4 -->
+                    <div class="testimonials_section_card">
+                        <div class="testimonials_section_card_number">04</div>
+                        <div class="testimonials_section_card_details">
+                            <h3>Portal Listing</h3>
+                            <p>Finally, your practice is added to the Ultimate Smile Design online portal as a certified provider.</p>
+                        </div>
+                    </div>
            
             
         </div>
@@ -49,4 +50,56 @@
 
 </div>
 
+<!-- GSAP + ScrollTrigger for Testimonials Section -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+    (function() {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const section = document.querySelector('.testimonials_section_main');
+        const cards = gsap.utils.toArray('.testimonials_section_cards_main .testimonials_section_card');
+
+        if (!section || cards.length < 4) return;
+
+        const animCards = cards.slice(1);
+        
+        // Hide animCards immediately to prevent FOUC (Flash of Unstyled Content)
+        gsap.set(animCards, {
+            opacity: 0,
+            y: 100
+        });
+
+        function initGSAP() {
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 70px",
+                    // Pin the section and scroll for 60% of viewport height per subsequent card
+                    end: () => `+=${animCards.length * 60}%`,
+                    pin: true,
+                    scrub: 1,
+                    anticipatePin: 1,
+                    invalidateOnRefresh: true
+                }
+            });
+
+            // Animate cards 2, 3, and 4 to slide up and fade in one by one
+            animCards.forEach((card) => {
+                tl.to(card, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    ease: "power2.out"
+                });
+            });
+        }
+
+        if (document.readyState === "loading") {
+            window.addEventListener("DOMContentLoaded", initGSAP);
+        } else {
+            initGSAP();
+        }
+    })();
+</script>
 {% endblock %}

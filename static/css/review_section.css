@@ -1,10 +1,11 @@
 .review_section_main {
   width: 100%;
   height: calc(100vh - 70px);
+  /* border: 1px solid white; */
 }
 
 .review_section_tag_main {
-  width: 130px;
+  width: 110px;
   height: 34px;
   border: 1px solid transparent;
   border-radius: 24px;
@@ -36,7 +37,7 @@
 .review_section_text {
   margin-top: 16px;
   letter-spacing: 1px;
-  color: white;
+  /* color: white; */
 }
 
 .review_section_title {
@@ -68,4 +69,146 @@
   max-width: 650px;
   margin-top: 20px;
   line-height: 30px;
+}
+
+.review_section_main {
+  background: #000;
+}
+
+.swiper_container_wrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 24px;
+  /* border: 1px solid green; */
+}
+
+.testimonialSwiper {
+  margin-top: 0;
+  overflow: visible;
+}
+
+.review_card {
+  position: relative;
+  background: rgba(14, 14, 14, 1);
+  border-radius: 24px;
+  padding: 25px;
+  min-height: auto !important;
+  z-index: 1;
+}
+
+.review_card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px; /* Border width */
+  border-radius: 24px;
+  background: linear-gradient(
+    270deg,
+    #be9644 0.01%,
+    #aa803c 15.01%,
+    #f3dc87 43.01%,
+    #fbefac 59.01%,
+    #f3dc87 73.01%,
+    #aa803c 93.01%,
+    #c49d47 100.01%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.stars {
+  width: 136px;
+  height: 24px;
+}
+.stars > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.review_desc {
+  color:rgba(255, 255, 255, 1);
+  line-height: 1.8;
+  font-size: 18px;
+  margin-top: 30px;
+  text-indent: 40px;
+}
+
+.review_user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.review_user img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+.review_user span {
+  font-size: 24px;
+  font-weight: 600;
+  background: linear-gradient(
+    270deg,
+    #be9644 0.01%,
+    #aa803c 15.01%,
+    #f3dc87 43.01%,
+    #fbefac 59.01%,
+    #f3dc87 73.01%,
+    #aa803c 93.01%,
+    #c49d47 100.01%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+
+}
+
+.testimonial_next,
+.testimonial_prev {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(27, 27, 27, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d4af37;
+  position: absolute;
+  bottom: -80px;
+  z-index: 10;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  padding: 10px;
+}
+
+.testimonial_next img,
+.testimonial_prev img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.testimonial_next:hover,
+.testimonial_prev:hover {
+  border-color: #d4af37;
+  transform: scale(1.05);
+}
+
+.testimonial_next {
+  right: 0;
+}
+
+.testimonial_prev {
+  right: 65px;
 }

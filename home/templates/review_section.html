@@ -1,17 +1,145 @@
-{% load static %} {% block css%}
+{% load static %}
 <link href="{% static 'css/review_section.css' %}" rel="stylesheet" />
-{% endblock %}
-{% block content %}
-<div class="review_section_main">
-    <div class="container">
-        <div class="review_section_tag_main">
-            <div class="review_section_dot"></div>
-            <p class="review_section_text">Reviews</p>
-        </div>
-        <h2 class="review_section_title">Dentist Testimonials</h2>
-        <p class="review_section_sub_title">Hear from dentists who have integrated Ultimate Smile Design into their practice and experienced remarkable improvements.</p>
-    </div>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
 
+<div class="review_section_main">
+  <div class="container">
+    <div class="review_section_tag_main">
+      <div class="review_section_dot"></div>
+      <p class="review_section_text">Reviews</p>
+    </div>
+    <h2 class="review_section_title">Dentist Testimonials</h2>
+    <p class="review_section_sub_title">
+      Hear from dentists who have integrated Ultimate Smile Design into their
+      practice and experienced remarkable improvements.
+    </p>
+
+    <!-- Swiper Container Wrapper (Relative positioning context for navigation) -->
+    <div class="swiper_container_wrapper">
+      <div class="swiper testimonialSwiper">
+        <div class="swiper-wrapper">
+          <!-- Card 1 -->
+          <div class="swiper-slide">
+            <div class="review_card">
+              <div class="stars">
+                <img src="{% static 'images/5_star_icon.svg' %}" alt="Reting_star" />
+              </div>
+              <p class="review_desc">
+                  “To seamlessly blend cutting-edge technology with uncompromising clinical quality.”With extensive industry experience, the leadership at USD is committed to advancing dentistry in an ethical and innovation-driven manner. Under this leadership,“To seamlessly blend cutting-edge technology with uncompromising clinical 
+              </p>
+              <div class="review_user">
+                <img src="{% static 'images/user_profile.svg' %}" alt="user_profile" />
+                <span>Jay Patel</span>
+              </div>
+            </div>
+          </div>
+           <!-- Card 2 -->
+          <div class="swiper-slide">
+            <div class="review_card">
+              <div class="stars">
+                <img src="{% static 'images/5_star_icon.svg' %}" alt="Reting_star" />
+              </div>
+              <p class="review_desc">
+                  “To seamlessly blend cutting-edge technology with uncompromising clinical quality.”With extensive industry experience, the leadership at USD is committed to advancing dentistry in an ethical and innovation-driven manner. Under this leadership,“To seamlessly blend cutting-edge technology with uncompromising clinical 
+              </p>
+              <div class="review_user">
+                <img src="{% static 'images/user_profile.svg' %}" alt="user_profile" />
+                <span>Jay Patel</span>
+              </div>
+            </div>
+          </div>
+           <!-- Card 3 -->
+          <div class="swiper-slide">
+            <div class="review_card">
+              <div class="stars">
+                <img src="{% static 'images/5_star_icon.svg' %}" alt="Reting_star" />
+              </div>
+              <p class="review_desc">
+                  “To seamlessly blend cutting-edge technology with uncompromising clinical quality.”With extensive industry experience, the leadership at USD is committed to advancing dentistry in an ethical and innovation-driven manner. Under this leadership,“To seamlessly blend cutting-edge technology with uncompromising clinical 
+              </p>
+              <div class="review_user">
+                <img src="{% static 'images/user_profile.svg' %}" alt="user_profile" />
+                <span>Jay Patel</span>
+              </div>
+            </div>
+          </div>
+           <!-- Card 4 -->
+          <div class="swiper-slide">
+            <div class="review_card">
+              <div class="stars">
+                <img src="{% static 'images/5_star_icon.svg' %}" alt="Reting_star" />
+              </div>
+              <p class="review_desc">
+                  “To seamlessly blend cutting-edge technology with uncompromising clinical quality.”With extensive industry experience, the leadership at USD is committed to advancing dentistry in an ethical and innovation-driven manner. Under this leadership,“To seamlessly blend cutting-edge technology with uncompromising clinical 
+              </p>
+              <div class="review_user">
+                <img src="{% static 'images/user_profile.svg' %}" alt="user_profile" />
+                <span>Jay Patel</span>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+
+      <!-- Navigation buttons moved OUTSIDE the Swiper container -->
+      <div class="testimonial_next">
+        <img
+          src="{% static 'images/next_button_icon.svg' %}"
+          alt="Next"
+          class="swiper_nav_img"
+        />
+      </div>
+
+      <div class="testimonial_prev">
+        <img
+          src="{% static 'images/prev_button_icon.svg' %}"
+          alt="Prev"
+          class="swiper_nav_img"
+        />
+      </div>
+    </div>
+  </div>
 </div>
 
-{% endblock %}
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const swiper = new Swiper(".testimonialSwiper", {
+      slidesPerView: 3,
+      spaceBetween: 30,
+      loop: true,
+      speed: 800,
+      grabCursor: true,
+      allowTouchMove: true,
+      navigation: {
+        nextEl: ".testimonial_next",
+        prevEl: ".testimonial_prev",
+      },
+      autoplay: {
+        delay: 2000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      breakpoints: {
+        0: {
+          slidesPerView: 1,
+          spaceBetween: 15,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 25,
+        },
+        1200: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
+      },
+    });
+  });
+</script>
