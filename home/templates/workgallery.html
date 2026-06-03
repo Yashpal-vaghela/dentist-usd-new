@@ -1,0 +1,232 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/workgallery.css' %}">
+
+<section class="clinical-gallery-section">
+
+    <!-- Top Left Corner -->
+    <div class="corner corner-top-left"></div>
+
+    <!-- Top Right Corner -->
+    <div class="corner corner-top-right"></div>
+
+    <div class="gallery-container">
+
+        <!-- Heading -->
+        <h2 class="gallery-heading">
+            Real Cases: Clinical Work Gallery
+        </h2>
+
+        <!-- Gallery Slider -->
+        <div class="gallery-slider">
+            <div class="gallery-track">
+                <img src="{% static 'images/garallery-1.png' %}" alt="">
+                <img src="{% static 'images/garallery-2.png' %}" alt="">
+                <img src="{% static 'images/garallery-3.png' %}" alt="">
+                <img src="{% static 'images/garallery-4.png' %}" alt="">
+                <img src="{% static 'images/garallery-5.png' %}" alt="">
+                <img src="{% static 'images/garallery-6.png' %}" alt="">
+            </div>
+        </div>
+
+        <!-- Description -->
+        <p class="gallery-description">
+            Experience The Ultimate Smile Design Difference Through Real Clinical Cases.
+            Our Gallery Of Images And Videos Showcases Actual Smile Transformations
+            From Start To Finish.
+        </p>
+
+    </div>
+
+    <!-- Bottom Left Corner -->
+    <div class="corner corner-bottom-left"></div>
+
+    <!-- Bottom Right Corner -->
+    <div class="corner corner-bottom-right"></div>
+
+</section>
+
+<script>
+    window.addEventListener('load', function () {
+        const section = document.querySelector('.clinical-gallery-section');
+        const slider = document.querySelector('.gallery-slider');
+        const track = document.querySelector('.gallery-track');
+
+        if (!section || !slider || !track) return;
+
+        const originalImages = Array.from(track.querySelectorAll('img'));
+        if (originalImages.length < 2) return;
+        if (!window.gsap) return;
+
+        // Activate GSAP CSS overrides
+        slider.classList.add('gsap-coverflow-ready');
+        track.classList.add('gsap-coverflow-track');
+
+        // Clone images once for seamless looping
+        if (!track.dataset.gsapCloned) {
+            originalImages.slice().reverse().forEach(function (img) {
+                track.insertBefore(img.cloneNode(true), track.firstChild);
+            });
+            originalImages.forEach(function (img) {
+                track.appendChild(img.cloneNode(true));
+            });
+            track.dataset.gsapCloned = 'true';
+        }
+
+        const slides = Array.from(track.querySelectorAll('img'));
+
+        // --- Shared measurement variables ---
+        let firstLeft = 0, step = 0, centerX = 0, startX = 0, loopDistance = 0, imageWidth = 0;
+
+        // Recalculate geometry — called initially + by resize
+        function recalculate() {
+            gsap.set(slides, { clearProps: 'transform,opacity,zIndex' });
+            gsap.set(track, { x: 0 });
+
+            const r1 = slides[0].getBoundingClientRect();
+            const r2 = slides[1].getBoundingClientRect();
+
+            firstLeft = r1.left;
+            imageWidth = r1.width;
+            step = r2.left - r1.left || r1.width * 1.12;
+            centerX = slider.getBoundingClientRect().left + slider.getBoundingClientRect().width / 2;
+            startX = centerX - (firstLeft + step * originalImages.length + r1.width / 2);
+            loopDistance = step * originalImages.length;
+
+            gsap.set(track, { x: startX, force3D: true });
+        }
+
+        // Render coverflow depth on every tick
+        function renderDepth() {
+            const curX = gsap.getProperty(track, 'x');
+            slides.forEach(function (slide, i) {
+                const slideCenter = firstLeft + curX + step * i + imageWidth * 0.5;
+                const distance = (slideCenter - centerX) / step;
+                const clamped = gsap.utils.clamp(-2.5, 2.5, distance);
+
+                const gauss = Math.exp(-1.8 * clamped * clamped);
+                let scale, rotateY, z, opacity;
+
+                if (window.innerWidth >= 992) {
+                    scale = 0.85 + 0.37 * gauss;
+                    rotateY = gsap.utils.clamp(-45, 45, -clamped * 35);
+                    z = 65 * gauss;
+                    opacity = gsap.utils.clamp(0.4, 1, 0.45 + 0.55 * gauss);
+                } else {
+                    scale = 0.72 + 0.53 * gauss;
+                    rotateY = gsap.utils.clamp(-70, 70, -clamped * 55);
+                    z = 80 * gauss;
+                    opacity = gsap.utils.clamp(0.25, 1, 0.3 + 0.7 * gauss);
+                }
+
+                const newZIndex = Math.round(100 - Math.abs(clamped) * 15);
+                const props = {
+                    scale: scale,
+                    rotateY: rotateY,
+                    z: z,
+                    opacity: opacity,
+                    force3D: true
+                };
+                if (slide._lastZIndex !== newZIndex) {
+                    slide._lastZIndex = newZIndex;
+                    props.zIndex = newZIndex;
+                }
+
+                gsap.set(slide, props);
+            });
+        }
+
+        // Initial measurement
+        recalculate();
+        renderDepth();
+
+        // Autoplay controller
+        let tween;
+        function startAutoplay() {
+            if (tween) tween.kill();
+
+            const curX = gsap.getProperty(track, 'x');
+            const targetX = startX - loopDistance;
+            const distance = curX - targetX;
+            const progress = distance / loopDistance;
+            const duration = progress > 0 ? progress * 15 : 15;
+
+            tween = gsap.to(track, {
+                x: targetX,
+                duration: duration,
+                ease: 'none',
+                onUpdate: renderDepth,
+                onComplete: function () {
+                    gsap.set(track, { x: startX });
+                    startAutoplay();
+                }
+            });
+        }
+
+        // Drag/Swipe Interaction logic
+        let isDragging = false;
+        let startXPointer = 0;
+        let startXTrack = 0;
+
+        function wrapX(x) {
+            let relativeX = x - startX;
+            let wrapped = ((relativeX % loopDistance) + loopDistance) % loopDistance;
+            return startX + wrapped - loopDistance;
+        }
+
+        slider.addEventListener('pointerdown', onPointerDown);
+        window.addEventListener('pointermove', onPointerMove);
+        window.addEventListener('pointerup', onPointerUp);
+        window.addEventListener('pointercancel', onPointerUp);
+
+        // Prevent browser native image dragging
+        slider.addEventListener('dragstart', (e) => e.preventDefault());
+
+        function onPointerDown(e) {
+            if (e.button !== 0 && e.pointerType === 'mouse') return;
+
+            isDragging = true;
+            startXPointer = e.clientX;
+            startXTrack = gsap.getProperty(track, 'x');
+
+            if (tween) tween.kill();
+            slider.style.cursor = 'grabbing';
+            try {
+                slider.setPointerCapture(e.pointerId);
+            } catch (err) { }
+        }
+
+        function onPointerMove(e) {
+            if (!isDragging) return;
+
+            const deltaX = e.clientX - startXPointer;
+            let targetX = startXTrack + deltaX;
+
+            // Apply infinite wrap
+            let wrappedX = wrapX(targetX);
+
+            gsap.set(track, { x: wrappedX });
+            renderDepth();
+        }
+
+        function onPointerUp(e) {
+            if (!isDragging) return;
+            isDragging = false;
+
+            slider.style.cursor = 'grab';
+            try {
+                slider.releasePointerCapture(e.pointerId);
+            } catch (err) { }
+
+            startAutoplay();
+        }
+
+        // Kick off initial autoplay
+        startAutoplay();
+
+        // Handle window resizing
+        window.addEventListener('resize', function () {
+            recalculate();
+            startAutoplay();
+        });
+    });
+</script>

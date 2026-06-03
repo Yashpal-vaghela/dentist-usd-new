@@ -1,0 +1,269 @@
+.clinical-gallery-section {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 70px);
+    /* Fit within viewport height minus fixed navbar */
+    max-height: calc(100vh - 70px);
+    background: #000000;
+    overflow: hidden;
+    /* Prevent vertical and horizontal scrollbars */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 3vh 40px;
+    /* Responsive vertical padding */
+    box-sizing: border-box;
+}
+
+.gallery-container {
+    width: 100%;
+    height: 100%;
+    max-width: 1920px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* Evenly distribute header, slider, and description */
+
+    gap: 70px;
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   HEADING
+   ========================================================================== */
+
+.gallery-heading {
+    max-width: 800px;
+    width: 100%;
+    margin: 0;
+
+    font-family: 'Gilda Display', serif;
+    font-weight: 400;
+    font-size: clamp(22px, 4vh, 42px);
+    /* Responsive font-size */
+    line-height: 1.3;
+    letter-spacing: 0.08em;
+    text-align: center;
+
+    background: linear-gradient(270deg,
+            #BE9644 0.01%,
+            #AA803C 15.01%,
+            #F3DC87 43.01%,
+            #FBEFAC 59.01%,
+            #F3DC87 73.01%,
+            #AA803C 93.01%,
+            #C49D47 100.01%);
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ==========================================================================
+   IMAGE SLIDER
+   ========================================================================== */
+
+.gallery-slider {
+    width: 100%;
+    max-width: 1902px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    /* Create stacking context to clip 3D transformed child */
+    z-index: 1;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.gallery-track {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0;
+}
+
+/* Base image styling: height adapts to viewport height, width scales proportionally */
+.gallery-track img {
+    height: clamp(140px, 40vh, 406px);
+    width: auto;
+    aspect-ratio: 228 / 406;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    pointer-events: none;
+    -webkit-user-drag: none;
+}
+
+/* ==========================================================================
+   DESCRIPTION
+   ========================================================================== */
+
+.gallery-description {
+    max-width: 1325px;
+    margin: 0;
+
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: clamp(14px, 2.3vh, 24px);
+    /* Responsive font-size */
+    line-height: 1.5;
+    letter-spacing: 0.03em;
+    text-transform: capitalize;
+    text-align: center;
+
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   CORNERS
+   ========================================================================== */
+
+.corner {
+    position: absolute;
+    width: clamp(40px, 100vh, 153px);
+    height: clamp(54px, 16vh, 150px);
+    box-sizing: border-box;
+    pointer-events: none;
+    /* Let clicks pass through */
+}
+
+/* Top Left */
+.corner-top-left {
+    top: clamp(15px, 3vh, 48px);
+    left: clamp(15px, 3vw, 24px);
+    border-top: 3px solid #BE9644;
+    border-left: 3px solid #BE9644;
+}
+
+/* Top Right */
+.corner-top-right {
+    top: clamp(15px, 3vh, 48px);
+    right: clamp(15px, 3vw, 24px);
+    border-top: 3px solid #BE9644;
+    border-right: 3px solid #BE9644;
+}
+
+/* Bottom Left */
+.corner-bottom-left {
+    bottom: clamp(15px, 3vh, 48px);
+    left: clamp(15px, 3vw, 24px);
+    border-bottom: 3px solid #BE9644;
+    border-left: 3px solid #BE9644;
+}
+
+/* Bottom Right */
+.corner-bottom-right {
+    bottom: clamp(15px, 3vh, 48px);
+    right: clamp(15px, 3vw, 24px);
+    border-bottom: 3px solid #BE9644;
+    border-right: 3px solid #BE9644;
+}
+
+/* ==========================================================================
+   GSAP SPECIFIC OVERRIDES (Active when GSAP coverflow initializes)
+   ========================================================================== */
+
+.gallery-slider.gsap-coverflow-ready {
+    overflow: hidden;
+    perspective: clamp(700px, 70vw, 1400px);
+    padding: 5vh 0;
+    /* Add top/bottom padding to prevent clipping when center card scales */
+    position: relative;
+    z-index: 1;
+}
+
+.gallery-track.gsap-coverflow-track {
+    width: max-content;
+    justify-content: flex-start;
+    align-items: center;
+    gap: clamp(14px, 2.2vw, 42px);
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.gallery-track.gsap-coverflow-track img {
+    height: clamp(140px, 40vh, 406px);
+    /* Strictly constrain height */
+    width: auto;
+    aspect-ratio: 228 / 406;
+    object-fit: cover;
+    transform-origin: center center;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+    pointer-events: none;
+    -webkit-user-drag: none;
+}
+
+/* ==========================================================================
+   RESPONSIVE LAYOUT BREAKPOINTS
+   ========================================================================== */
+
+@media (max-width: 991px) {
+    .clinical-gallery-section {
+        padding: 3vh 20px;
+    }
+
+    .gallery-slider {
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+    }
+
+    .gallery-slider::-webkit-scrollbar {
+        display: none;
+    }
+
+    .gallery-track {
+        width: max-content;
+        gap: 16px;
+    }
+
+    /* Fallback image sizing when GSAP is not loaded/failed on tablet */
+    .gallery-track img {
+        height: clamp(120px, 38vh, 320px);
+        width: auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .clinical-gallery-section {
+        padding: 3vh 16px;
+    }
+
+    .gallery-track {
+        gap: 10px;
+    }
+
+    /* Fallback image sizing when GSAP is not loaded/failed on mobile */
+    .gallery-track img {
+        height: clamp(110px, 35vh, 260px);
+        width: auto;
+    }
+}
+
+/* Landscape / Small Height Viewport Fixes */
+@media (max-height: 600px) {
+    .clinical-gallery-section {
+        padding: 2vh 20px;
+    }
+
+    .gallery-container {
+        gap: 2vh;
+    }
+
+    .gallery-slider.gsap-coverflow-ready {
+        padding: 3vh 0;
+    }
+
+    .gallery-track.gsap-coverflow-track img,
+    .gallery-track img {
+        height: clamp(100px, 35vh, 180px);
+    }
+}
