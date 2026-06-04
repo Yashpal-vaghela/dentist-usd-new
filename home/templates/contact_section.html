@@ -13,7 +13,7 @@
     
     <div class="container contact_section_container">
         <div class="contact_section_form_wrapper">
-            <form class="contact_form" method="POST">
+            <form class="contact_form" method="POST" action="{% url 'homePage' %}">
                 {% csrf_token %}
                 <div class="contact_section_form_main">
                     <div class="contact_form_grid">
@@ -51,3 +51,17 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% if messages %}
+    {% for message in messages %}
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Thank You!',
+                text: '{{ message }}',
+                showConfirmButton: false,
+                timer: 2500
+            });
+        </script>
+    {% endfor %}
+{% endif %}
