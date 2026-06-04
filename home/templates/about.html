@@ -10,7 +10,7 @@
       <!-- Background Video -->
       <div class="usd-video-container">
           <video autoplay loop muted playsinline class="usd-bg-video">
-              <source src="{% static 'images/about_section_bg_video.mp4' %}" type="video/mp4">
+              <source src="{% static 'video/about_section_video.mp4' %}" type="video/mp4">
           </video>
           <div class="usd-overlay"></div>
       </div>
@@ -168,8 +168,8 @@
               });
           });
 
-          // Mobile viewports: under 992px
-          mm.add("(max-width: 991px)", () => {
+          // Mobile/Tablet viewports: between 577px and 991px
+          mm.add("(min-width: 577px) and (max-width: 991px)", () => {
               // Initial hidden state for mobile: shifted down and blurred
               gsap.set(headingWords, { opacity: 0, y: 15, filter: "blur(6px)" });
               gsap.set(".usd-right p", { opacity: 0, y: 30, filter: "blur(10px)" });
@@ -179,7 +179,7 @@
               gsap.to(imageBox, {
                   scrollTrigger: {
                       trigger: ".usd-center",
-                      start: "top 85%",
+                      start: "top 65%",
                       toggleActions: "play none none reverse"
                   },
                   scale: 1,
@@ -191,7 +191,7 @@
               gsap.to(headingWords, {
                   scrollTrigger: {
                       trigger: ".usd-left",
-                      start: "top 55%",
+                      start: "top 50%",
                       toggleActions: "play none none reverse"
                   },
                   opacity: 1,
@@ -206,7 +206,56 @@
               gsap.to(".usd-right p", {
                   scrollTrigger: {
                       trigger: ".usd-right",
-                      start: "top 75%",
+                      start: "top 85%",
+                      toggleActions: "play none none reverse"
+                  },
+                  opacity: 1,
+                  y: 0,
+                  filter: "blur(0px)",
+                  stagger: 0.3,
+                  duration: 0.8,
+                  ease: "power2.out"
+              });
+          });
+
+          mm.add("(max-width: 576px)", () => {
+              // Initial hidden state for mobile: shifted down and blurred
+              gsap.set(headingWords, { opacity: 0, y: 15, filter: "blur(6px)" });
+              gsap.set(".usd-right p", { opacity: 0, y: 30, filter: "blur(10px)" });
+
+              // Mobile image box animation: starts hidden and triggers when its container (.usd-center) enters view
+              gsap.set(imageBox, { scale: 0, transformOrigin: 'center center' });
+              gsap.to(imageBox, {
+                  scrollTrigger: {
+                      trigger: ".usd-center",
+                      start: "top 60%",
+                      toggleActions: "play none none reverse"
+                  },
+                  scale: 1,
+                  ease: "power2.out",
+                  duration: 0.7
+              });
+
+              // On mobile, heading trigger (animates first as you scroll down)
+              gsap.to(headingWords, {
+                  scrollTrigger: {
+                      trigger: ".usd-left",
+                      start: "top 50%",
+                      toggleActions: "play none none reverse"
+                  },
+                  opacity: 1,
+                  y: 0,
+                  filter: "blur(0px)",
+                  stagger: 0.03,
+                  duration: 0.6,
+                  ease: "power2.out"
+              });
+
+              // On mobile, description paragraph trigger (animates third as you scroll down)
+              gsap.to(".usd-right p", {
+                  scrollTrigger: {
+                      trigger: ".usd-right",
+                      start: "top 85%",
                       toggleActions: "play none none reverse"
                   },
                   opacity: 1,

@@ -24,25 +24,87 @@
 }
 
 .work_flow_tag_main {
+  position: relative;
   width: 120px;
   height: 34px;
-  border: 1px solid transparent;
   border-radius: 24px;
-  background:
-    linear-gradient(#171717, #171717) padding-box,
-    linear-gradient(
-        121.36deg,
-        #060501 69.38%,
-        #d89c27 80.51%,
-        #dfc86f 83.34%,
-        #d89c27 84.08%,
-        #c99c30 86.66%
-      )
-      border-box;
+  overflow: hidden;
+  padding: 1px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   font-size: 14px;
+  z-index: 1;
+}
+
+/* The rotating conic gradient background */
+.work_flow_tag_main::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140px;
+  height: 140px;
+  background: conic-gradient(from 0deg,
+      rgba(216, 156, 39, 0) 0%,
+      rgba(216, 156, 39, 0) 80%,
+      #d89c27 92%,
+      #dfc86f 96%,
+      #d89c27 98%,
+      rgba(216, 156, 39, 0) 100%);
+  animation: rotateBorder 3s linear infinite;
+  z-index: -2;
+}
+
+/* The inner mask to cover the background, creating the border */
+.work_flow_tag_main::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  background: #171717;
+  border-radius: 24px;
+  z-index: -1;
+}
+
+@keyframes rotateBorder {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  12.5% {
+    transform: translate(-50%, -50%) rotate(60deg);
+  }
+
+  25% {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  37.5% {
+    transform: translate(-50%, -50%) rotate(120deg);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) rotate(180deg);
+  }
+
+  62.5% {
+    transform: translate(-50%, -50%) rotate(240deg);
+  }
+
+  75% {
+    transform: translate(-50%, -50%) rotate(270deg);
+  }
+
+  87.5% {
+    transform: translate(-50%, -50%) rotate(300deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 .work_flow_dot {
@@ -112,10 +174,12 @@
     line-height: 1.5;
   }
 }
+
 @media (max-width: 991px) {
   .work_flow_step_title {
     font-size: 22px;
   }
+
   .work_flow_step_description {
     font-size: 16px;
     margin-bottom: 14px;
@@ -127,20 +191,24 @@
     font-size: 22px;
     line-height: 1.5;
   }
+
   .work_flow_step_title {
     font-size: 20px;
   }
+
   .work_flow_step_description {
     font-size: 16px;
     margin-bottom: 14px;
   }
 }
+
 @media (max-width: 576px) {
   .work_flow_section_container {
     flex-direction: column;
     gap: 15px;
     padding-bottom: 10px;
   }
+
   .work_flow_section_left_side {
     width: 100%;
     position: static;
@@ -149,6 +217,7 @@
     align-self: start;
     z-index: 10;
   }
+
   .work_flow_section_right_side {
     width: 100%;
   }
