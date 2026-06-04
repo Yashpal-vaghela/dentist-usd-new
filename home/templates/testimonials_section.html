@@ -54,52 +54,73 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
-    (function() {
-        gsap.registerPlugin(ScrollTrigger);
+(function () {
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initGSAP() {
 
         const section = document.querySelector('.testimonials_section_main');
         const cards = gsap.utils.toArray('.testimonials_section_cards_main .testimonials_section_card');
 
-        if (!section || cards.length < 4) return;
+        if (!section || cards.length === 0) return;
+
+        // Mobile & Tablet (<= 992px)
+        if (window.innerWidth <= 992) {
+
+            cards.forEach((card) => {
+                gsap.from(card, {
+                    opacity: 0,
+                    y: 80,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        toggleActions: "play reverse play reverse"
+                    }
+                });
+            });
+
+            return;
+        }
+
+        // Desktop (> 992px)
+        if (cards.length < 4) return;
 
         const animCards = cards.slice(1);
-        
-        // Hide animCards immediately to prevent FOUC (Flash of Unstyled Content)
+
         gsap.set(animCards, {
             opacity: 0,
             y: 100
         });
 
-        function initGSAP() {
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top 70px",
-                    // Pin the section and scroll for 60% of viewport height per subsequent card
-                    end: () => `+=${animCards.length * 60}%`,
-                    pin: true,
-                    scrub: 1,
-                    anticipatePin: 1,
-                    invalidateOnRefresh: true
-                }
-            });
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: section,
+                start: "top 70px",
+                end: () => `+=${animCards.length * 60}%`,
+                pin: true,
+                scrub: 1,
+                anticipatePin: 1,
+                invalidateOnRefresh: true
+            }
+        });
 
-            // Animate cards 2, 3, and 4 to slide up and fade in one by one
-            animCards.forEach((card) => {
-                tl.to(card, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    ease: "power2.out"
-                });
+        animCards.forEach((card) => {
+            tl.to(card, {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power2.out"
             });
-        }
+        });
+    }
 
-        if (document.readyState === "loading") {
-            window.addEventListener("DOMContentLoaded", initGSAP);
-        } else {
-            initGSAP();
-        }
-    })();
+    if (document.readyState === "loading") {
+        window.addEventListener("DOMContentLoaded", initGSAP);
+    } else {
+        initGSAP();
+    }
+})();
 </script>
 {% endblock %}

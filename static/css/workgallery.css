@@ -79,6 +79,31 @@
     cursor: grab;
     user-select: none;
     -webkit-user-select: none;
+
+}
+.gallery-slider::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px; 
+    height: 100%;
+    background: linear-gradient(to right, #000, transparent);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* After */
+.gallery-slider::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100%;
+    background: linear-gradient(to left, #000, transparent);
+    z-index: 2;
+    pointer-events: none;
 }
 
 .gallery-track {
@@ -268,3 +293,14 @@
         height: clamp(100px, 30vh, 150px);
     }
 }
+@media (max-width: 576px) {
+.gallery-slider::before {
+    width: 50px; 
+}
+
+
+.gallery-slider::after {
+    width: 50px;
+}
+}
+
