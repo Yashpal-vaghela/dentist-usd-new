@@ -5,7 +5,7 @@
 {% block content %}
 
 <div class="work_flow_section_2_main">
-    <div class="container">
+    <div class="container" data-aos="fade-right">
         <div class="work_flow_tag_2_main">
             <div class="work_flow_2_dot"></div>
             <p class="work_flow_2_text">Workflow</p>
@@ -89,6 +89,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         gsap.registerPlugin(ScrollTrigger);
+        ScrollTrigger.config({ ignoreMobileResize: true });
 
         const section = document.querySelector('.work_flow_section_2_main');
         const cards = gsap.utils.toArray('.work_flow_details_and_image_mian');

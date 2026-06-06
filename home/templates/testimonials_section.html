@@ -5,11 +5,11 @@
 {% block content %}
 <div class="testimonials_section_main">
     <div class="container">
-                <div class="testimonials_tag_main">
+                <div class="testimonials_tag_main" data-aos="fade-right">
                     <div class="testimonials_dot"></div>
                     <p class="testimonials_text">Testimonials</p>
                 </div>
-                <h2 class="testimonials_title">How to Become an Ultimate Smile Designer?</h2>
+                <h2 class="testimonials_title"  data-aos="fade-right">How to Become an Ultimate Smile Designer?</h2>
                 <div class="testimonials_section_cards_main">
                     <!-- card 1 -->
                     <div class="testimonials_section_card">
@@ -56,62 +56,69 @@
 <script>
 (function () {
     gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.config({ ignoreMobileResize: true });
 
     function initGSAP() {
-
         const section = document.querySelector('.testimonials_section_main');
         const cards = gsap.utils.toArray('.testimonials_section_cards_main .testimonials_section_card');
 
         if (!section || cards.length === 0) return;
 
+        let mm = gsap.matchMedia();
+
         // Mobile & Tablet (<= 992px)
-        if (window.innerWidth <= 992) {
+        mm.add("(max-width: 992px)", () => {
+            // Reset styles for mobile
+            gsap.set(cards, { clearProps: "all" });
 
             cards.forEach((card) => {
-                gsap.from(card, {
-                    opacity: 0,
-                    y: 80,
-                    duration: 0.8,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: card,
-                        start: "top 85%",
-                        toggleActions: "play reverse play reverse"
+                gsap.fromTo(card, 
+                    { opacity: 0, y: 80 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: card,
+                            start: "top 85%",
+                            toggleActions: "play none none reverse"
+                        }
                     }
-                });
+                );
             });
-
-            return;
-        }
+        });
 
         // Desktop (> 992px)
-        if (cards.length < 4) return;
+        mm.add("(min-width: 993px)", () => {
+            if (cards.length < 4) return;
 
-        const animCards = cards.slice(1);
+            const animCards = cards.slice(1);
 
-        gsap.set(animCards, {
-            opacity: 0,
-            y: 100
-        });
+            gsap.set(animCards, {
+                opacity: 0,
+                y: 100
+            });
 
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: section,
-                start: "top 70px",
-                end: () => `+=${animCards.length * 60}%`,
-                pin: true,
-                scrub: 1,
-                anticipatePin: 1,
-                invalidateOnRefresh: true
-            }
-        });
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 70px",
+                    end: () => `+=${animCards.length * 60}%`,
+                    pin: true,
+                    scrub: 1,
+                    anticipatePin: 1,
+                    invalidateOnRefresh: true
+                }
+            });
 
-        animCards.forEach((card) => {
-            tl.to(card, {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: "power2.out"
+            animCards.forEach((card) => {
+                tl.to(card, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    ease: "power2.out"
+                });
             });
         });
     }

@@ -1,42 +1,21 @@
 {% load static %} {% block css%}
 <link href="{% static 'css/hero_section.css' %}" rel="stylesheet" />
 {% endblock %} {% block content %}
-<!-- Premium Video Hero Section (100vh) -->
+
 <section class="hero-section-premium" id="home">
-  <!-- Background Video Container -->
   <div class="video-background-container">
     <video class="hero-bg-video" autoplay muted loop playsinline preload="auto">
-      <source
-        src="{% static 'video/hero_section_video.mp4' %}"
-        type="video/mp4"
-      />
-      Your browser does not support the video tag.
+      <source src="{% static 'video/hero_section_video.mp4' %}" type="video/mp4"/>
     </video>
   </div>
-
-  <!-- Content Over Video -->
   <div class="hero-content-wrapper">
     <div class="hero-content">
-      <h1 class="hero-title cool">Become a Certified Ultimate Smile Designer</h1>
-      <p class="hero-subtitle">
-        Revolutionize your dental practice with our proven digital smile design
-        system — trusted by experts worldwide
-      </p>
+      <h1 class="hero-title cool" data-aos="fade-right"   data-aos-delay="200">Become a Certified Ultimate Smile Designer</h1>
+      <p class="hero-subtitle" data-aos="fade-left"   data-aos-delay="500">Revolutionize your dental practice with our proven digital smile design system — trusted by experts worldwide</p>
       <div class="hero-action-btn">
-        <a href="#enroll" class="btn-enroll-premium">
+        <a href="#enroll" class="btn-enroll-premium" >
             <span>Enroll Now</span>
-            <svg
-            class="arrow-icon"
-            width="26"
-            height="26"
-            viewBox="0 0 22 22"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14.0836 7.22223H7.22244C6.96665 7.22223 6.75209 7.13556 6.57876 6.96223C6.40543 6.78889 6.31906 6.57463 6.31966 6.31945C6.32026 6.06426 6.40693 5.85001 6.57966 5.67667C6.75239 5.50334 6.96665 5.41667 7.22244 5.41667H16.2502C16.506 5.41667 16.7203 5.50334 16.893 5.67667C17.0657 5.85001 17.1524 6.06426 17.153 6.31945V15.3472C17.153 15.603 17.0663 15.8176 16.893 15.9909C16.7197 16.1642 16.5054 16.2506 16.2502 16.25C15.995 16.2494 15.7805 16.1627 15.6065 15.99C15.4326 15.8173 15.3462 15.603 15.3474 15.3472V8.48612L7.31272 16.5208C7.14721 16.6863 6.93656 16.7691 6.68077 16.7691C6.42499 16.7691 6.21434 16.6863 6.04883 16.5208C5.88332 16.3553 5.80056 16.1447 5.80056 15.8889C5.80056 15.6331 5.88332 15.4225 6.04883 15.2569L14.0836 7.22223Z"
-              fill="white"
-            />
+            <svg class="arrow-icon" width="26" height="26" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M14.0836 7.22223H7.22244C6.96665 7.22223 6.75209 7.13556 6.57876 6.96223C6.40543 6.78889 6.31906 6.57463 6.31966 6.31945C6.32026 6.06426 6.40693 5.85001 6.57966 5.67667C6.75239 5.50334 6.96665 5.41667 7.22244 5.41667H16.2502C16.506 5.41667 16.7203 5.50334 16.893 5.67667C17.0657 5.85001 17.1524 6.06426 17.153 6.31945V15.3472C17.153 15.603 17.0663 15.8176 16.893 15.9909C16.7197 16.1642 16.5054 16.2506 16.2502 16.25C15.995 16.2494 15.7805 16.1627 15.6065 15.99C15.4326 15.8173 15.3462 15.603 15.3474 15.3472V8.48612L7.31272 16.5208C7.14721 16.6863 6.93656 16.7691 6.68077 16.7691C6.42499 16.7691 6.21434 16.6863 6.04883 16.5208C5.88332 16.3553 5.80056 16.1447 5.80056 15.8889C5.80056 15.6331 5.88332 15.4225 6.04883 15.2569L14.0836 7.22223Z" fill="white"/>
           </svg>
         </a>
       </div>
@@ -44,14 +23,5 @@
   </div>
 </section>
 
-{% comment %} {% include 'work-flow-section.html' %}
-{% include 'work-flow-section_2.html' %}
-{% include 'guide_section.html' %}
-{% include 'review_section.html' %}
-{% include 'testimonials_section.html' %}
-{% include 'contact_section.html' %} {% endcomment %}
 {% endblock %}
 
-{% block js %}
-
-{% endblock %}

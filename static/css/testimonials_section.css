@@ -214,6 +214,10 @@
 }
 
 @media (max-width: 993px) {
+  .testimonials_section_main {
+    width: 100%;
+    height: calc(100svh - 70px);
+  }
   .testimonials_section_cards_main {
     width: 100%;
     display: flex;
@@ -239,7 +243,7 @@
   .testimonials_section_cards_main {
     height: auto;
     row-gap: 35px;
-            margin-top: 60px;
+    margin-top: 60px;
   }
   .testimonials_section_card {
     margin-right: 0px;
@@ -256,5 +260,5 @@
   }
   .testimonials_section_card_details > p {
     font-size: 16px;
-}
+  }
 }

@@ -58,6 +58,7 @@
 
   <script>
       gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.config({ ignoreMobileResize: true });
 
       document.addEventListener("DOMContentLoaded", function() {
           const section = document.querySelector('.usd-section');
@@ -267,7 +268,13 @@
               });
           });
 
-          window.addEventListener('resize', () => ScrollTrigger.refresh());
+          let lastWidth = window.innerWidth;
+          window.addEventListener('resize', () => {
+              if (window.innerWidth !== lastWidth) {
+                  lastWidth = window.innerWidth;
+                  ScrollTrigger.refresh();
+              }
+          });
       });
   </script>
 {% endblock javascript %}
