@@ -2,54 +2,38 @@
     position: relative;
     width: 100%;
     height: calc(100vh - 70px);
-    /* Fit within viewport height minus fixed navbar */
     max-height: calc(100vh - 70px);
     background: #000000;
     overflow: hidden;
-    /* Prevent vertical and horizontal scrollbars */
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     padding: 3vh 40px;
-    /* Responsive vertical padding */
     box-sizing: border-box;
 }
-
 
 .gallery-container {
     width: 100%;
     height: 100%;
     max-width: 1920px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* Evenly distribute header, slider, and description */
-
     gap: 28px;
     box-sizing: border-box;
 }
-
-/* ==========================================================================
-   HEADING
-   ========================================================================== */
 
 .gallery-heading {
     max-width: 800px;
     width: 100%;
     margin: 0;
-
     font-family: 'Gilda Display', serif;
     font-weight: 400;
     font-size: clamp(22px, 4vh, 42px);
-    /* Responsive font-size */
     line-height: 1.3;
     letter-spacing: 0.08em;
     text-align: center;
-
     background: linear-gradient(270deg,
             #BE9644 0.01%,
             #AA803C 15.01%,
@@ -58,15 +42,10 @@
             #F3DC87 73.01%,
             #AA803C 93.01%,
             #C49D47 100.01%);
-
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
-
-/* ==========================================================================
-   IMAGE SLIDER
-   ========================================================================== */
 
 .gallery-slider {
     width: 100%;
@@ -74,12 +53,10 @@
     margin: 0 auto;
     overflow: hidden;
     position: relative;
-    /* Create stacking context to clip 3D transformed child */
     z-index: 1;
     cursor: grab;
     user-select: none;
     -webkit-user-select: none;
-
 }
 
 .gallery-slider::before {
@@ -94,7 +71,6 @@
     pointer-events: none;
 }
 
-/* After */
 .gallery-slider::after {
     content: "";
     position: absolute;
@@ -115,7 +91,6 @@
     gap: 0;
 }
 
-/* Base image styling: height adapts to viewport height, width scales proportionally */
 .gallery-track img {
     height: clamp(140px, 35vh, 360px);
     width: auto;
@@ -127,29 +102,18 @@
     -webkit-user-drag: none;
 }
 
-/* ==========================================================================
-   DESCRIPTION
-   ========================================================================== */
-
 .gallery-description {
     max-width: 1325px;
     margin: 0;
-
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     font-size: clamp(14px, 2.3vh, 24px);
-    /* Responsive font-size */
     line-height: 1.5;
     letter-spacing: 0.03em;
     text-transform: capitalize;
     text-align: center;
-
     color: #ffffff;
 }
-
-/* ==========================================================================
-   CORNERS
-   ========================================================================== */
 
 .corner {
     position: absolute;
@@ -157,10 +121,8 @@
     height: clamp(54px, 16vh, 150px);
     box-sizing: border-box;
     pointer-events: none;
-    /* Let clicks pass through */
 }
 
-/* Top Left */
 .corner-top-left {
     top: clamp(15px, 3vh, 48px);
     left: clamp(15px, 3vw, 24px);
@@ -168,7 +130,6 @@
     border-left: 3px solid #BE9644;
 }
 
-/* Top Right */
 .corner-top-right {
     top: clamp(15px, 3vh, 48px);
     right: clamp(15px, 3vw, 24px);
@@ -176,7 +137,6 @@
     border-right: 3px solid #BE9644;
 }
 
-/* Bottom Left */
 .corner-bottom-left {
     bottom: clamp(15px, 3vh, 48px);
     left: clamp(15px, 3vw, 24px);
@@ -184,7 +144,6 @@
     border-left: 3px solid #BE9644;
 }
 
-/* Bottom Right */
 .corner-bottom-right {
     bottom: clamp(15px, 3vh, 48px);
     right: clamp(15px, 3vw, 24px);
@@ -192,15 +151,10 @@
     border-right: 3px solid #BE9644;
 }
 
-/* ==========================================================================
-   GSAP SPECIFIC OVERRIDES (Active when GSAP coverflow initializes)
-   ========================================================================== */
-
 .gallery-slider.gsap-coverflow-ready {
     overflow: hidden;
     perspective: clamp(700px, 70vw, 1400px);
     padding: 8vh 0;
-    /* Add top/bottom padding to prevent clipping when center card scales */
     position: relative;
     z-index: 1;
 }
@@ -216,7 +170,6 @@
 
 .gallery-track.gsap-coverflow-track img {
     height: clamp(140px, 35vh, 360px);
-    /* Strictly constrain height */
     width: auto;
     aspect-ratio: 228 / 406;
     object-fit: cover;
@@ -228,9 +181,6 @@
     -webkit-user-drag: none;
 }
 
-/* ==========================================================================
-   RESPONSIVE LAYOUT BREAKPOINTS
-   ========================================================================== */
 @media (max-width: 1200px) {
     .clinical-gallery-section {
         padding: 3vh 20px;
@@ -264,7 +214,6 @@
         gap: 16px;
     }
 
-    /* Fallback image sizing when GSAP is not loaded/failed on tablet */
     .gallery-track img {
         height: clamp(120px, 35vh, 300px);
         width: auto;
@@ -286,14 +235,12 @@
         display: none;
     }
 
-    /* Tablet-responsive description: scales with viewport WIDTH (vw), not height */
     .gallery-description {
         width: 90%;
         max-width: 82vw;
         margin: 0 auto;
         font-family: 'Montserrat', sans-serif;
         font-weight: 500;
-        /* clamp(min, preferred-vw, max): scales smoothly 768px → 991px */
         font-size: clamp(13px, 1.75vw, 18px);
         line-height: 1.6;
         letter-spacing: 0.02em;
@@ -308,7 +255,6 @@
         gap: 16px;
     }
 
-    /* Fallback image sizing when GSAP is not loaded/failed on tablet */
     .gallery-track img {
         height: clamp(120px, 35vh, 300px);
         width: auto;
@@ -344,14 +290,12 @@
         gap: 10px;
     }
 
-    /* Heading: scales with screen WIDTH so it wraps naturally to 2 lines on narrow mobile */
     .gallery-heading {
         width: 90%;
         max-width: 90vw;
         margin: 0 auto;
         font-family: 'Gilda Display', serif;
         font-weight: 400;
-        /* clamp(min, preferred-vw, max): at 497px → ~27px (wraps to 2 lines), at 767px → ~38px */
         font-size: clamp(18px, 5.5vw, 28px);
         line-height: 1.35;
         letter-spacing: 0.05em;
@@ -362,14 +306,12 @@
         background-clip: text;
     }
 
-    /* Description: scales with screen WIDTH for proper mobile readability */
     .gallery-description {
         width: 88%;
         max-width: 88vw;
         margin: 0 auto;
         font-family: 'Montserrat', sans-serif;
         font-weight: 500;
-        /* clamp(min, preferred-vw, max): at 497px → ~16px, at 767px → ~15px */
         font-size: clamp(12px, 3.2vw, 15px);
         line-height: 1.65;
         letter-spacing: 0.02em;
@@ -379,14 +321,12 @@
         margin-top: 8px;
     }
 
-    /* Fallback image sizing when GSAP is not loaded/failed on mobile */
     .gallery-track img {
         height: clamp(110px, 35vh, 260px);
         width: auto;
     }
 }
 
-/* Landscape / Small Height Viewport Fixes */
 @media (max-height: 600px) {
     .clinical-gallery-section {
         padding: 2vh 20px;
@@ -451,7 +391,6 @@
         gap: 37px;
         box-sizing: border-box;
     }
-
 
     .gallery-slider::after {
         width: 50px;

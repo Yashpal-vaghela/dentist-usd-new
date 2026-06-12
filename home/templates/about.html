@@ -1,41 +1,29 @@
-{% comment %} {% extends 'base.html' %} {% endcomment %}
 {% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/about.css' %}" />
 {% endblock css %}
 
 {% block content %}
-  <!-- Premium Hero Section with Video Background -->
   <section class="usd-section">
-      <!-- Background Video -->
       <div class="usd-video-container">
-          <video autoplay loop muted playsinline class="usd-bg-video">
+          <video autoplay loop muted playsinline preload="metadata" class="usd-bg-video">
               <source src="{% static 'video/about_section_video.mp4' %}" type="video/mp4">
           </video>
           <div class="usd-overlay"></div>
       </div>
-
-      <!-- Content Container -->
       <div class="container usd-container">
-          <!-- LEFT: Heading -->
           <div class="usd-left">
               <h2 class="usd-heading font-Glida-Display">
-                  What is <br>
-                  <span>Ultimate Smile Design?</span>
+                  What is <br><span>Ultimate Smile Design?</span>
               </h2>
           </div>
-
-          <!-- CENTER: Image -->
           <div class="usd-center">
               <div class="usd-image-box">
                   <img src="{% static 'images/boss-new.webp' %}" alt="founder of the USD" class="img-fluid usd-image" />
               </div>
           </div>
-
-          <!-- RIGHT: Description Text -->
           <div class="usd-right font-Montserrat">
-              <p>
-                  Ultimate Smile Design (USD) is a fully digital smile design
+              <p>Ultimate Smile Design (USD) is a fully digital smile design
                   treatment and a premium innovation of Advance Dental Export.
                   It is designed to give dentists complete control over aesthetic
                   outcomes with predictability and consistency.
@@ -48,233 +36,212 @@
           </div>
       </div>
   </section>
-
-{% endblock content %}
-
+{% endblock content %} 
 {% block javascript %}
-  <!-- GSAP + ScrollTrigger -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-  <script>
-      gsap.registerPlugin(ScrollTrigger);
-      ScrollTrigger.config({ ignoreMobileResize: true });
-
-      document.addEventListener("DOMContentLoaded", function() {
-          const section = document.querySelector('.usd-section');
-          const imageBox = document.querySelector('.usd-image-box');
-
-          // 1. Safe wrap words function that preserves the golden gradient span and styling attributes
-          function wrapWordsPreservingSpan(el) {
-              if (!el) return;
-              let newHTML = "";
-              el.childNodes.forEach(node => {
-                  if (node.nodeType === Node.TEXT_NODE) {
-                      const text = node.textContent.trim();
-                      if (text) {
-                          const wrapped = text.split(/\s+/).filter(Boolean)
-                              .map(word => `<span class="word-span" style="display:inline-block;will-change:transform;color:#fff;-webkit-text-fill-color:#fff;background:none;">${word}</span>`)
-                              .join(' ');
-                          newHTML += wrapped + " ";
-                      }
-                  } else if (node.nodeType === Node.ELEMENT_NODE) {
-                      if (node.tagName.toLowerCase() === 'br') {
-                          newHTML += "<br/>";
-                      } else if (node.tagName.toLowerCase() === 'span') {
-                          const text = node.innerText.trim();
-                          const wrapped = text.split(/\s+/).filter(Boolean)
-                              .map(word => `<span class="word-span" style="display:inline-block;will-change:transform;">${word}</span>`)
-                              .join(' ');
-                          const attrs = Array.from(node.attributes)
-                              .map(attr => `${attr.name}="${attr.value}"`)
-                              .join(' ');
-                          newHTML += `<span ${attrs}>${wrapped}</span> `;
-                      } else {
-                          newHTML += node.outerHTML + " ";
-                      }
-                  }
-              });
-              el.innerHTML = newHTML;
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });
+  document.addEventListener("DOMContentLoaded", function () {
+    const section = document.querySelector(".usd-section");
+    const imageBox = document.querySelector(".usd-image-box");
+    function wrapWordsPreservingSpan(el) {
+      if (!el) return;
+      let newHTML = "";
+      el.childNodes.forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const text = node.textContent.trim();
+          if (text) {
+            const wrapped = text
+              .split(/\s+/)
+              .filter(Boolean)
+              .map(
+                (word) =>
+                  `<span class="word-span" style="display:inline-block;will-change:transform;color:#fff;-webkit-text-fill-color:#fff;background:none;">${word}</span>`,
+              )
+              .join(" ");
+            newHTML += wrapped + " ";
           }
-
-          const headingEl = document.querySelector('.usd-heading');
-          wrapWordsPreservingSpan(headingEl);
-
-          const headingWords = document.querySelectorAll('.usd-heading .word-span');
-
-          // Create GSAP MatchMedia to handle desktop and mobile layouts responsively
-          let mm = gsap.matchMedia();
-
-          // Desktop viewports: 992px and wider
-          mm.add("(min-width: 992px)", () => {
-              // Initial hidden state for desktop heading words and paragraph text blocks
-              gsap.set(headingWords, { opacity: 0, filter: 'blur(8px)', y: 20 });
-              gsap.set(".usd-right p", { opacity: 0, y: 50, filter: "blur(15px)" });
-
-              // Desktop image box scale animation - triggers immediately when the section is active
-              gsap.set(imageBox, { scale: 0, transformOrigin: 'center center' });
-              ScrollTrigger.create({
-                  trigger: section,
-                  start: 'top top',
-                  onEnter: () => {
-                      gsap.to(imageBox, { scale: 1, ease: 'power2.out', duration: 0.7, overwrite: true });
-                  },
-                  onLeaveBack: () => {
-                      gsap.set(imageBox, { scale: 0 });
-                  },
-              });
-
-              // Master timeline for scrub
-              const tl = gsap.timeline();
-
-              const DUR = 0.13;
-              const HEADING_START = 0.55;
-              const HEADING_STAGGER = 0.05;
-
-              // Animate Heading Words (First Scroll Reveal)
-              headingWords.forEach((word, i) => {
-                  tl.to(word, {
-                      opacity: 1,
-                      filter: 'blur(0px)',
-                      y: 0,
-                      duration: DUR,
-                      ease: 'power2.out',
-                  }, HEADING_START + i * HEADING_STAGGER);
-              });
-
-              // Animate Right Content Paragraphs (Second Scroll Reveal)
-              const PARAS_START = HEADING_START + headingWords.length * HEADING_STAGGER + 0.2;
-              tl.to(".usd-right p", {
-                  opacity: 1,
-                  y: 0,
-                  filter: "blur(0px)",
-                  stagger: 0.4,
-                  duration: 0.8,
-                  ease: "power2.out"
-              }, PARAS_START);
-
-              // Ensure timeline length holds the final state on screen
-              tl.set({}, {}, PARAS_START + 1.0);
-
-              // Unified desktop ScrollTrigger - handles pinning perfectly
-              ScrollTrigger.create({
-                  trigger: section, 
-                  start: 'top top',
-                  end: '+=220%',
-                  pin: true,
-                  anticipatePin: 1,
-                  scrub: 0.4,
-                  animation: tl,
-                  invalidateOnRefresh: true,
-              });
-          });
-
-          // Mobile/Tablet viewports: between 577px and 991px
-          mm.add("(min-width: 577px) and (max-width: 991px)", () => {
-              // Initial hidden state for mobile: shifted down and blurred
-              gsap.set(headingWords, { opacity: 0, y: 15, filter: "blur(6px)" });
-              gsap.set(".usd-right p", { opacity: 0, y: 30, filter: "blur(10px)" });
-
-              // Mobile image box animation: starts hidden and triggers when its container (.usd-center) enters view
-              gsap.set(imageBox, { scale: 0, transformOrigin: 'center center' });
-              gsap.to(imageBox, {
-                  scrollTrigger: {
-                      trigger: ".usd-center",
-                      start: "top 65%",
-                      toggleActions: "play none none reverse"
-                  },
-                  scale: 1,
-                  ease: "power2.out",
-                  duration: 0.7
-              });
-
-              // On mobile, heading trigger (animates first as you scroll down)
-              gsap.to(headingWords, {
-                  scrollTrigger: {
-                      trigger: ".usd-left",
-                      start: "top 50%",
-                      toggleActions: "play none none reverse"
-                  },
-                  opacity: 1,
-                  y: 0,
-                  filter: "blur(0px)",
-                  stagger: 0.03,
-                  duration: 0.6,
-                  ease: "power2.out"
-              });
-
-              // On mobile, description paragraph trigger (animates third as you scroll down)
-              gsap.to(".usd-right p", {
-                  scrollTrigger: {
-                      trigger: ".usd-right",
-                      start: "top 85%",
-                      toggleActions: "play none none reverse"
-                  },
-                  opacity: 1,
-                  y: 0,
-                  filter: "blur(0px)",
-                  stagger: 0.3,
-                  duration: 0.8,
-                  ease: "power2.out"
-              });
-          });
-
-          mm.add("(max-width: 576px)", () => {
-              // Initial hidden state for mobile: shifted down and blurred
-              gsap.set(headingWords, { opacity: 0, y: 15, filter: "blur(6px)" });
-              gsap.set(".usd-right p", { opacity: 0, y: 30, filter: "blur(10px)" });
-
-              // Mobile image box animation: starts hidden and triggers when its container (.usd-center) enters view
-              gsap.set(imageBox, { scale: 0, transformOrigin: 'center center' });
-              gsap.to(imageBox, {
-                  scrollTrigger: {
-                      trigger: ".usd-center",
-                      start: "top 60%",
-                      toggleActions: "play none none reverse"
-                  },
-                  scale: 1,
-                  ease: "power2.out",
-                  duration: 0.7
-              });
-
-              // On mobile, heading trigger (animates first as you scroll down)
-              gsap.to(headingWords, {
-                  scrollTrigger: {
-                      trigger: ".usd-left",
-                      start: "top 50%",
-                      toggleActions: "play none none reverse"
-                  },
-                  opacity: 1,
-                  y: 0,
-                  filter: "blur(0px)",
-                  stagger: 0.03,
-                  duration: 0.6,
-                  ease: "power2.out"
-              });
-
-              // On mobile, description paragraph trigger (animates third as you scroll down)
-              gsap.to(".usd-right p", {
-                  scrollTrigger: {
-                      trigger: ".usd-right",
-                      start: "top 85%",
-                      toggleActions: "play none none reverse"
-                  },
-                  opacity: 1,
-                  y: 0,
-                  filter: "blur(0px)",
-                  stagger: 0.3,
-                  duration: 0.8,
-                  ease: "power2.out"
-              });
-          });
-
-          let lastWidth = window.innerWidth;
-          window.addEventListener('resize', () => {
-              if (window.innerWidth !== lastWidth) {
-                  lastWidth = window.innerWidth;
-                  ScrollTrigger.refresh();
-              }
-          });
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          if (node.tagName.toLowerCase() === "br") {
+            newHTML += "<br/>";
+          } else if (node.tagName.toLowerCase() === "span") {
+            const text = node.innerText.trim();
+            const wrapped = text
+              .split(/\s+/)
+              .filter(Boolean)
+              .map(
+                (word) =>
+                  `<span class="word-span" style="display:inline-block;will-change:transform;">${word}</span>`,
+              )
+              .join(" ");
+            const attrs = Array.from(node.attributes)
+              .map((attr) => `${attr.name}="${attr.value}"`)
+              .join(" ");
+            newHTML += `<span ${attrs}>${wrapped}</span> `;
+          } else {
+            newHTML += node.outerHTML + " ";
+          }
+        }
       });
-  </script>
+      el.innerHTML = newHTML;
+    }
+    const headingEl = document.querySelector(".usd-heading");
+    wrapWordsPreservingSpan(headingEl);
+    const headingWords = document.querySelectorAll(".usd-heading .word-span");
+    let mm = gsap.matchMedia();
+    mm.add("(min-width: 992px)", () => {
+      gsap.set(headingWords, { opacity: 0, filter: "blur(8px)", y: 20 });
+      gsap.set(".usd-right p", { opacity: 0, y: 50, filter: "blur(15px)" });
+      gsap.set(imageBox, { scale: 0, transformOrigin: "center center" });
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        onEnter: () => {
+          gsap.to(imageBox, {
+            scale: 1,
+            ease: "power2.out",
+            duration: 0.7,
+            overwrite: true,
+          });
+        },
+        onLeaveBack: () => {
+          gsap.set(imageBox, { scale: 0 });
+        },
+      });
+      const tl = gsap.timeline();
+      const DUR = 0.13;
+      const HEADING_START = 0.55;
+      const HEADING_STAGGER = 0.05;
+      headingWords.forEach((word, i) => {
+        tl.to(
+          word,
+          {
+            opacity: 1,
+            filter: "blur(0px)",
+            y: 0,
+            duration: DUR,
+            ease: "power2.out",
+          },
+          HEADING_START + i * HEADING_STAGGER,
+        );
+      });
+      const PARAS_START =
+        HEADING_START + headingWords.length * HEADING_STAGGER + 0.2;
+      tl.to(
+        ".usd-right p",
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          stagger: 0.4,
+          duration: 0.8,
+          ease: "power2.out",
+        },
+        PARAS_START,
+      );
+      tl.set({}, {}, PARAS_START + 1.0);
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: "+=220%",
+        pin: true,
+        anticipatePin: 1,
+        scrub: 0.4,
+        animation: tl,
+        invalidateOnRefresh: true,
+      });
+    });
+    mm.add("(min-width: 577px) and (max-width: 991px)", () => {
+      gsap.set(headingWords, { opacity: 0, y: 15, filter: "blur(6px)" });
+      gsap.set(".usd-right p", { opacity: 0, y: 30, filter: "blur(10px)" });
+      gsap.set(imageBox, { scale: 0, transformOrigin: "center center" });
+      gsap.to(imageBox, {
+        scrollTrigger: {
+          trigger: ".usd-center",
+          start: "top 65%",
+          toggleActions: "play none none reverse",
+        },
+        scale: 1,
+        ease: "power2.out",
+        duration: 0.7,
+      });
+      gsap.to(headingWords, {
+        scrollTrigger: {
+          trigger: ".usd-left",
+          start: "top 50%",
+          toggleActions: "play none none reverse",
+        },
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        stagger: 0.03,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+      gsap.to(".usd-right p", {
+        scrollTrigger: {
+          trigger: ".usd-right",
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        stagger: 0.3,
+        duration: 0.8,
+        ease: "power2.out",
+      });
+    });
+    mm.add("(max-width: 576px)", () => {
+      gsap.set(headingWords, { opacity: 0, y: 15, filter: "blur(6px)" });
+      gsap.set(".usd-right p", { opacity: 0, y: 30, filter: "blur(10px)" });
+      gsap.set(imageBox, { scale: 0, transformOrigin: "center center" });
+      gsap.to(imageBox, {
+        scrollTrigger: {
+          trigger: ".usd-center",
+          start: "top 60%",
+          toggleActions: "play none none reverse",
+        },
+        scale: 1,
+        ease: "power2.out",
+        duration: 0.7,
+      });
+      gsap.to(headingWords, {
+        scrollTrigger: {
+          trigger: ".usd-left",
+          start: "top 50%",
+          toggleActions: "play none none reverse",
+        },
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        stagger: 0.03,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+      gsap.to(".usd-right p", {
+        scrollTrigger: {
+          trigger: ".usd-right",
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        stagger: 0.3,
+        duration: 0.8,
+        ease: "power2.out",
+      });
+    });
+    let lastWidth = window.innerWidth;
+    window.addEventListener("resize", () => {
+      if (window.innerWidth !== lastWidth) {
+        lastWidth = window.innerWidth;
+        ScrollTrigger.refresh();
+      }
+    });
+  });
+</script>
 {% endblock javascript %}

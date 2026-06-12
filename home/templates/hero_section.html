@@ -1,17 +1,23 @@
 {% load static %} {% block css%}
 <link href="{% static 'css/hero_section.css' %}" rel="stylesheet" />
+<link rel="preload" href="{% static 'video/hero_section_video.mp4' %}" as="video" type="video/mp4">
 {% endblock %} {% block content %}
 
 <section class="hero-section-premium" id="home">
   <div class="video-background-container">
-    <video class="hero-bg-video" autoplay muted loop playsinline preload="auto">
+    <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata" poster="{% static 'images/video_poster_image.webp' %}">
+      {% comment %} <source src="{% static 'video/hero_section_video_mobile_screen.mp4' %}" type="video/mp4"/> {% endcomment %}
+      {% comment %} <source src="{% static 'video/hero_section_video.mp4' %}" type="video/mp4"/> {% endcomment %}
+      <!-- Mobile Video -->
+      <source media="(max-width: 992px)" src="{% static 'video/hero_section_video_mobile_screen.mp4' %}" type="video/mp4"/>
+      <!-- Desktop Video -->
       <source src="{% static 'video/hero_section_video.mp4' %}" type="video/mp4"/>
     </video>
   </div>
   <div class="hero-content-wrapper">
     <div class="hero-content">
-      <h1 class="hero-title cool" data-aos="fade-right"   data-aos-delay="200">Become a Certified Ultimate Smile Designer</h1>
-      <p class="hero-subtitle" data-aos="fade-left"   data-aos-delay="500">Revolutionize your dental practice with our proven digital smile design system — trusted by experts worldwide</p>
+      <h1 class="hero-title cool" >Become a Certified Ultimate Smile Designer</h1>
+      <p class="hero-subtitle" >Revolutionize your dental practice with our proven digital smile design system — trusted by experts worldwide</p>
       <div class="hero-action-btn">
         <a href="#enroll" class="btn-enroll-premium" >
             <span>Enroll Now</span>
@@ -22,6 +28,5 @@
     </div>
   </div>
 </section>
-
 {% endblock %}
 

@@ -1,9 +1,6 @@
 {% load static %}
 <link href="{% static 'css/review_section.css' %}" rel="stylesheet" />
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
 <div class="review_section_main">
   <div class="container">
@@ -17,99 +14,96 @@
       practice and experienced remarkable improvements.
     </p>
 
-    <!-- Swiper Container Wrapper (Relative positioning context for navigation) -->
+    <!-- Swiper Container Wrapper -->
     <div class="swiper_container_wrapper">
       <div class="swiper testimonialSwiper">
         <div class="swiper-wrapper">
-          <!-- Card 1 -->
-          <div class="swiper-slide">
-            <div class="review_card">
-              <div class="stars">
-                <img src="{% static 'images/5_star_icon.svg' %}" alt="Reting_star" />
-              </div>
-              <p class="review_desc">
-                  “To seamlessly blend cutting-edge technology with uncompromising clinical quality.”With extensive industry experience, the leadership at USD is committed to advancing dentistry in an ethical and innovation-driven manner. Under this leadership,“To seamlessly blend cutting-edge technology with uncompromising clinical 
-              </p>
-              <div class="review_user">
-                <img src="{% static 'images/user_profile.svg' %}" alt="user_profile" />
-                <span>Jay Patel</span>
-              </div>
-            </div>
-          </div>
-           <!-- Card 2 -->
-          <div class="swiper-slide">
-            <div class="review_card">
-              <div class="stars">
-                <img src="{% static 'images/5_star_icon.svg' %}" alt="Reting_star" />
-              </div>
-              <p class="review_desc">
-                  “To seamlessly blend cutting-edge technology with uncompromising clinical quality.”With extensive industry experience, the leadership at USD is committed to advancing dentistry in an ethical and innovation-driven manner. Under this leadership,“To seamlessly blend cutting-edge technology with uncompromising clinical 
-              </p>
-              <div class="review_user">
-                <img src="{% static 'images/user_profile.svg' %}" alt="user_profile" />
-                <span>Jay Patel</span>
-              </div>
-            </div>
-          </div>
-           <!-- Card 3 -->
-          <div class="swiper-slide">
-            <div class="review_card">
-              <div class="stars">
-                <img src="{% static 'images/5_star_icon.svg' %}" alt="Reting_star" />
-              </div>
-              <p class="review_desc">
-                  “To seamlessly blend cutting-edge technology with uncompromising clinical quality.”With extensive industry experience, the leadership at USD is committed to advancing dentistry in an ethical and innovation-driven manner. Under this leadership,“To seamlessly blend cutting-edge technology with uncompromising clinical 
-              </p>
-              <div class="review_user">
-                <img src="{% static 'images/user_profile.svg' %}" alt="user_profile" />
-                <span>Jay Patel</span>
-              </div>
-            </div>
-          </div>
-           <!-- Card 4 -->
-          <div class="swiper-slide">
-            <div class="review_card">
-              <div class="stars">
-                <img src="{% static 'images/5_star_icon.svg' %}" alt="Reting_star" />
-              </div>
-              <p class="review_desc">
-                  “To seamlessly blend cutting-edge technology with uncompromising clinical quality.”With extensive industry experience, the leadership at USD is committed to advancing dentistry in an ethical and innovation-driven manner. Under this leadership,“To seamlessly blend cutting-edge technology with uncompromising clinical 
-              </p>
-              <div class="review_user">
-                <img src="{% static 'images/user_profile.svg' %}" alt="user_profile" />
-                <span>Jay Patel</span>
-              </div>
-            </div>
-          </div>
 
-
+          {% if reviews %}
+            {% for review in reviews %}
+            <div class="swiper-slide">
+              <div class="review_card">
+                <div class="stars">
+                  <img src="{% static 'images/5_star_icon.svg' %}" alt="Rating_star" />
+                </div>
+                <p class="review_desc">
+                  "{{ review.review }}"
+                </p>
+                <!-- Read More Button: JS se dikhaya jayega agar text 8 lines se bada ho -->
+                <button
+                  class="review_read_more_btn"
+                  style="display:none;"
+                  data-name="{{ review.doctor_name }}"
+                  data-city="{{ review.city }}"
+                  data-review="{{ review.review }}"
+                  data-image="{% if review.image %}{{ review.image.url }}{% else %}{% static 'images/user_profile.svg' %}{% endif %}"
+                >
+                  Read More ↗
+                </button>
+                <div class="review_user">
+                  {% if review.image %}
+                    <img src="{{ review.image.url }}" alt="{{ review.doctor_name }}" />
+                  {% else %}
+                    <img src="{% static 'images/user_profile.svg' %}" alt="user_profile" />
+                  {% endif %}
+                  <div class="review_user_info">
+                    <span class="review_doctor_name">{{ review.doctor_name }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          {% else %}
+            <div class="swiper-slide">
+              <div class="review_card review_card_empty">
+                <p>No reviews added yet. Add reviews from the admin panel.</p>
+              </div>
+            </div>
+          {% endif %}
 
         </div>
       </div>
-
-      <!-- Navigation buttons moved OUTSIDE the Swiper container -->
       <div class="testimonial_next">
-        <img
-          src="{% static 'images/next_button_icon.svg' %}"
-          alt="Next"
-          class="swiper_nav_img"
-        />
+        <img src="{% static 'images/next_button_icon.svg' %}" alt="Next" class="swiper_nav_img"/>
       </div>
-
       <div class="testimonial_prev">
-        <img
-          src="{% static 'images/prev_button_icon.svg' %}"
-          alt="Prev"
-          class="swiper_nav_img"
-        />
+        <img src="{% static 'images/prev_button_icon.svg' %}" alt="Prev" class="swiper_nav_img"/>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- =====================
+     REVIEW DETAIL MODAL
+     ===================== -->
+<div class="review_modal_overlay" id="reviewDetailModal" role="dialog" aria-modal="true">
+  <div class="review_modal_box">
+    <button class="review_modal_close" id="reviewModalClose" aria-label="Close">&times;</button>
+
+    <!-- Doctor Header -->
+    <div class="review_modal_header">
+      <img id="modal_doctor_img" src="" alt="Doctor" />
+      <div class="review_modal_doctor_info">
+        <span class="review_modal_doctor_name" id="modal_doctor_name"></span>
+        <span class="review_modal_doctor_city" id="modal_doctor_city"></span>
+      </div>
+    </div>
+
+    <!-- Stars -->
+    <div class="review_modal_stars">
+      <img src="{% static 'images/5_star_icon.svg' %}" alt="5 stars" />
+    </div>
+
+    <!-- Full Review Text -->
+    <p class="review_modal_text" id="modal_review_text"></p>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+
+    // ── Swiper Init ──────────────────────────────
     const swiper = new Swiper(".testimonialSwiper", {
       slidesPerView: 3,
       spaceBetween: 30,
@@ -127,19 +121,76 @@
         pauseOnMouseEnter: true,
       },
       breakpoints: {
-        0: {
-          slidesPerView: 1,
-          spaceBetween: 15,
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 25,
-        },
-        1200: {
-          slidesPerView: 3,
-          spaceBetween: 30,
-        },
+        0:    { slidesPerView: 1, spaceBetween: 15 },
+        768:  { slidesPerView: 2, spaceBetween: 25 },
+        1200: { slidesPerView: 3, spaceBetween: 30 },
       },
     });
+
+    // ── Read More: show button only when text overflows 8 lines ──
+    function checkOverflow() {
+      document.querySelectorAll(".review_card").forEach(function (card) {
+        const desc = card.querySelector(".review_desc");
+        const btn  = card.querySelector(".review_read_more_btn");
+        if (!desc || !btn) return;
+
+        // scrollHeight > clientHeight means text is clamped
+        if (desc.scrollHeight > desc.clientHeight + 2) {
+          btn.style.display = "inline-block";
+        } else {
+          btn.style.display = "none";
+        }
+      });
+    }
+
+    // Run after Swiper renders slides
+    setTimeout(checkOverflow, 300);
+    window.addEventListener("resize", checkOverflow);
+
+    // ── Modal Logic ─────────────────────────────
+    const overlay   = document.getElementById("reviewDetailModal");
+    const closeBtn  = document.getElementById("reviewModalClose");
+    const modalImg  = document.getElementById("modal_doctor_img");
+    const modalName = document.getElementById("modal_doctor_name");
+    const modalCity = document.getElementById("modal_doctor_city");
+    const modalText = document.getElementById("modal_review_text");
+
+    function openModal(btn) {
+      modalImg.src        = btn.dataset.image;
+      modalImg.alt        = btn.dataset.name;
+      modalName.textContent = btn.dataset.name;
+      modalCity.textContent = btn.dataset.city;
+      modalText.textContent = "\u201c" + btn.dataset.review + "\u201d";
+
+      overlay.classList.add("active");
+      document.body.style.overflow = "hidden";
+      swiper.autoplay.stop();   // ← modal open: slide ruko
+    }
+
+    function closeModal() {
+      overlay.classList.remove("active");
+      document.body.style.overflow = "";
+      swiper.autoplay.start();  // ← modal band: slide chalu
+    }
+
+    // Delegate click on all Read More buttons (works for cloned swiper slides)
+    document.addEventListener("click", function (e) {
+      if (e.target.classList.contains("review_read_more_btn")) {
+        openModal(e.target);
+      }
+    });
+
+    closeBtn.addEventListener("click", closeModal);
+
+    // Click outside modal box to close
+    overlay.addEventListener("click", function (e) {
+      if (e.target === overlay) closeModal();
+    });
+
+    // ESC key to close
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeModal();
+    });
+
   });
 </script>

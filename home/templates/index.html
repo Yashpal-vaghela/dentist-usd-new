@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block seo %}
 <title>Ultimate Smile Designing | Premium Aesthetic Dental Solutions</title>
 <meta name="description" content="Get premium aesthetic dental solutions with Ultimate Smile Designing. Flaunt your smile.">
@@ -8,6 +7,8 @@
 {% block css%}
 <link href="{% static 'css/style.css' %}" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">  
+<link rel="preload" href="{% static 'video/hero_section_video.mp4' %}" as="video" type="video/mp4">
+<link rel="preload" href="{% static 'video/about_section_video.mp4' %}" as="video" type="video/mp4">
 {% endblock %}
 {% block content %}
 <!-- Hero Section -->
@@ -55,29 +56,73 @@
     </div>
 </section> {% endcomment %}
 
-{% include 'hero_section.html' %}
-{% include 'about.html' %}
-{% include 'work-flow-section.html' %}
-{% include 'work-flow-section_2.html' %}
-{% include 'guide_section.html' %}
-{% include 'review_section.html' %}
-{% include 'testimonials_section.html' %}
-{% include 'contact_section.html' %}
+
+ {% include 'hero_section.html' %}
+ {% include 'about.html' %}  
+ {% include 'work-flow-section.html' %}  
+ {% include 'work-flow-section_2.html' %}   
+ {% include 'guide_section.html' %}  
+ {% include 'workgallery.html'%}  
+ {% comment %} {% include 'review_section.html' %}  {% endcomment %}
+ {% include 'new_review_section.html' %} 
+ {% include 'testimonials_section.html' %}        
+ {% include 'contact_section.html' %}
 {% endblock %}
+
 {% block javascript %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
 <script>
-AOS.init({
+  AOS.init({
     duration: 1000,
     easing: "ease-out-cubic",
-    once: false,      
-    mirror: true,   
+    once: false,
+    mirror: true,
     offset: 100,
     debounceDelay: 50,
-    throttleDelay: 99
-});
+    throttleDelay: 99,
+  });
+
+  setTimeout(() => {
+    if (typeof ScrollTrigger !== "undefined") {
+      ScrollTrigger.refresh();
+    }
+  }, 200);
+
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      if (typeof ScrollTrigger !== "undefined") {
+        ScrollTrigger.refresh();
+      }
+    }, 500);
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
+    window.addEventListener("orientationchange", function () {
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "instant",
+        });
+      }, 100);
+    });
+    let resizeTimer;
+    window.addEventListener("resize", function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (window.innerWidth > window.innerHeight) {
+          window.scrollTo(0, 0);
+        }
+      }, 150);
+    });
+  });
 </script>
 {% endblock javascript %}

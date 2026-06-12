@@ -10,7 +10,6 @@
         <h2 class="contact_section_title">Start Your Journey as Ultimate Smile Designer</h2>
         <p class="contact_section_sub_title">Hear from dentists who have integrated Ultimate Smile Design into their practice and experienced remarkable improvements.</p>
     </div>
-    
     <div class="container contact_section_container">
         <div class="contact_section_form_wrapper">
             <form class="contact_form" method="POST" action="{% url 'homePage' %}">
@@ -43,7 +42,6 @@
                         </div>
                     </div>
                 </div>
-                
                 <div class="form_submit_container">
                     <button type="submit" class="contact_submit_btn">Submit</button>
                 </div>
@@ -52,16 +50,14 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-{% if messages %}
-    {% for message in messages %}
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Thank You!',
-                text: '{{ message }}',
-                showConfirmButton: false,
-                timer: 2500
-            });
-        </script>
-    {% endfor %}
-{% endif %}
+{% if messages %} {% for message in messages %}
+<script>
+  Swal.fire({
+    icon: "success",
+    title: "Thank You!",
+    text: "{{ message }}",
+    showConfirmButton: false,
+    timer: 2500,
+  });
+</script>
+{% endfor %} {% endif %}

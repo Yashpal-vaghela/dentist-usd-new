@@ -1,0 +1,144 @@
+{% load static %}
+<link href="{% static 'css/new_review_section.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<div class="review_section_main">
+  <div class="container overflow-hidden">
+    <div class="review_section_tag_main" data-aos="fade-down">
+      <div class="review_section_dot"></div>
+      <p class="review_section_text">Reviews</p>
+    </div>
+    <h2 class="review_section_title cool" data-aos="fade-right">Dentist TestimonialsDentist TestimonialsDentist Testimonials</h2>
+    <p class="review_section_sub_title" data-aos="fade-left">
+      Hear from dentists who have integrated Ultimate Smile Design into their
+      practice and experienced remarkable improvements.
+    </p>
+    <!-- Swiper -->
+    <div class="review_swiper_wrapper">
+      <div class="swiper reviewSwiper">
+        <div class="swiper-wrapper">
+
+          {% for review in reviews %}
+          <div class="swiper-slide">
+            <div class="review_card_1_main">
+              <div class="doctor_image_container">
+                <img src="{{ review.image.url }}" alt="{{ review.doctor_name }}" class="img-fluid">
+              </div>
+              <div class="review_discription_and_rating_main">
+                <h3 class="doctor_name">{{ review.doctor_name }}</h3>
+                <div class="rating_star_and_text_main">
+                  <div class="star_image">
+                    <img src="{% static 'images/5_star_icon.svg' %}" alt="5_stars_icon" class="img-fluid">
+                  </div>
+                  <div class="rating_text">{{ review.rating }} Rating</div>
+                </div>
+                <p class="doctor_review_text">{{ review.review }}</p>
+                <button class="review_read_more_btn cool" data-name="{{ review.doctor_name }}"
+                  data-review="{{ review.review }}" data-image="{{ review.image.url }}">Read More</button>
+              </div>
+            </div>
+          </div>
+          {% empty %}
+          <div class="swiper-slide">
+            <div class="review_card_1_main">
+              <div class="review_discription_and_rating_main">
+                <p class="doctor_review_text">No Dentist reviews available at the moment.</p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+        <!-- Pagination -->
+        <div class="swiper-pagination reviewSwiper-pagination"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Review Popup Modal -->
+<div class="review_popup_overlay" id="reviewPopupOverlay">
+  <div class="review_popup_modal">
+    <button class="review_popup_close_btn cool" id="reviewPopupCloseBtn">&times;</button>
+    <div class="review_popup_image_wrap">
+      <img src="" alt="" class="review_popup_doctor_img  img-fluid" id="reviewPopupImg">
+      <div class="review_popup_img_gradient"></div>
+    </div>
+    <h3 class="review_popup_doctor_name cool" id="reviewPopupName"></h3>
+    <div class="review_popup_content">
+      <p class="review_popup_review_text" id="reviewPopupText"></p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  const reviewSwiper = new Swiper(".reviewSwiper", {
+    slidesPerView: "auto",
+    centeredSlides: true,
+    loop: true,
+    speed: 600,
+    grabCursor: true,
+    spaceBetween: 45,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true,
+    },
+    breakpoints: {
+      1500: {
+        spaceBetween: 45,
+      },
+      1300: {
+        spaceBetween: 45,
+      },
+      1200: {
+        spaceBetween: 70,
+      },
+      1100: {
+        spaceBetween: 20,
+      },
+      800: {
+        spaceBetween: 20,
+      }
+    },
+    pagination: {
+      el: ".reviewSwiper-pagination",
+      clickable: true,
+    },
+
+  });
+
+  const popupOverlay = document.getElementById('reviewPopupOverlay');
+  const popupCloseBtn = document.getElementById('reviewPopupCloseBtn');
+  const popupImg = document.getElementById('reviewPopupImg');
+  const popupName = document.getElementById('reviewPopupName');
+  const popupText = document.getElementById('reviewPopupText');
+
+  document.querySelectorAll('.review_read_more_btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      popupImg.src = btn.getAttribute('data-image');
+      popupImg.alt = btn.getAttribute('data-name');
+      popupName.textContent = btn.getAttribute('data-name');
+      popupText.textContent = btn.getAttribute('data-review');
+      popupOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      reviewSwiper.autoplay.stop();
+    });
+  });
+
+  function closeReviewPopup() {
+    popupOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+    reviewSwiper.autoplay.start();
+  }
+
+  popupCloseBtn.addEventListener('click', closeReviewPopup);
+  popupOverlay.addEventListener('click', function (e) {
+    if (e.target === popupOverlay) closeReviewPopup();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeReviewPopup();
+  });
+</script>
