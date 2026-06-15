@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -178,6 +179,28 @@
             const sections = document.querySelectorAll('section[id]');
             const header = document.querySelector('.usd-header');
             
+            let cachedSections = [];
+
+            function cacheSectionDimensions() {
+                cachedSections = Array.from(sections).map(sec => ({
+                    id: sec.getAttribute('id'),
+                    top: sec.offsetTop - 120, // accounting for fixed header height
+                    height: sec.offsetHeight
+                }));
+            }
+
+            // Cache dimensions initially
+            cacheSectionDimensions();
+
+            // Recache only when width changes (rotation), ignoring vertical address-bar resizes
+            let lastWidth = window.innerWidth;
+            window.addEventListener('resize', () => {
+                if (window.innerWidth !== lastWidth) {
+                    lastWidth = window.innerWidth;
+                    cacheSectionDimensions();
+                }
+            });
+            
             function trackScroll() {
                 let current = '';
                 const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
@@ -189,11 +212,10 @@
                     header.classList.remove('scrolled');
                 }
 
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - 120; // accounting for fixed header height
-                    const sectionHeight = section.offsetHeight;
-                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                        current = section.getAttribute('id');
+                // Query cached coordinates instead of offsetTop/offsetHeight properties directly
+                cachedSections.forEach(sec => {
+                    if (scrollPosition >= sec.top && scrollPosition < sec.top + sec.height) {
+                        current = sec.id;
                     }
                 });
 
@@ -206,7 +228,16 @@
                 });
             }
 
-            window.addEventListener('scroll', trackScroll);
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        trackScroll();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
             trackScroll(); // trigger once on load
         });
     </script>

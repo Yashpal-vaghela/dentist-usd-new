@@ -288,7 +288,9 @@
   }
 }
 
-/* @media (max-width:991px) and (min-height:1024px) {
+
+/* for Ipad Air */
+@media (max-width:991px) and (min-height:1024px) {
   .usd-section {
     height: auto;
     min-height: 100vh;
@@ -358,9 +360,10 @@
     text-align: left;
     text-indent: 30px;
   }
-} */
+}
 
-/* @media (max-width:769px) and (min-height:1024px) {
+/* for Ipad Mini */
+@media (max-width:769px) and (min-height:1024px) {
   .usd-section {
     height: auto;
     min-height: 100vh;
@@ -431,7 +434,7 @@
     text-indent: 30px;
   }
 
-} */
+}
 
 @media (max-width: 576px) {
   .usd-container {
@@ -462,7 +465,8 @@
     text-align: left;
     text-indent: 30px;
   }
+
   .usd-overlay {
-    opacity: 0.7;
+    opacity: 0.9;
   }
 }

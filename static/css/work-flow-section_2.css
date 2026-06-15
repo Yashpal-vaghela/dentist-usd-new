@@ -34,15 +34,13 @@
   left: 50%;
   width: 130px;
   height: 130px;
-  background: conic-gradient(
-    from 0deg,
-    rgba(216, 156, 39, 0) 0%,
-    rgba(216, 156, 39, 0) 80%,
-    #d89c27 92%,
-    #dfc86f 96%,
-    #d89c27 98%,
-    rgba(216, 156, 39, 0.12) 100%
-  );
+  background: conic-gradient(from 0deg,
+      rgba(216, 156, 39, 0) 0%,
+      rgba(216, 156, 39, 0) 80%,
+      #d89c27 92%,
+      #dfc86f 96%,
+      #d89c27 98%,
+      rgba(216, 156, 39, 0.12) 100%);
   animation: rotateBorder 3s linear infinite;
   z-index: -2;
 }
@@ -58,6 +56,7 @@
   border-radius: 24px;
   z-index: -1;
 }
+
 @keyframes rotateBorder {
   0% {
     transform: translate(-50%, -50%) rotate(0deg);
@@ -121,8 +120,8 @@
 
 .work_flow_2_content_main {
   position: relative;
-  height: 627px;
-  margin-top: 20px;
+  height: 555px;
+  margin-top: 0px;
   overflow: visible;
   width: 100%;
 }
@@ -152,7 +151,7 @@
   border-top-left-radius: 30px;
 }
 
-.work_flow_top_title > h3 {
+.work_flow_top_title>h3 {
   font-family: var(--font-Glida-Display);
   font-size: 24px;
   font-weight: 500;
@@ -160,7 +159,7 @@
   letter-spacing: 1px;
 }
 
-.work_flow_bottom_discrptions > p {
+.work_flow_bottom_discrptions>p {
   font-size: 18px;
   font-weight: 500;
   line-height: 1.6;
@@ -176,15 +175,29 @@
   border-top-right-radius: 30px;
 }
 
-.work_flow_right_side_image_main > img {
+.work_flow_right_side_image_main>img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Ensure the final delivery image (last card) is always fully visible (contain) at all breakpoints to prevent text/branding clipping */
+.work_flow_details_and_image_mian:last-child .work_flow_right_side_image_main {
+  background-color: #000;
+}
+
+.work_flow_details_and_image_mian:last-child .work_flow_right_side_image_main>img {
+  object-fit: contain !important;
+  object-position: center center;
 }
 
 @media (max-width: 1600px) {
   .work_flow_tag_2_main {
     margin-top: 16px;
   }
+
   .work_flow_details_and_image_mian {
     justify-content: center;
     margin-top: 10px;
@@ -193,9 +206,11 @@
   .work_flow_2_content_main {
     height: 520px;
   }
+
   .work_flow_right_side_image_main {
     width: 45%;
   }
+
   .work_flow_left_side_details_main {
     width: 45%;
   }
@@ -212,7 +227,20 @@
     margin-bottom: 0px;
   }
 
+  /* .work_flow_details_and_image_mian {
+    margin-top: 10px;
+  } */
+
   .work_flow_details_and_image_mian {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 82%;
+    display: flex;
+    overflow: hidden;
+    padding: 0px 12px;
+    margin-bottom: 0;
     margin-top: 10px;
   }
 
@@ -220,7 +248,7 @@
     height: 370px;
     margin-top: 5px;
   }
-  
+
   .work_flow_right_side_image_main {
     width: 40%;
   }
@@ -230,11 +258,11 @@
     padding: 26px;
   }
 
-  .work_flow_top_title > h3 {
+  .work_flow_top_title>h3 {
     font-size: 20px;
   }
 
-  .work_flow_bottom_discrptions > p {
+  .work_flow_bottom_discrptions>p {
     font-size: 16px;
   }
 }
@@ -244,9 +272,11 @@
     height: 421px;
     margin-top: 42px;
   }
+
   .work_flow_right_side_image_main {
     width: 50%;
   }
+
   .work_flow_left_side_details_main {
     width: 50%;
     padding: 32px;
@@ -254,80 +284,169 @@
 }
 
 @media (max-width: 992px) {
+
+  /* Make the sticky section flex-column so the card area fills all remaining height */
+  .work_flow_section_2_main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header container: let it shrink to its natural height */
+  .work_flow_section_2_main>.container:first-child {
+    flex-shrink: 0;
+  }
+
+  .work_flow_tag_2_main {
+    margin-top: 18px;
+  }
+
+  .work_flow_2_title {
+    font-size: 22px;
+    margin-top: 12px;
+    margin-bottom: 10px;
+  }
+
+  /* Card container: grow to fill all space left after the header */
+  .work_flow_2_content_main {
+    flex: 1 1 0;
+    min-height: 0;
+    /* allow flex child to shrink below content size */
+    margin-top: 0;
+    position: relative;
+    overflow: visible;
+  }
+
+  /* Each card fills the full card-container area */
   .work_flow_details_and_image_mian {
-    justify-content: center;
+    position: absolute;
+    height: 680px;
+    inset: 0;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 10px;
+    justify-content: flex-start;
+    margin-top: 0;
+    padding: 0 12px 12px;
+    gap: 0;
+    overflow: hidden;
   }
-  .work_flow_2_content_main {
-    height: 800px;
-    margin-top: 5px;
-  }
-  .work_flow_tag_2_main {
-    margin-top: 25px;
-  }
-  .work_flow_2_title {
-    font-size: 24px;
-    margin-top: 20px;
-  }
-  .work_flow_right_side_image_main {
-    width: 90%;
-    height: 50%;
-    border-bottom-right-radius: 30px;
-    border-bottom-left-radius: 30px;
-    border-top-right-radius: 0px;
-  }
+
+  /* Text panel: fixed comfortable height so it never squishes */
   .work_flow_left_side_details_main {
-    width: 90%;
-    padding: 24px;
-    height: 50%;
-    border-bottom-left-radius: 0px;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
+    width: 100%;
+    flex: 0 0 auto;
+    height: auto;
+    min-height: 160px;
+    padding: 20px 24px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    justify-content: center;
+  }
+
+  /* Image panel: fill all remaining height */
+  .work_flow_right_side_image_main {
+    width: 100%;
+    flex: 1 1 0;
+    min-height: 0;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    overflow: hidden;
+  }
+
+  /* Image fills the panel completely */
+  .work_flow_right_side_image_main>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+
+
+  .work_flow_top_title>h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .work_flow_bottom_discrptions>p {
+    font-size: 20px;
+    line-height: 1.5;
   }
 }
+
 @media (max-width: 770px) {
-  .work_flow_right_side_image_main {
-    width: 100%;
-  }
   .work_flow_left_side_details_main {
-    width: 100%;
+    min-height: 140px;
+    padding: 16px 18px;
   }
-  .work_flow_2_content_main {
-    height: 750px;
+
+  .work_flow_top_title>h3 {
+    font-size: 18px;
   }
+
+  .work_flow_bottom_discrptions>p {
+    font-size: 18px;
+  }
+
+  .work_flow_details_and_image_mian {
+    position: absolute;
+    height: 680px;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 0;
+    padding: 0 12px 12px;
+    gap: 0;
+    overflow: hidden;
+  }
+
+
 }
+
 @media (max-width: 576px) {
   .work_flow_tag_2_main {
     margin-top: 10px;
   }
+
   .work_flow_2_title {
     font-size: 18px;
     margin-top: 10px;
     margin-bottom: 12px;
   }
+
   .work_flow_left_side_details_main {
     padding: 16px;
   }
+
   .work_flow_2_content_main {
     height: 530px;
   }
-  .work_flow_bottom_discrptions > p {
+
+  .work_flow_bottom_discrptions>p {
     font-size: 14px;
   }
-  .work_flow_top_title > h3 {
+
+  .work_flow_top_title>h3 {
     font-size: 16px;
   }
+
   .work_flow_2_text {
     margin-top: 16px;
     font-size: 14px;
   }
+
   .work_flow_right_side_image_main {
     border-bottom-right-radius: 16px;
     border-bottom-left-radius: 16px;
     border-top-right-radius: 0px;
   }
+
   .work_flow_left_side_details_main {
     border-bottom-left-radius: 0px;
     border-top-left-radius: 16px;

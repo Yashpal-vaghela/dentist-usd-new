@@ -118,54 +118,139 @@
 </div>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     gsap.registerPlugin(ScrollTrigger);
-    const scrollSpace = document.querySelector(".work_flow_section_2_scroll_space");
-    const cards = gsap.utils.toArray(".work_flow_details_and_image_mian");
-    const navbar = document.querySelector(".usd-header");
-    if (!scrollSpace || cards.length === 0) return;
-    function getNavH() {
-      return navbar ? navbar.getBoundingClientRect().height : 70;
+
+    const wrapper = document.querySelector('.work_flow_section_2_scroll_space');
+    const section = document.querySelector('.work_flow_section_2_main');
+    const cards   = gsap.utils.toArray('.work_flow_details_and_image_mian');
+
+    if (!wrapper || !section || cards.length === 0) return;
+
+    const isMobile = window.matchMedia('(max-width: 992px)').matches;
+
+    /* ── ScrollTrigger config: ignore address-bar viewport height jumps ── */
+    ScrollTrigger.config({
+        ignoreMobileResize: true,
+    });
+
+    window.addEventListener('load', () => {
+        ScrollTrigger.refresh();   // recalc after full layout settles
+    });
+
+    // Only refresh ScrollTrigger when width changes (rotation), ignoring height adjustments (address bar)
+    let lastWidth = window.innerWidth;
+    window.addEventListener('resize', () => {
+        if (window.innerWidth !== lastWidth) {
+            lastWidth = window.innerWidth;
+            ScrollTrigger.refresh();
+        }
+    });
+
+    /* ── GPU compositing on every card ── */
+    cards.forEach((card, i) => {
+        gsap.set(card, {
+            zIndex: i + 1,
+            force3D: true,
+            willChange: 'transform, opacity',
+            backfaceVisibility: 'hidden'
+        });
+    });
+
+    if (isMobile) {
+        /* ─────────────────────────────────────────────────────────
+           MOBILE / TABLET STACKING TIMELINE (CSS Sticky Pinning)
+           - Uses native CSS position: sticky to stay locked at top 70px.
+           - The section is already sticky in CSS, so GSAP does NOT pin it.
+           - ScrollTrigger just drives the card animations from the moment
+             the wrapper top hits 70px (= when the section finishes sticking)
+             all the way to 'bottom bottom' (= wrapper bottom reaches viewport bottom).
+           - This guarantees card transitions only run while the section
+             is actually pinned, with no pre-pin animation bleed.
+        ──────────────────────────────────────────────────────── */
+        cards.forEach((card, i) => {
+            if (i > 0) {
+                gsap.set(card, {
+                    yPercent: 150,
+                    scale: 0.95
+                });
+            } else {
+                gsap.set(card, {
+                    yPercent: 0,
+                    scale: 1
+                });
+            }
+        });
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: wrapper,
+                start: 'top 70px',
+                end: 'bottom bottom',
+                scrub: 0.8, // touch-friendly scrub smoothing out mobile momentum
+                invalidateOnRefresh: true
+            }
+        });
+
+        cards.forEach((card, i) => {
+            if (i === 0) return;
+            tl.to(card, {
+                yPercent: 0,
+                scale:    1,
+                ease:     'power2.out',
+                duration: 1,
+                force3D:  true
+            }, `card-${i}`)
+            .to(cards[i - 1], {
+                scale:    0.92,
+                yPercent: -8,
+                opacity:  0,
+                ease:     'power2.out',
+                duration: 1,
+                force3D:  true
+            }, `card-${i}`);
+        });
+
+    } else {
+        /* ── DESKTOP: GSAP pins the section while cards animate ── */
+        cards.forEach((card, i) => {
+            if (i > 0) {
+                gsap.set(card, { yPercent: 150, scale: 0.95 });
+            }
+        });
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: wrapper,
+                start: 'top 70px',
+                end: () => `+=${(cards.length - 1) * 80}%`,
+                pin: section,
+                scrub: 0.5,
+                anticipatePin: 1,
+                invalidateOnRefresh: true
+            }
+        });
+
+        cards.forEach((card, i) => {
+            if (i === 0) return;
+            tl.to(card, {
+                yPercent: 0,
+                scale:    1,
+                ease:     'power2.out',
+                duration: 1,
+                force3D:  true
+            }, `card-${i}`)
+            .to(cards[i - 1], {
+                scale:    0.92,
+                yPercent: -8,
+                opacity:  0,
+                ease:     'power2.out',
+                duration: 1,
+                force3D:  true
+            }, `card-${i}`);
+        });
     }
-    cards.forEach((card, index) => {
-      gsap.set(card, { zIndex: index + 1 });
-      if (index > 0) {
-        gsap.set(card, { yPercent: 150, scale: 0.95 });
-      }
-    });
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: scrollSpace,
-        start: () => `top ${getNavH()}px`,
-        end: "bottom bottom",
-        scrub: 1,
-        invalidateOnRefresh: true,
-      },
-    });
-    cards.forEach((card, index) => {
-      if (index === 0) return;
-      tl.to(
-        card,
-        {
-          yPercent: 0,
-          scale: 1,
-          ease: "power2.out",
-          duration: 1,
-        },
-        `card-${index}`,
-      ).to(
-        cards[index - 1],
-        {
-          scale: 0.92,
-          yPercent: -8,
-          opacity: 0,
-          ease: "power2.out",
-          duration: 1,
-        },
-        `card-${index}`,
-      );
-    });
-  });
+});
 </script>
 
 {% endblock %}
