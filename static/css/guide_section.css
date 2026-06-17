@@ -25,7 +25,7 @@
 
 .hand_image_mian img {
   width: 115%;
-  height: 107%;
+  height: 102%;
   object-fit: contain;
   object-position: right top;
   margin-left: -126px;
@@ -50,16 +50,14 @@
   font-size: 82px;
   line-height: 1;
   font-weight: 600;
-  background: linear-gradient(
-    101.58deg,
-    #636363 0.97%,
-    #9b9b9b 20.97%,
-    #b1b1b1 37.13%,
-    #e1e1e1 50.61%,
-    #b1b1b1 62.82%,
-    #9b9b9b 76.44%,
-    #636363 100.96%
-  );
+  background: linear-gradient(101.58deg,
+      #636363 0.97%,
+      #9b9b9b 20.97%,
+      #b1b1b1 37.13%,
+      #e1e1e1 50.61%,
+      #b1b1b1 62.82%,
+      #9b9b9b 76.44%,
+      #636363 100.96%);
   background-size: 250% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -67,10 +65,12 @@
   color: transparent;
   animation: metallicShine 4s linear infinite;
 }
+
 @keyframes metallicShine {
   from {
     background-position: 250% center;
   }
+
   to {
     background-position: -250% center;
   }
@@ -121,16 +121,14 @@
   font-size: 24px;
   line-height: 1.2;
   font-weight: 500;
-  background: linear-gradient(
-    270deg,
-    #be9644 0.01%,
-    #aa803c 15.01%,
-    #f3dc87 43.01%,
-    #fbefac 59.01%,
-    #f3dc87 73.01%,
-    #aa803c 93.01%,
-    #c49d47 100.01%
-  );
+  background: linear-gradient(270deg,
+      #be9644 0.01%,
+      #aa803c 15.01%,
+      #f3dc87 43.01%,
+      #fbefac 59.01%,
+      #f3dc87 73.01%,
+      #aa803c 93.01%,
+      #c49d47 100.01%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

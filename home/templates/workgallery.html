@@ -1,7 +1,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/workgallery.css' %}">
 
-<section class="clinical-gallery-section">
+<section class="clinical-gallery-section" id="gallery">
     <div class="corner corner-top-left"></div>
     <div class="corner corner-top-right"></div>
     <div class="gallery-container">
@@ -128,17 +128,17 @@
     renderDepth();
 
     let autoplayTween;
-    function initAutoplay() {
-      if (autoplayTween) autoplayTween.kill();
-      gsap.set(track, { x: startX });
-      autoplayTween = gsap.to(track, {
-        x: startX - loopDistance,
-        duration: 15,
-        ease: "none",
-        repeat: -1,
-        onUpdate: renderDepth,
-      });
-    }
+       function initAutoplay() {
+        if (autoplayTween) autoplayTween.kill();
+        gsap.set(track, { x: startX });
+        autoplayTween = gsap.to(track, {
+          x: startX - loopDistance,
+          duration: 15,
+          ease: "none",
+          repeat: -1,
+          onUpdate: renderDepth,
+        });
+      } 
     function resumeAutoplay() {
       if (!autoplayTween) return;
       const curX = gsap.getProperty(track, "x");
@@ -258,5 +258,18 @@
     } 
 
     initAutoplay();
+
+    // Re-measure and restart when viewport is resized (handles height changes that
+    // affect image size via clamp/min-width — e.g. going from 919px to 551px height).
+    let resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        if (autoplayTween) autoplayTween.kill();
+        recalculate();
+        renderDepth();
+        initAutoplay();
+      }, 250);
+    });
   });
 </script>

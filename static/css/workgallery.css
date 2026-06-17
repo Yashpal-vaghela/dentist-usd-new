@@ -95,7 +95,7 @@
     height: clamp(140px, 35vh, 360px);
     width: auto;
     aspect-ratio: 228 / 406;
-    object-fit: cover;
+    object-fit: contain;
     flex-shrink: 0;
     box-sizing: border-box;
     pointer-events: none;
@@ -154,7 +154,8 @@
 .gallery-slider.gsap-coverflow-ready {
     overflow: hidden;
     perspective: clamp(700px, 70vw, 1400px);
-    padding: 8vh 0;
+    /* Adaptive vertical padding: generous on tall screens, compact on short */
+    padding: clamp(2vh, 8vh, 10vh) 0;
     position: relative;
     z-index: 1;
 }
@@ -172,7 +173,7 @@
     height: clamp(140px, 35vh, 360px);
     width: auto;
     aspect-ratio: 228 / 406;
-    object-fit: cover;
+    object-fit: contain;
     transform-origin: center center;
     transform-style: preserve-3d;
     backface-visibility: hidden;
@@ -327,51 +328,78 @@
     }
 }
 
-@media (max-height: 600px) {
+/* ── Short viewport (landscape laptop/desktop with small height) ─────────
+   At low heights the 228:406 portrait aspect-ratio makes images very narrow,
+   causing too many to crowd into view.
+   Fix: switch to WIDTH-based sizing (width + height:auto) so the image
+   renders at its full natural proportions — NO aspect-ratio override,
+   NO object-fit:cover cropping. The full original image is always shown.
+─────────────────────────────────────────────────────────────────────────── */
+@media (max-height: 700px) {
     .clinical-gallery-section {
         padding: 2vh 20px;
     }
 
     .gallery-container {
-        gap: 2vh;
+        gap: 1.5vh;
     }
 
     .gallery-heading {
-        max-width: 800px;
-        width: 100%;
-        margin: 0;
-        font-family: 'Gilda Display', serif;
-        font-weight: 400;
-        font-size: clamp(22px, 5vh, 42px);
-        line-height: 1.3;
-        letter-spacing: 0.08em;
-        text-align: center;
-        background: linear-gradient(270deg, #BE9644 0.01%, #AA803C 15.01%, #F3DC87 43.01%, #FBEFAC 59.01%, #F3DC87 73.01%, #AA803C 93.01%, #C49D47 100.01%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        font-size: clamp(18px, 4vh, 32px);
     }
 
     .gallery-description {
-        max-width: 1000PX;
-        margin: 0;
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 500;
-        font-size: clamp(18px, 2.3vh, 24px);
-        line-height: 1.5;
-        letter-spacing: 0.03em;
-        text-transform: capitalize;
-        text-align: center;
-        color: #ffffff;
+        font-size: clamp(13px, 1.8vh, 18px);
     }
 
     .gallery-slider.gsap-coverflow-ready {
-        padding: 8vh 0;
+        padding: clamp(40px, 8vh, 60px) 0;
     }
 
+    /*
+      Switch to width-based sizing at short heights:
+      - width: clamp(...) controls how wide each card is → controls how many appear
+      - height: auto → the browser derives height from the image's real proportions
+      - aspect-ratio: unset → let the real image proportions govern
+      - object-fit: contain → show the FULL image, no cropping ever
+    */
     .gallery-track.gsap-coverflow-track img,
     .gallery-track img {
-        height: clamp(100px, 30vh, 150px);
+        width: clamp(100px, 12vw, 200px);
+        height: auto;
+        aspect-ratio: unset;
+        object-fit: contain;
+    }
+}
+
+@media (max-height: 600px) {
+    .clinical-gallery-section {
+        padding: 1.5vh 20px;
+    }
+
+    .gallery-container {
+        gap: 1vh;
+    }
+
+    .gallery-heading {
+        font-size: clamp(16px, 3.5vh, 26px);
+    }
+
+    .gallery-description {
+        font-size: clamp(12px, 1.6vh, 16px);
+    }
+
+    .gallery-slider.gsap-coverflow-ready {
+        padding: clamp(30px, 6vh, 45px) 0;
+    }
+
+    /* Tighter width at the smallest heights (551px) — wider cards = fewer visible */
+    .gallery-track.gsap-coverflow-track img,
+    .gallery-track img {
+        width: clamp(120px, 14vw, 220px);
+        height: auto;
+        aspect-ratio: unset;
+        object-fit: contain;
     }
 }
 
