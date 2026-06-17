@@ -4,10 +4,10 @@
 {% endblock css %}
 
 {% block content %}
-  <section class="usd-section">
+  <section class="usd-section" id="about-usd">
       <div class="usd-video-container">
           <video autoplay loop muted playsinline preload="metadata" class="usd-bg-video">
-              <source src="{% static 'video/about_section_video.mp4' %}" type="video/mp4">
+              <source src="https://daedzhbgqwmn0.cloudfront.net/about_section_video.mp4" type="video/mp4">
           </video>
           <div class="usd-overlay"></div>
       </div>
@@ -95,21 +95,17 @@
       gsap.set(headingWords, { opacity: 0, filter: "blur(8px)", y: 20 });
       gsap.set(".usd-right p", { opacity: 0, y: 50, filter: "blur(15px)" });
       gsap.set(imageBox, { scale: 0, transformOrigin: "center center" });
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top top",
-        onEnter: () => {
-          gsap.to(imageBox, {
-            scale: 1,
-            ease: "power2.out",
-            duration: 0.7,
-            overwrite: true,
-          });
-        },
-        onLeaveBack: () => {
-          gsap.set(imageBox, { scale: 0 });
-        },
-      });
+      const revealImageBoxAtPin = () => { // fixed pin issue
+        gsap.to(imageBox, { // fixed pin issue
+          scale: 1, // fixed pin issue
+          ease: "power2.out", // fixed pin issue
+          duration: 0.7, // fixed pin issue
+          overwrite: true, // fixed pin issue
+        }); // fixed pin issue
+      }; // fixed pin issue
+      const hideImageBoxBeforePin = () => { // fixed pin issue
+        gsap.set(imageBox, { scale: 0 }); // fixed pin issue
+      };
       const tl = gsap.timeline();
       const DUR = 0.13;
       const HEADING_START = 0.55;
@@ -151,6 +147,9 @@
         scrub: 0.4,
         animation: tl,
         invalidateOnRefresh: true,
+        onEnter: revealImageBoxAtPin,
+        onEnterBack: revealImageBoxAtPin,
+        onLeaveBack: hideImageBoxBeforePin,
       });
     });
     mm.add("(min-width: 577px) and (max-width: 991px)", () => {

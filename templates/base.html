@@ -10,7 +10,10 @@
     <!-- MOBILE SPECIFIC -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    {% block seo %} {% endblock %}	
+    {% block seo %}
+    <title>Ultimate Smile Design Course for Dentists | Join Now</title>
+    <meta name="description" content="Join the Ultimate Smile Design certification course. Master smile design, improve case acceptance, and deliver predictable aesthetic results. Join now!">
+    {% endblock %}	
     
     <!-- FAVICONS ICON -->
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png' %}">
@@ -53,9 +56,9 @@
                     <li><a href="/" class="usd-nav-link active">Home</a></li>
                     <li><a href="#about-usd" class="usd-nav-link">About USD</a></li>
                     <li><a href="#why-usd" class="usd-nav-link">Why USD</a></li>
+                    <li><a href="#workflow" class="usd-nav-link">Workflow</a></li>
+                    <li><a href="#gallery" class="usd-nav-link">Gallery</a></li>
                     <li><a href="#testimonial" class="usd-nav-link">Testimonial</a></li>
-                    <li><a href="#certification" class="usd-nav-link">Certification</a></li>
-                    <li><a href="#benefits" class="usd-nav-link">Benefits</a></li>
                 </ul>
             </nav>
 
@@ -87,9 +90,9 @@
                 <li><a href="/" class="usd-nav-mobile-link active">Home</a></li>
                 <li><a href="#about-usd" class="usd-nav-mobile-link">About USD</a></li>
                 <li><a href="#why-usd" class="usd-nav-mobile-link">Why USD</a></li>
-                <li><a href="#testimonial" class="usd-nav-mobile-link">Testimonial</a></li>
-                <li><a href="#certification" class="usd-nav-mobile-link">Certification</a></li>
-                <li><a href="#benefits" class="usd-nav-mobile-link">Benefits</a></li>
+                <li><a href="#workflow" class="usd-nav-link">Workflow</a></li>
+                <li><a href="#gallery" class="usd-nav-link">Gallery</a></li>
+                <li><a href="#testimonial" class="usd-nav-link">Testimonial</a></li>
                 <li class="usd-drawer-btn-container">
                     <a href="#contact" class="usd-btn-metallic bat">Get in Touch</a>
                 </li>
@@ -107,7 +110,7 @@
             <div class="new-footer-content">
                 <div class="overlay">
                     <div class="new-footer-bottom">
-                        <span class="new-footer-copyright cool mb-0">Copyright 2026 | <a href="https://advancedentalexport.com/" target="_blank">Advance Dental Export.</a> All Rights Resevred</span>
+                        <span class="new-footer-copyright cool mb-0">Copyright 2026 | <a href="https://advancedentalexport.com/" target="_blank">Advance Dental Export Pvt Ltd.</a> All Rights Resevred</span>
                     </div>
                 </div>
             </div>
@@ -176,7 +179,7 @@
             });
 
             // Active section tracking on scroll
-            const sections = document.querySelectorAll('section[id]');
+            const sections = document.querySelectorAll('#home, #about-usd, #why-usd, #workflow, #gallery, #testimonial, #contact');
             const header = document.querySelector('.usd-header');
             
             let cachedSections = [];
@@ -219,6 +222,14 @@
                     }
                 });
 
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    // A section is considered active if it spans across the 200px mark from the top of the viewport
+                    if (rect.top <= 200 && rect.bottom > 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
                 navDesktopLinks.forEach(link => {
                     link.classList.remove('active');
                     const href = link.getAttribute('href');
@@ -228,16 +239,7 @@
                 });
             }
 
-            let ticking = false;
-            window.addEventListener('scroll', () => {
-                if (!ticking) {
-                    window.requestAnimationFrame(() => {
-                        trackScroll();
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            });
+            window.addEventListener('scroll', trackScroll);
             trackScroll(); // trigger once on load
         });
     </script>
