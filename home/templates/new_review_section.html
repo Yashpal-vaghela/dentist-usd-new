@@ -30,7 +30,7 @@
                   <div class="star_image">
                     <img src="{% static 'images/5_star_icon.svg' %}" alt="5_stars_icon" class="img-fluid">
                   </div>
-                  <div class="rating_text">{{ review.rating }} Rating</div>
+                  {% comment %} <div class="rating_text">{{ review.rating }} Rating</div> {% endcomment %}
                 </div>
                 <p class="doctor_review_text">{{ review.review }}</p>
                 <button class="review_read_more_btn cool" data-name="{{ review.doctor_name }}"

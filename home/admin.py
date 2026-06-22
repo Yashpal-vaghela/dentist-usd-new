@@ -3,7 +3,11 @@ from django.utils.html import format_html, mark_safe
 from .models import Contact, DentistReview
 
 
-admin.site.register(Contact)
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('full_name', 'email', 'phone', 'city', 'created_at')
+    search_fields = ('full_name', 'email', 'phone')
+    list_filter = ('created_at',)
 
 
 @admin.register(DentistReview)
@@ -30,12 +34,11 @@ class DentistReviewAdmin(admin.ModelAdmin):
                 'box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />',
                 obj.image.url
             )
-        return mark_safe('<span style="color:#999;">— Pehle image select karein —</span>')
+        return mark_safe('<span style="color:#999;">— Frist Upload Image —</span>')
 
     image_preview.short_description = "Saved Image Preview"
 
     def image_preview_thumbnail(self, obj):
-        """List page par chhota thumbnail dikhata hai"""
         if obj.image:
             return format_html(
                 '<img src="{}" style="width:50px; height:50px; '
