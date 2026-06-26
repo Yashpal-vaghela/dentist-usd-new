@@ -15,7 +15,8 @@
 }
 
 .contact-container {
-  width: min(1570px, 90%);
+  width: 67.5%;
+  max-width: 1320px;
   height: min(820px, 89vh);
 
   display: flex;
@@ -154,7 +155,7 @@
 
 
 .contact-image img {
-  width: 89%;
+  width: 91%;
   height: 100%;
   object-fit: contain;
 }
@@ -166,14 +167,14 @@
   flex-direction: column;
   justify-content: center;
   /* padding: 60px 40px; */
-  padding: 40px 40px;
-  gap: 24px;
+  padding: 22px 40px;
+  gap: 20px;
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 5px;
 }
 
 .field label {
@@ -217,8 +218,8 @@
   border-radius: 8px;
   color: #FFFFFF;
   font-family: 'Inter', sans-serif;
-  font-size: 24px;
-  padding: 0 20px 0 98px;
+  font-size: 18px;
+  padding: 0px 19px 0 73px;
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -236,15 +237,15 @@
 
 .field-message textarea {
   width: 100%;
-  height: 130px;
+  height: 108px;
   background: #000000;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   resize: none;
-  padding: 18px 20px 18px 98px;
+  padding: 18px 13px 11px 76px;
   color: #FFFFFF;
   font-family: 'Inter', sans-serif;
-  font-size: 24px;
+  font-size: 18px;
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -259,7 +260,14 @@
   margin-top: 14px;
 }
 
-button {
+.captcha input {
+
+  height: 78px;
+  width: 300px;
+
+}
+
+.contact-form-btn {
   height: 57px;
   border: 1px solid #2C2C2C;
   border-radius: 8px;
@@ -269,43 +277,30 @@ button {
   font-size: 20px;
   color: #000000;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 0px;
   transition: opacity 0.2s ease;
-  width: 360px;
+  width: 310px;
   align-self: center;
-
 }
 
-button:hover {
+.contact-form-btn:hover {
   opacity: 0.9;
 }
 
-@media (min-width:1600px) {
-
-
+/* ── Large screens ≥ 1400px: cap at 1320px like other sections (e.g. testimonials) ── */
+@media (min-width: 1400px) {
 
   .contact-container {
-    width: 1540px;
-    height: 819px;
+    max-width: 1320px;
+    height: min(820px, 89vh);
     gap: 30px;
   }
 
-  .contact-left,
-  .contact-right {
-    width: 755px;
-    height: 819px;
-  }
-
-  .contact-content {
-    width: 695px;
-  }
-
   .contact-content p {
-    margin-top: 32px;
+    margin-top: 0px;
     font-size: 20px;
     line-height: 1.8;
     color: #d9d9d9;
-    margin-top: 0px;
   }
 
   .contact-image {
@@ -316,17 +311,15 @@ button:hover {
     width: 89%;
     height: 100%;
     object-fit: contain;
-    margin-bottom: 31px;
+    margin-bottom: -19px;
   }
-
-
 
 }
 
 @media (min-width:1280px) and (max-width:1599px) {
 
   .contact-container {
-    width: 95%;
+    width: 83.5%;
     height: 88vh;
     gap: 25px;
   }
@@ -367,8 +360,8 @@ button:hover {
   }
 
   .contact-right form {
-    padding: 25px;
-    gap: 35px;
+    padding: 20px 25px;
+    gap: 30px;
   }
 
   .field label {
@@ -377,14 +370,19 @@ button:hover {
 
   .field input {
     height: 52px;
-    padding-left: 88px;
+    padding-left: 58px;
     font-size: 24px;
   }
 
   .field-message textarea {
-    height: 120px;
-    padding-left: 88px;
+    height: 100px;
+    padding-left: 59px;
     font-size: 24px;
+  }
+
+  .captcha {
+
+    margin-top: -13px;
   }
 
   .input-wrapper::after {
@@ -404,87 +402,24 @@ button:hover {
     height: 30px;
   }
 
-  button {
-    height: 48px;
+  .contact-form-btn {
+    height: 47px;
     font-size: 16px;
+    margin-top: -17px;
+    width: 290px;
   }
 
-  /* @media (max-height: 600px) {
-    .contact-container {
-      height: 78vh;
-      gap: 15px;
-    }
 
-    .contact-content {
-      padding-top: 10px;
-    }
+}
 
-    .contact-content h2 {
-      font-size: 24px;
-      line-height: 1.25;
-      margin-top: 6px;
-    }
+@media (max-width: 1200px) {
 
-    .contact-content p {
-      margin-top: 6px;
-      font-size: 13px;
-      line-height: 1.4;
-    }
+  .contact-container {
+    max-width: 1140px;
+    height: 88vh;
+    gap: 25px;
+  }
 
-    .contact-image img {
-      width: 56%;
-      max-height: 95%;
-      margin-bottom: 0px;
-    }
-
-    .contact-right form {
-      padding: 10px 20px;
-      gap: 8px;
-    }
-
-    .field {
-      gap: 2px;
-    }
-
-    .field label {
-      font-size: 13px;
-    }
-
-    .field input {
-      height: 34px;
-      padding-left: 60px;
-      font-size: 12px;
-    }
-
-    .field-message textarea {
-      height: 52px;
-      padding-left: 60px;
-      font-size: 12px;
-    }
-
-    .field-icon {
-      width: 24px;
-      height: 22px;
-      left: 12px;
-    }
-
-    .input-wrapper::after {
-      left: 46px;
-      top: 6px;
-      bottom: 6px;
-    }
-
-    .field-message .input-wrapper::after {
-      top: 6px;
-      height: calc(100% - 12px);
-    }
-
-    button {
-      height: 38px;
-      font-size: 14px;
-      margin-top: 2px;
-    }
-  } */
 
 }
 
@@ -497,9 +432,10 @@ button:hover {
   }
 
   .contact-container {
-    width: 89%;
+    width: 87%;
     height: 89vh;
     gap: 20px;
+    max-width: 1320px;
   }
 
   .contact-content {
@@ -531,17 +467,22 @@ button:hover {
     width: 81%;
     max-height: 100%;
     object-fit: contain;
-    margin-bottom: 39px;
+    margin-bottom: -20px;
     margin-left: 1px;
   }
 
+  /* Grid: fields span full width; captcha (col 1) + button (col 2) share last row */
   .contact-right form {
-    padding: 14px 22px;
-    gap: 25px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 18px;
   }
 
-  .field {
-    gap: 3px;
+  .contact-right form>.field {
+    grid-column: 1 / -1;
+    gap: 2px;
   }
 
   .field label {
@@ -550,14 +491,15 @@ button:hover {
 
   .field input {
     height: 40px;
-    padding-left: 78px;
+    padding-left: 50px;
     font-size: 16px;
   }
 
   .field-message textarea {
-    height: 105px;
-    padding-left: 78px;
-    font-size: 18px;
+    height: 80px;
+    padding-left: 50px;
+    font-size: 17px;
+    padding-top: 10px;
   }
 
   .input-wrapper::after {
@@ -577,90 +519,379 @@ button:hover {
     height: 24px;
   }
 
-  button {
-    height: 43px;
-    font-size: 16px;
-    margin-top: 4px;
-    width: 264px;
+  /* Captcha: column 1 of the last row */
+  .captcha {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 0;
+    width: 300px;
+  }
+
+  .captcha img {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+  }
+
+  .captcha input {
+    height: 74px;
+    width: 100%;
+    flex: 1 1 0;
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  /* Button: column 2 of the last row, beside captcha */
+  .contact-form-btn {
+    grid-column: 2;
+    height: 50px;
+    font-size: 15px;
+    margin-top: 0;
+    width: 200px;
+    align-self: center;
+    padding: 0 16px;
+    margin-right: 86px;
   }
 
 }
 
-@media (max-height: 600px) {
+@media (min-width:1279px) and (max-height:800px) {
+
+  .contact-section {
+    height: 100vh;
+    overflow: hidden;
+  }
+
   .contact-container {
-    height: 78vh;
-    gap: 15px;
+    width: 87%;
+    height: 75vh;
+    gap: 20px;
+    max-width: 1320px;
   }
 
   .contact-content {
+    padding-top: 18px;
+    margin-top: 0;
+  }
+
+  .contact-content h2 {
+    font-size: 26px;
+    line-height: 1.3;
+    margin-top: 27px;
+  }
+
+  .contact-content p {
+    margin-top: 10px;
+    font-size: 20px;
+    line-height: 1.5;
+  }
+
+  .contact-left {
+    flex: 1;
+    max-width: 755px;
+    height: 100%;
+    background: rgba(102, 102, 102, .2);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .contact-right {
+    flex: 1.3;
+    max-width: 755px;
+    height: 100%;
+    background: rgba(102, 102, 102, .2);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .contact-image {
+    height: auto;
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+  }
+
+  .contact-image img {
+    width: 99%;
+    max-height: 100%;
+    object-fit: contain;
+    margin-bottom: -18px;
+    margin-left: -13px;
+  }
+
+  /* Grid: fields span full width; captcha (col 1) + button (col 2) share last row */
+  .contact-right form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 18px;
+    align-content: space-between;
+  }
+
+  .contact-right form>.field {
+    grid-column: 1 / -1;
+    gap: 0px;
+  }
+
+  .field label {
+    font-size: 15px;
+  }
+
+  .field input {
+    padding-left: 50px;
+
+    font-size: 15px;
+  }
+
+  .field-message textarea {
+    height: 92px;
+    padding-left: 50px;
+    font-size: 15px;
     padding-top: 10px;
+  }
+
+  .input-wrapper::after {
+    left: 62px;
+    top: 8px;
+    bottom: 8px;
+  }
+
+  .field-message .input-wrapper::after {
+    top: 0px;
+    height: calc(100% - 16px);
+  }
+
+  .field-icon {
+    left: 16px;
+    width: 26px;
+    height: 24px;
+  }
+
+  /* Captcha: column 1 of the last row */
+  .captcha {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 0;
+    width: 300px;
+  }
+
+  .captcha img {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+  }
+
+  .captcha input {
+    height: 78px;
+    width: 100%;
+    flex: 1 1 0;
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  /* Button: column 2 of the last row, beside captcha */
+  .contact-form-btn {
+    grid-column: 2;
+    height: 53px;
+    font-size: 16px;
+    margin-top: 0;
+    width: 200px;
+    align-self: center;
+    padding: 0 16px;
+    margin-right: 86px;
+  }
+
+}
+
+/* ── 1280×551 and similar very short desktop viewports ── */
+/* @media (min-width:1280px) and (max-width:1599px) and (max-height:600px) {
+
+  .contact-container {
+    height: 88vh;
+    gap: 15px;
   }
 
   .contact-content h2 {
     font-size: 24px;
-    line-height: 1.25;
-    margin-top: 6px;
+    margin-top: 15px;
   }
 
   .contact-content p {
-    margin-top: 6px;
-    font-size: 13px;
-    line-height: 1.4;
-  }
-
-  .contact-image img {
-    width: 54%;
-    max-height: 95%;
-    margin-bottom: 0px;
+    font-size: 16px;
+    margin-top: 8px;
   }
 
   .contact-right form {
-    padding: 10px 20px;
     gap: 8px;
-  }
-
-  .field {
-    gap: 2px;
-  }
-
-  .field label {
-    font-size: 13px;
+    padding: 8px 14px;
   }
 
   .field input {
-    height: 34px;
-    padding-left: 60px;
-    font-size: 12px;
+    height: 36px;
   }
 
   .field-message textarea {
-    height: 52px;
-    padding-left: 60px;
-    font-size: 12px;
+    height: 56px;
+  }
+
+  .captcha input {
+    height: 74px;
+  }
+
+  .contact-form-btn {
+    height: 46px;
+    width: 160px;
+  }
+} */
+
+
+@media (max-height: 600px) {
+
+  .contact-section {
+    width: 100% !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+    background: #000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .contact-container {
+    height: 83vh !important;
+    gap: 15px !important;
+    width: 82% !important;
+    max-width: 1320px !important;
+  }
+
+  .contact-left {
+    flex: 0.9 !important;
+  }
+
+  .contact-right {
+    flex: 1.2 !important;
+  }
+
+  .contact-content {
+    padding-top: 10px !important;
+  }
+
+  .contact-content h2 {
+    font-size: 24px !important;
+    line-height: 1.25 !important;
+    margin-top: 6px !important;
+  }
+
+  .contact-content p {
+    margin-top: 6px !important;
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+  }
+
+  .contact-image {
+    height: auto !important;
+    flex: 1 !important;
+    display: flex !important;
+    align-items: flex-end !important;
+  }
+
+  .contact-image img {
+    width: 78% !important;
+    max-height: 95% !important;
+    margin-bottom: 0px !important;
+  }
+
+  /* Grid: fields span full width; captcha (col 1) + button (col 2) share last row */
+  .contact-right form {
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 10px 20px !important;
+  }
+
+  .contact-right form>.field {
+    grid-column: 1 / -1 !important;
+    gap: 2px !important;
+  }
+
+  .field label {
+    font-size: 13px !important;
+  }
+
+  .field input {
+    height: 34px !important;
+    padding-left: 42px !important;
+    font-size: 12px !important;
+  }
+
+  .field-message textarea {
+    height: 45px !important;
+    padding-left: 43px !important;
+    font-size: 12px !important;
+    padding-top: 13px !important;
   }
 
   .field-icon {
-    width: 24px;
-    height: 22px;
-    left: 12px;
+    width: 24px !important;
+    height: 22px !important;
+    left: 12px !important;
   }
 
   .input-wrapper::after {
-    left: 46px;
-    top: 6px;
-    bottom: 6px;
+    left: 46px !important;
+    top: 6px !important;
+    bottom: 6px !important;
   }
 
   .field-message .input-wrapper::after {
-    top: 6px;
-    height: calc(100% - 12px);
+    top: 6px !important;
+    height: calc(100% - 12px) !important;
   }
 
-  button {
-    height: 38px;
-    font-size: 14px;
-    margin-top: 2px;
-    width: 200px;
+  /* Captcha: column 1 of last row */
+  .captcha {
+    grid-column: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-top: 0 !important;
+    max-width: 300px !important;
+  }
+
+  .captcha img {
+    flex-shrink: 0 !important;
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  .captcha input {
+    height: 74px !important;
+    width: 100% !important;
+    flex: 1 1 0 !important;
+    padding: 6px 8px !important;
+    font-size: 12px !important;
+  }
+
+  /* Button: column 2 of last row, beside the captcha */
+  .contact-form-btn {
+    grid-column: 2 !important;
+    height: 44px !important;
+    font-size: 13px !important;
+    margin-top: 0 !important;
+    width: 174px !important;
+    align-self: center !important;
+    padding: 0 12px !important;
   }
 }
 
@@ -668,7 +899,7 @@ button:hover {
 @media (min-width:992px) and (max-width:1279px) {
 
   .contact-container {
-    width: 94%;
+    width: 89%;
     height: 88vh;
     gap: 20px;
   }
@@ -697,11 +928,11 @@ button:hover {
     width: 85%;
     height: 104%;
     object-fit: contain;
-    margin-bottom: -38px;
+    margin-bottom: -45px;
   }
 
   .contact-right form {
-    padding: 20px;
+    padding: 25px 20px;
     gap: 32px;
   }
 
@@ -711,13 +942,13 @@ button:hover {
 
   .field input {
     height: 48px;
-    padding-left: 82px;
+    padding-left: 55px;
     font-size: 20px;
   }
 
   .field-message textarea {
     height: 100px;
-    padding-left: 82px;
+    padding-left: 55px;
     font-size: 22px;
   }
 
@@ -738,17 +969,22 @@ button:hover {
     height: 28px;
   }
 
-  button {
-    height: 44px;
+  .captcha {
+    margin-top: -16px;
+  }
+
+  .contact-form-btn {
+    height: 47px;
     font-size: 16px;
     width: 262px;
+    margin-top: -10px;
   }
 
 }
 
 
 /* ── 1140×688 and similar wide-short screens (992–1279px wide) ── */
-@media (min-width:992px) and (max-width:1279px) and (max-height:750px) {
+@media (min-width:992px) and (max-width:1200px) and (max-height:750px) {
 
   .contact-section {
     height: 100vh;
@@ -756,8 +992,8 @@ button:hover {
   }
 
   .contact-container {
-    width: 94%;
-    height: 88vh;
+    width: 79%;
+    height: 96vh;
     gap: 16px;
   }
 
@@ -786,7 +1022,7 @@ button:hover {
   }
 
   .contact-image img {
-    width: 91%;
+    width: 93%;
     height: 155%;
     object-fit: contain;
     margin-bottom: -164px;
@@ -807,16 +1043,17 @@ button:hover {
 
   .field input {
     height: 38px;
-    padding-left: 68px;
-    font-size: 15px;
+    padding-left: 48px;
+    font-size: 14px;
     border-radius: 6px;
   }
 
   .field-message textarea {
-    height: 72px;
-    padding-left: 68px;
-    font-size: 15px;
+    height: 80px;
+    padding-left: 48px;
+    font-size: 14px;
     border-radius: 6px;
+    padding-top: 10px;
   }
 
   .input-wrapper::after {
@@ -836,14 +1073,21 @@ button:hover {
     height: 23px;
   }
 
-  button {
-    height: 38px;
+  .contact-form-btn {
+    height: 45px;
     font-size: 14px;
     width: 200px;
     margin-top: 2px;
   }
 
+  .captcha {
+    margin-top: 0px;
+  }
+
 }
+
+
+
 
 
 @media (max-width:991px) {
@@ -858,6 +1102,7 @@ button:hover {
   }
 
   .contact-container {
+    /* width: 70%; */
     width: 92%;
     height: 89vh;
 
@@ -866,7 +1111,189 @@ button:hover {
 
     justify-content: space-between;
 
-    gap: 12px;
+    gap: 0px;
+  }
+
+
+
+
+  .contact-left,
+  .contact-right {
+    flex: 1;
+    max-width: 755px;
+    height: 100%;
+    background: rgba(102, 102, 102, .2);
+    border-radius: 0px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+  }
+
+  /* ---------- LEFT CARD ---------- */
+
+
+
+  .contact-left {
+    width: 100%;
+    height: 57%;
+    flex: none;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+  }
+
+  .contact-content {
+    width: 90%;
+    padding-top: 18px;
+  }
+
+  .contact-content h2 {
+    font-size: 22px;
+    line-height: 1.4;
+    margin-top: 7px;
+  }
+
+
+
+  .contact-content p {
+    font-size: 17px;
+    line-height: 1.7;
+    margin-top: 10px;
+  }
+
+  .contact-image {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+  }
+
+
+
+  /* .contact-image img {
+    width: 49%;
+    height: 123%;
+    object-fit: contain;
+  } */
+
+
+  .contact-image img {
+    width: 53%;
+    height: 126%;
+    object-fit: contain;
+    margin-bottom: 12px;
+  }
+
+
+  /* ---------- RIGHT CARD ---------- */
+
+
+
+  .contact-right {
+    width: 100%;
+    height: 71%;
+    flex: none;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+  }
+
+  .contact-right form {
+    height: 100%;
+    padding: 15px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 3px;
+  }
+
+  .field {
+    gap: 0px;
+  }
+
+  .field label {
+    font-size: 14px;
+  }
+
+  .field input {
+    height: 44px;
+    padding-left: 48px;
+    font-size: 16px;
+    border-radius: 6px;
+
+  }
+
+  .field-message textarea {
+    height: 80px;
+    padding-left: 48px;
+    font-size: 17px;
+    border-radius: 6px;
+    padding-top: 10px;
+  }
+
+  .input-wrapper::after {
+    left: 50px;
+    top: 8px;
+    bottom: 8px;
+  }
+
+  .field-message .input-wrapper::after {
+    top: 8px;
+    height: calc(100% - 16px);
+  }
+
+  .field-icon {
+    left: 12px;
+    width: 28px;
+    height: 26px;
+  }
+
+  .captcha {
+    margin-top: 2px;
+  }
+
+  .contact-form-btn {
+    height: 51px;
+    font-size: 18px;
+    border: 1px solid #2C2C2C;
+    background: linear-gradient(101.58deg, #636363 0.97%, #9B9B9B 20.97%, #B1B1B1 37.13%, #E1E1E1 50.61%, #B1B1B1 62.82%, #9B9B9B 76.44%, #636363 100.96%);
+    margin-top: 0;
+    width: 300px;
+  }
+}
+
+
+
+
+@media(max-width:991px) and (min-height:1000px) {
+
+  .contact-section {
+    height: 162vh;
+    overflow: hidden;
+    margin-top: -236px;
+    margin-bottom: -67px;
+  }
+
+  .contact-left,
+  .contact-right {
+    flex: 1;
+    max-width: 755px;
+    height: 100%;
+    background: rgba(102, 102, 102, .2);
+    border-radius: 0px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .contact-container {
+    width: 71%;
+    height: 89vh;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    gap: 0px;
   }
 
 
@@ -878,6 +1305,8 @@ button:hover {
     width: 100%;
     height: 56%;
     flex: none;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
   }
 
   .contact-content {
@@ -886,7 +1315,7 @@ button:hover {
   }
 
   .contact-content h2 {
-    font-size: 21px;
+    font-size: 22px;
     line-height: 1.4;
     margin-top: 7px;
   }
@@ -894,7 +1323,7 @@ button:hover {
 
 
   .contact-content p {
-    font-size: 18px;
+    font-size: 17px;
     line-height: 1.7;
     margin-top: 10px;
   }
@@ -908,7 +1337,7 @@ button:hover {
 
 
   .contact-image img {
-    width: 49%;
+    width: 67%;
     height: 123%;
     object-fit: contain;
   }
@@ -922,6 +1351,8 @@ button:hover {
     width: 100%;
     height: 71%;
     flex: none;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
   }
 
   .contact-right form {
@@ -930,7 +1361,7 @@ button:hover {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 8px;
+    gap: 2px;
   }
 
   .field {
@@ -943,14 +1374,14 @@ button:hover {
 
   .field input {
     height: 44px;
-    padding-left: 64px;
+    padding-left: 48px;
     font-size: 16px;
     border-radius: 6px;
   }
 
   .field-message textarea {
     height: 80px;
-    padding-left: 64px;
+    padding-left: 48px;
     font-size: 18px;
     border-radius: 6px;
   }
@@ -972,7 +1403,11 @@ button:hover {
     height: 26px;
   }
 
-  button {
+  .captcha {
+    margin-top: 2px;
+  }
+
+  .contact-form-btn {
     height: 51px;
     font-size: 18px;
     border: 1px solid #2C2C2C;
@@ -981,15 +1416,32 @@ button:hover {
     width: 300px;
   }
 
+
 }
 
-@media (max-width:768px) {
+@media (max-width:780px) {
 
-  .contact-section {
+  /* .contact-section {
     height: 113vh;
     overflow: hidden;
     margin-top: -70px;
     margin-bottom: 15px;
+  } */
+
+  .contact-section {
+    height: 1142px;
+    overflow: hidden;
+    margin-top: 0px;
+    margin-bottom: 15px;
+  }
+
+  .contact-container {
+    width: 74.5%;
+    height: 99vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0px;
   }
 
   .contact-left {
@@ -1009,21 +1461,44 @@ button:hover {
     font-size: 16px;
   }
 
-  .contact-image img {
+  /* .contact-image img {
     width: 36%;
     height: 100%;
     object-fit: contain;
+  } */
+
+
+  .contact-image img {
+    width: 60%;
+    height: 118%;
+    object-fit: contain;
+    margin-bottom: -13px;
+  }
+
+
+
+
+  /* Grid: fields full-width; captcha (col 1, fixed 300px) + button (col 2) share last row */
+  .contact-right form {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .contact-right form>.field {
+    grid-column: 1 / -1;
   }
 
   .field input {
     height: 44px;
-    padding-left: 66px;
+    padding-left: 46px;
     font-size: 17px;
   }
 
   .field-message textarea {
     height: 80px;
-    padding-left: 66px;
+    padding-left: 47px;
     font-size: 18px;
   }
 
@@ -1044,12 +1519,35 @@ button:hover {
     height: 26px;
   }
 
-  button {
-    height: 40px;
+  /* Captcha: column 1, fixed 300px × 78px as specified */
+  .captcha {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    width: 300px;
+    height: 78px;
+    margin-top: 0;
+  }
+
+  .captcha input {
+    width: 90%;
+    height: 100%;
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  /* Button: column 2, stretches to fill remaining space beside the captcha */
+  .contact-form-btn {
+    grid-column: 2;
+    height: 50px;
     font-size: 16px;
-    width: 250px;
+    width: 100%;
+    align-self: center;
+    margin-top: 0;
+    padding: 0 12px;
   }
 }
+
 
 
 @media (max-width:576px),
@@ -1069,7 +1567,7 @@ button:hover {
     position: relative;
     width: 93%;
     max-width: 410px;
-    height: 1272px;
+    height: 1142px;
     background: rgba(102, 102, 102, .2);
     border-radius: 12px;
     margin: 0 auto;
@@ -1077,7 +1575,7 @@ button:hover {
     overflow: hidden;
   }
 
-  .contact-left {
+  /* .contact-left {
     position: absolute;
     left: 0;
     top: 0;
@@ -1088,7 +1586,24 @@ button:hover {
     padding: 0 !important;
     margin: 0 !important;
     min-height: auto !important;
+  } */
+
+
+  .contact-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 556px;
+    background: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: auto !important;
   }
+
+
+
 
   .contact-content {
     position: absolute;
@@ -1104,7 +1619,7 @@ button:hover {
   .contact-content h2 {
     font-family: 'Gilda Display', serif;
     font-weight: 400;
-    font-size: 26px;
+    font-size: 18px;
     line-height: 1.4;
     margin-top: 15px;
   }
@@ -1118,12 +1633,12 @@ button:hover {
   }
 
   .contact-content p {
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.6;
     margin-top: 15px;
   }
 
-  .contact-image {
+  /* .contact-image {
     position: absolute;
     width: 85%;
     max-width: 367px;
@@ -1133,10 +1648,25 @@ button:hover {
     margin: 0 !important;
     padding: 0 !important;
     display: block !important;
+  } */
+
+
+  .contact-image {
+    position: absolute;
+    width: 85%;
+    max-width: 367px;
+    height: 459px;
+    left: 5%;
+    top: 115px;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
   }
 
+
+
   .contact-image img {
-    width: 139% !important;
+    width: 130% !important;
     height: 86% !important;
     object-fit: contain !important;
     object-position: left bottom !important;
@@ -1150,7 +1680,7 @@ button:hover {
     height: 629px;
     left: 50%;
     transform: translateX(-50%);
-    top: 643px;
+    top: 507px;
     background: none !important;
     border-radius: 0 !important;
     margin: 0 !important;
@@ -1158,23 +1688,56 @@ button:hover {
   }
 
   .contact-right form {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
     width: 100% !important;
     height: 100% !important;
     max-width: none !important;
     margin: 0 !important;
-    padding: 20px 10px !important;
-    gap: 23px !important;
+    padding: 20px 0px !important;
+    gap: 16px !important;
     justify-content: flex-start !important;
+    grid-template-columns: none !important;
+  }
+
+  .contact-right form>.field {
+    grid-column: unset !important;
+    width: 100% !important;
   }
 
   .field {
     gap: 1px !important;
   }
 
-  button {
-    height: 40px;
-    font-size: 15px;
-    width: 200px;
+  /* Captcha: 300px × 78px, centered on its own row */
+  .captcha {
+    grid-column: unset !important;
+    width: 300px !important;
+    height: 78px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .captcha input {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 8px 10px !important;
+    font-size: 14px !important;
+  }
+
+  /* Button: centered on its own row, below captcha */
+  .contact-form-btn {
+    grid-column: unset !important;
+    height: 56px !important;
+    font-size: 15px !important;
+    width: 165px !important;
+    margin: 0 auto !important;
+    align-self: center !important;
+    display: block !important;
+    padding: 8px !important;
   }
 
 }

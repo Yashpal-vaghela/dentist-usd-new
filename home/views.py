@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Contact, DentistReview
+from .models import Contact, DentistReview, gallery
 from .forms import ContactForm
 
 def homePage(request):
@@ -19,4 +19,5 @@ def homePage(request):
         form = ContactForm()
 
     reviews = DentistReview.objects.filter(is_active=True)
-    return render(request, 'index.html', {'reviews': reviews, 'form': form})
+    gallery_items = gallery.objects.all()
+    return render(request, 'index.html', {'reviews': reviews, 'form': form, 'gallery': gallery_items})

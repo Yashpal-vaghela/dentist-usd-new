@@ -1,5 +1,5 @@
 {% load static %}
-<link href="{% static 'css/contact_section.css' %}" rel="stylesheet" />
+<link href="{% static 'css/contact_section.css' %}?v=5" rel="stylesheet" />
 
 <section class="contact-section">
     <div class="contact-container">
@@ -37,8 +37,8 @@
         <!-- RIGHT CARD -->
         <div class="contact-right">
 
-            <form>
-                {% comment %} {% csrf_token %} {% endcomment %}
+            <form method="POST" action="{% url 'homePage' %}">
+                {% csrf_token %} 
 
                 <div class="field">
                     <label>Full Name</label>
@@ -90,8 +90,15 @@
                     </div>
                 </div>
 
-                <button>
-                    Contact Now
+                <div class="captcha">
+                    <input type="text">
+                    <span class="recaptcha-error"></span>
+                </div>
+
+                <button 
+                class="contact-form-btn"
+                type="submit">
+                    Contact Now 
                 </button>
 
             </form> 

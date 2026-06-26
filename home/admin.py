@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html, mark_safe
-from .models import Contact, DentistReview
+from .models import Contact, DentistReview, gallery
 
 
 @admin.register(Contact)
@@ -48,3 +48,8 @@ class DentistReviewAdmin(admin.ModelAdmin):
         return "—"
 
     image_preview_thumbnail.short_description = "Photo"
+
+@admin.register(gallery)
+class GalleryAdmin(admin.ModelAdmin):
+    list_display = ('title', 'image_preview')
+    readonly_fields = ('image_preview',)

@@ -24,8 +24,8 @@
 }
 
 .hand_image_mian img {
-  width: 115%;
-  height: 102%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   object-position: right top;
   margin-left: -126px;
@@ -144,6 +144,7 @@
   overflow-wrap: break-word;
 }
 
+
 @media screen and (max-width: 1600px) {
   .guide_section_main {
     min-height: 480px;
@@ -152,17 +153,26 @@
   .hand_image_mian {
     width: min(76vw, 1158px);
     height: min(64vw, 518px);
-    top: 43px;
+    top: 50px;
     right: -88px;
   }
 
   .hand_image_mian img {
-    width: 115%;
-    height: 119%;
+    width: 100%;
+    height: 66%;
     object-fit: contain;
     object-position: right top;
     margin-left: -126px;
   }
+
+  /* .hand_image_mian img {
+    width: 90%;
+    height: 75%;
+    object-fit: contain;
+    object-position: right top;
+    margin-left: 61px;
+    margin-top: -50px;
+  } */
 
   .guide_information_main {
     width: 560px;

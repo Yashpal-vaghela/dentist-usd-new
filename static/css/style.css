@@ -17,56 +17,46 @@
   --color-gold-glow: rgba(212, 175, 55, 0.4);
 
   /* Metallic Silver/Chrome Button Gradient */
-  --gradient-metallic: linear-gradient(
-    135deg,
-    #eceff1 0%,
-    #ffffff 35%,
-    #cfd8dc 65%,
-    #90a4ae 100%
-  );
-  --gradient-metallic-hover: linear-gradient(
-    135deg,
-    #ffffff 0%,
-    #eceff1 35%,
-    #90a4ae 65%,
-    #cfd8dc 100%
-  );
+  --gradient-metallic: linear-gradient(135deg,
+      #eceff1 0%,
+      #ffffff 35%,
+      #cfd8dc 65%,
+      #90a4ae 100%);
+  --gradient-metallic-hover: linear-gradient(135deg,
+      #ffffff 0%,
+      #eceff1 35%,
+      #90a4ae 65%,
+      #cfd8dc 100%);
 
   /* Animation Speeds */
   --transition-fast: 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
   --transition-normal: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   --transition-slow: 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
 
-  --text-gradient: linear-gradient(
-    130deg,
-    #be9644 0%,
-    #aa803c 15%,
-    #f3dc87 43%,
-    #fbefac 59%,
-    #f3dc87 73%,
-    #aa803c 93%,
-    #c49d47 100%
-  );
-  --button-gradient: linear-gradient(
-    130deg,
-    #636363 0%,
-    #9b9b9b 20%,
-    #b1b1b1 36%,
-    #e1e1e1 50%,
-    #b1b1b1 62%,
-    #9b9b9b 75%,
-    #636363 100%
-  );
-  --new-button-gradient: linear-gradient(
-    101.58deg,
-    #636363 0.97%,
-    #9b9b9b 20.97%,
-    #b1b1b1 37.13%,
-    #e1e1e1 50.61%,
-    #b1b1b1 62.82%,
-    #9b9b9b 76.44%,
-    #636363 100.96%
-  );
+  --text-gradient: linear-gradient(270deg,
+      #be9644 0%,
+      #aa803c 15%,
+      #f3dc87 43%,
+      #fbefac 59%,
+      #f3dc87 73%,
+      #aa803c 93%,
+      #c49d47 100%);
+  --button-gradient: linear-gradient(130deg,
+      #636363 0%,
+      #9b9b9b 20%,
+      #b1b1b1 36%,
+      #e1e1e1 50%,
+      #b1b1b1 62%,
+      #9b9b9b 75%,
+      #636363 100%);
+  --new-button-gradient: linear-gradient(101.58deg,
+      #636363 0.97%,
+      #9b9b9b 20.97%,
+      #b1b1b1 37.13%,
+      #e1e1e1 50.61%,
+      #b1b1b1 62.82%,
+      #9b9b9b 76.44%,
+      #636363 100.96%);
   --white: #fff;
   --black: #000;
   --bg-content-color: rgba(34, 34, 34, 0.6);
@@ -139,17 +129,16 @@ body.no-scroll {
   border-radius: 8px;
   border: none;
 }
+
 .bat:hover {
-  background: linear-gradient(
-    30deg,
-    #636363 0%,
-    #9b9b9b 20%,
-    #b1b1b1 36%,
-    #e1e1e1 50%,
-    #b1b1b1 62%,
-    #9b9b9b 75%,
-    #636363 100%
-  ) !important;
+  background: linear-gradient(30deg,
+      #636363 0%,
+      #9b9b9b 20%,
+      #b1b1b1 36%,
+      #e1e1e1 50%,
+      #b1b1b1 62%,
+      #9b9b9b 75%,
+      #636363 100%) !important;
 }
 
 .cool {
@@ -506,6 +495,7 @@ body.no-scroll {
     letter-spacing: 0.7px;
     padding: 10px 20px;
   }
+
   .new-footer-copyright {
     font-size: 14px;
   }

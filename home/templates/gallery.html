@@ -1,0 +1,202 @@
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+{% endblock css %}
+
+<div class="gallery-carousel-section">
+    <div class="corner corner-top-left"></div>
+    <div class="corner corner-top-right"></div>
+    <h2 id="curveText" class="slider-heading cool" data-aos="fade-down-left">
+        Real Cases: Clinical Work Gallery
+    </h2>
+    <div class="carousel" id="carousel">
+        {% for item in gallery%}
+            <div class="slide">
+                <img src="{{ item.image.url }}" alt="">
+            </div>
+        {% endfor %}
+    </div>
+    <!-- ✅ Button INSIDE same section -->
+    <div class="gallery-description">
+        Experience the Ultimate Smile Design difference through real clinical cases. Our gallery of images and videos showcases actual smile transformations from start to finish.
+    </div>
+    <div class="corner corner-bottom-left"></div>
+    <div class="corner corner-bottom-right"></div>
+</div>
+
+{% block javascript %}
+<script type="module">
+import { Snap } from 'https://esm.sh/vevet@5';
+
+const container = document.getElementById('carousel');
+
+const carousel = new Snap({
+    container,
+    direction: 'horizontal',
+    grabCursor: true,
+    centered: true,
+    loop: true,
+    gap: 10,
+    duration: 2000,
+    easing: 'ease-in-out',
+});
+
+let isVisible = false;
+let autoplayTimer;
+
+let isDragging = false;
+let stopTimeout;
+let lastPointerType = 'mouse';
+let lastUpdateTime = Date.now();
+
+function startAutoplay() {
+    stopAutoplay();
+
+    autoplayTimer = setInterval(() => {
+        if (!isDragging && isVisible) {
+            carousel.next();
+        }
+    }, 1500);
+}
+
+function stopAutoplay() {   
+    clearInterval(autoplayTimer);
+}
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            isVisible = true; 
+            startAutoplay();     
+        } else {
+            isVisible = false;  
+            stopAutoplay();
+        }
+    });
+}, {
+    threshold: 0.4
+});
+
+observer.observe(container);
+
+container.querySelectorAll('.slide').forEach(slide => {
+    slide.addEventListener('mouseenter', () => {
+        if (lastPointerType === 'mouse') stopAutoplay();
+    });
+    slide.addEventListener('mouseleave', () => {
+        if (isVisible && !isDragging) startAutoplay();
+    });
+});
+
+container.addEventListener('pointerdown', (e) => {
+    lastPointerType = e.pointerType || 'mouse';
+    isDragging = true;
+    stopAutoplay();
+});
+
+window.addEventListener('pointerup', (e) => {
+    if (isDragging) {
+        lastPointerType = e.pointerType || 'mouse';
+        isDragging = false;
+        waitForSnapToStop();
+    }
+});
+window.addEventListener('pointercancel', (e) => {
+    if (isDragging) {
+        lastPointerType = e.pointerType || 'mouse';
+        isDragging = false;
+        waitForSnapToStop();
+    }
+});
+
+function waitForSnapToStop() {
+    clearTimeout(stopTimeout);
+
+    stopTimeout = setTimeout(() => {
+        const timeSinceLastUpdate = Date.now() - lastUpdateTime;
+
+        if (timeSinceLastUpdate > 100) {
+            if (isVisible) {
+                if (lastPointerType === 'mouse' && container.querySelector('.slide:hover')) {
+                    return;
+                }
+                
+                setTimeout(() => {
+                    if (isVisible && !isDragging) {
+                        carousel.next();
+                        startAutoplay();
+                    }
+                }, 1000); 
+            }
+        } else {
+            waitForSnapToStop();
+        }
+    }, 100);
+}
+
+
+carousel.on('update', () => {
+    lastUpdateTime = Date.now();
+
+    const isMobile = window.innerWidth <= 600;
+    const depth = isMobile ? 100 : 200;
+    const rotation = isMobile ? 20 : 10;
+
+    const scale = 1 / (180 / rotation);
+    const halfAngle = (rotation * Math.PI) / 180 / 2;
+
+    carousel.slides.forEach(({ element, coord, progress, size }) => {
+        const factor = 1 - Math.cos(progress * scale * Math.PI);
+
+        const xOffset = progress * (size / 3) * factor;
+        const zOffset = ((size * 0.5) / Math.sin(halfAngle)) * factor - depth;
+        const rotateY = progress * rotation;
+
+        element.style.transform = `
+            translateX(${coord + xOffset}px)
+            translateZ(${zOffset}px)
+            rotateY(${rotateY}deg)
+        `;
+    });
+});
+
+window.addEventListener('resize', () => {
+    if (carousel && carousel.resize) carousel.resize();
+});
+
+container.classList.add('ready');
+
+// The gallery might change heights/layout after module load,
+// which breaks AOS animations in subsequent sections (e.g., dental_services.html).
+// Force AOS to refresh its layout calculations so it triggers correctly.
+setTimeout(() => {
+    if (typeof AOS !== 'undefined') {
+        AOS.refresh();
+    }
+}, 300);
+</script>
+<script>
+    function disableAOSForSection() {
+        if (window.innerWidth <= 576) {
+            // target section ke andar jitne bhi AOS elements hai
+            const elements = document.querySelectorAll('.Dental_services [data-aos]');
+
+            elements.forEach((el) => {
+                el.removeAttribute('data-aos');
+                el.removeAttribute('data-aos-delay');
+                el.removeAttribute('data-aos-duration');
+            });
+
+            if (typeof AOS !== 'undefined') {
+                AOS.refreshHard(); // update AOS
+            }
+        }
+    }
+
+    // page load pe run
+    disableAOSForSection();
+
+    // resize pe bhi check
+    window.addEventListener('resize', disableAOSForSection);
+</script>
+{% endblock javascript %}

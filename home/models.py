@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.html import mark_safe
 
 
 # Create your models here.
@@ -29,3 +30,16 @@ class DentistReview(models.Model):
 
     def __str__(self):
         return f"{self.doctor_name} - {self.rating}★"
+
+class gallery(models.Model):
+    title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='gallery_image/')
+
+    def image_preview(self):
+        if self.image:
+            return mark_safe(f'<img src="{self.image.url}" style="width:100px; height:auto;">')
+        return "No Image"
+    image_preview.short_description = "Image Preview"
+    
+    def __str__(self):
+        return self.title
