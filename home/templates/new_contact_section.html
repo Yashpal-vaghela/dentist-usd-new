@@ -1,0 +1,123 @@
+{% load static %}
+<link href="{% static 'css/new_contact_section.css' %}?v=1.0" rel="stylesheet" />
+
+<section class="contact-section">
+    <div class="contact-container">
+
+        <!-- LEFT CARD -->
+        <div class="contact-left">
+
+            <div class="contact-content">
+
+                <div class="contact-tag">
+                    <span class="dot"></span>
+                    Contact
+                </div>
+
+                <h2>
+                    Start Your Journey as <br class="mobile-br"> Ultimate
+                    <br class="desktop-br">
+                    Smile Designer
+                </h2>
+
+                <p>
+                    Hear from dentists who have integrated Ultimate Smile Design into
+                    their practice and experienced remarkable improvements.
+                </p>
+
+            </div>
+
+            <div class="contact-image">
+                <img src="{% static 'images/hand_magic.png' %}" alt="">
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT CARD -->
+        <div class="contact-right">
+
+            <form method="POST" action="{% url 'homePage' %}">
+                {% csrf_token %} 
+
+                <div class="field">
+                    <label>Full Name</label>
+                    <div class="input-wrapper">
+                        <span class="field-icon">
+                            <img src="{% static 'images/full.svg' %}" alt="name icon">
+                        </span>
+                        <input type="text">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Email</label>
+                    <div class="input-wrapper">
+                        <span class="field-icon">
+                            <img src="{% static 'images/emailnew.svg' %}" alt="email icon">
+                        </span>
+                        <input type="email">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Mobile Number</label>
+                    <div class="input-wrapper">
+                        <span class="field-icon">
+                            <img src="{% static 'images/mobileno.svg' %}" alt="phone icon">
+                        </span>
+                        <input type="text">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>City</label>
+                    <div class="input-wrapper">
+                        <span class="field-icon">
+                            <img src="{% static 'images/city.svg' %}" alt="city icon">
+                        </span>
+                        <input type="text">
+                    </div>
+                </div>
+
+                <div class="field field-message">
+                    <label>Message</label>
+                    <div class="input-wrapper">
+                        <span class="field-icon">
+                            <img src="{% static 'images/messagenew.svg' %}" alt="message icon">
+                        </span>
+                        <textarea></textarea>
+                    </div>
+                </div>
+
+                <div class="captcha">
+                    <input type="text">
+                    <span class="recaptcha-error"></span>
+                </div>
+
+                <button 
+                class="contact-form-btn"
+                type="submit">
+                    Contact Now 
+                </button>
+
+            </form> 
+
+        </div>
+
+    </div>
+</section>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% if messages %} {% for message in messages %}
+<script>
+  Swal.fire({
+    icon: "success",
+    title: "Thank You!",
+    text: "{{ message }}",
+    showConfirmButton: false,
+    timer: 2500,
+  });
+</script>
+{% endfor %} {% endif %}
