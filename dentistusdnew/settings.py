@@ -98,7 +98,9 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
-
+#Recaptcha Keys
+RECAPTCHA_SITE_KEY = "6LeNfq4rAAAAAMBnNy3uLYynCo2hDdx6vkuMfDl7"
+RECAPTCHA_SECRET_KEY = "6LeNfq4rAAAAAPM7U4LVTLif735LUSoLuYjEbBo_"
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/

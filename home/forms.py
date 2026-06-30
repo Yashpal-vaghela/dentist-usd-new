@@ -1,10 +1,7 @@
 from django import forms
-from .models import *
+from .models import Contact
 
 class ContactForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=100)
-    last_name = forms.CharField(max_length=100)
-
     class Meta:
         model = Contact
-        fields = ['first_name','last_name', 'email', 'phone', 'city', 'message']
+        fields = ['full_name', 'email', 'phone', 'city', 'message']
