@@ -26,7 +26,7 @@
 
 {% block javascript %}
 <script type="module">
-import { Snap } from 'https://esm.sh/vevet@5';
+ import { Snap } from "{% static 'js/vevet.bundle.js' %}";
 
 const container = document.getElementById('carousel');
 
