@@ -50,11 +50,44 @@
                 <img src="{% static 'Course_image_video/Course_1.webp' %}" alt="Course_14.webp" />
             </div>
         </div>
-
-        <!-- Gold Gradient END SVG -->
-        <div class="gallery-svg-container">
-           
+        <!-- Video Archive Section -->
+        <div class="video-archive-section">
+            <div class="video-archive-left">
+                <div class="video-archive-title-container">
+                    <h3 class="video-archive-title cool">Ultimate Smile Design Course</h3>
+                    <!-- <h3 class="video-archive-title-sub">Course</h3> -->
+                </div>
+                <div class="video-thumbnails">
+                    <div class="video-thumb" style="opacity: 1; border-color: #c49d47;" data-index="0"><img src="{% static 'Course_image_video/video_thumb_1.svg' %}" alt="thumb"></div>
+                    <div class="video-thumb" data-index="1"><img src="{% static 'Course_image_video/video_thumb_2.svg' %}" alt="thumb"></div>
+                    <div class="video-thumb" data-index="2"><img src="{% static 'Course_image_video/video_thumb_3.svg' %}" alt="thumb"></div>
+                    <div class="video-thumb" data-index="3"><img src="{% static 'Course_image_video/video_thumb_4.svg' %}" alt="thumb"></div>
+                    <div class="video-thumb" data-index="4"><img src="{% static 'Course_image_video/video_thumb_5.svg' %}" alt="thumb"></div>
+                </div>
+            </div>
+            
+            <div class="video-archive-center">
+                <div class="video-container-main">
+                    <!-- Placeholder videos, replace src with actual video files -->
+                    <video class="archive-video archive-vid-0" src="{% static 'Course_image_video/Course_video_1.mp4' %}" autoplay loop muted playsinline></video>
+                    <video class="archive-video archive-vid-1" src="{% static 'Course_image_video/Course_video_2.mp4' %}" autoplay loop muted playsinline></video>
+                    <video class="archive-video archive-vid-2" src="{% static 'Course_image_video/Course_video_3.mp4' %}" autoplay loop muted playsinline></video>
+                    <video class="archive-video archive-vid-3" src="{% static 'Course_image_video/Course_video_4.mp4' %}" autoplay loop muted playsinline></video>
+                    <video class="archive-video archive-vid-4" src="{% static 'Course_image_video/Course_video_5.mp4' %}" autoplay loop muted playsinline></video>
+                </div>
+            </div>
+            
+            <div class="video-archive-right">
+                <div class="video-archive-desc-container">
+                    <p class="archive-desc archive-desc-0">Take your smile design cases to the next level with a proven system.Take your smile design cases to the next level with a proven system.</p>
+                    <p class="archive-desc archive-desc-1">Learn a systematic approach to designing natural, balanced smiles.Learn a systematic approach to designing natural, balanced smiles.</p>
+                    <p class="archive-desc archive-desc-2">Gain hands-on experience with the digital smile design workflows.Gain hands-on experience with the digital smile design workflows.</p>
+                    <p class="archive-desc archive-desc-3">Strengthen your position as a trusted Ultimate Smile Design expert. Strengthen your position as a trusted Ultimate Smile Design expert.</p>
+                    <p class="archive-desc archive-desc-4">Get a USD certification and stand out as a dedicated professional. Get a USD certification and stand out as a dedicated professional.</p>
+                </div>
+            </div>
         </div>
+
     </div>
     <div class="course_heading_main_title">
         <h2 class="course_heading_main_title_text">Ultimate Smile Design Course</h2>
@@ -124,8 +157,8 @@
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: ".gallery-perspective",
-                start: "top top",
-                end: "+=4000",
+                start: "top +70px",
+                end: "+=10000",
                 scrub: 1.5,
                 pin: true,
                 anticipatePin: 1,
@@ -161,39 +194,39 @@
             );
         });
 
-        // ── Gold 'END' SVG scroll animation ────────────────────────────────
-        const svgContainer = document.querySelector(".gallery-svg-container");
-        const svgPaths = document.querySelectorAll("#headlines path");
-        svgPaths.forEach(path => {
-            const length = path.getTotalLength();
-            path.style.strokeDasharray = length;
-            path.style.strokeDashoffset = length;
-        });
-
         const lastItemIndex = items.length - 1;
-        const svgStartTime = lastItemIndex * 0.12 + 0.3;
+        
+        // Transition to Video Archive Section right after images finish
+        const transitionStartTime = lastItemIndex * 0.12 + 0.8;
 
-        tl.to(svgContainer, {
+        // Fade out initial text
+        tl.to('.course_heading_main_title, .course_heading_main_sub_title', {
+            opacity: 0,
+            duration: 0.5
+        }, transitionStartTime);
+
+        // Fade in Video Archive Section
+        tl.to('.video-archive-section', {
             opacity: 1,
-            duration: 0.6,
-            ease: "power2.out"
-        }, svgStartTime);
+            pointerEvents: 'auto',
+            duration: 0.5
+        }, transitionStartTime + 0.3);
 
-        svgPaths.forEach((path, pathIndex) => {
-            tl.to(path, {
-                strokeDashoffset: 0,
-                duration: 0.8,
-                ease: "power1.inOut"
-            }, svgStartTime + 0.1 + pathIndex * 0.15);
-        });
+        const videoDuration = 1.5; // duration for each screen
 
-        tl.fromTo(svgContainer, {
-            scale: 0.8,
-        }, {
-            scale: 1.1,
-            duration: 1.5,
-            ease: "power2.out"
-        }, svgStartTime);
+        for(let i=0; i<4; i++) { // 4 transitions between 5 videos
+            let stepStart = transitionStartTime + 1.0 + (i * videoDuration);
+            
+            // Fade out current
+            tl.to(`.archive-vid-${i}`, { opacity: 0, duration: 0.5 }, stepStart);
+            tl.to(`.archive-desc-${i}`, { opacity: 0, y: -20, duration: 0.5 }, stepStart);
+            tl.to(`.video-thumb[data-index="${i}"]`, { opacity: 0.4, borderColor: 'transparent', duration: 0.5 }, stepStart);
+            
+            // Fade in next
+            tl.fromTo(`.archive-vid-${i+1}`, { opacity: 0 }, { opacity: 1, duration: 0.5 }, stepStart + 0.3);
+            tl.fromTo(`.archive-desc-${i+1}`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, stepStart + 0.3);
+            tl.to(`.video-thumb[data-index="${i+1}"]`, { opacity: 1, borderColor: '#c49d47', duration: 0.5 }, stepStart + 0.3);
+        }
 
         // items.forEach((item) => {
         //   gsap.to(item, {
