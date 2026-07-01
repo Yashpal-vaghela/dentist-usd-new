@@ -1,0 +1,291 @@
+{% load static %}
+{% block css%}
+<link href="{% static 'css/course_section.css' %}" rel="stylesheet" />
+{% endblock %}
+{% block content %}
+<section class="gallery-perspective">
+    <div class="gallery-sticky-wrapper">
+        <div class="gallery-overlay"></div>
+        <div class="gallery-container" id="galleryContainer">
+            <div class="gallery-item item-1">
+                <img src="{% static 'Course_image_video/Course_8.webp' %}" alt="Course_1.webp" />
+            </div>
+            <div class="gallery-item item-2">
+                <img src="{% static 'Course_image_video/Course_11.webp' %}" alt="Course_2.webp" />
+            </div>
+            <div class="gallery-item item-3">
+                <img src="{% static 'Course_image_video/Course_13.webp' %}" alt="Course_3.webp" />
+            </div>
+            <div class="gallery-item item-4">
+                <img src="{% static 'Course_image_video/Course_4.webp' %}" alt="Course_4.webp" />
+            </div>
+            <div class="gallery-item item-5">
+                <img src="{% static 'Course_image_video/Course_5.webp' %}" alt="Course_5.webp" />
+            </div>
+            <div class="gallery-item item-6">
+                <img src="{% static 'Course_image_video/Course_12.webp' %}" alt="Course_6.webp" />
+            </div>
+            <div class="gallery-item item-7">
+                <img src="{% static 'Course_image_video/Course_10.webp' %}" alt="Course_7.webp" />
+            </div>
+            <div class="gallery-item item-8">
+                <img src="{% static 'Course_image_video/Course_14.webp' %}" alt="Course_8.webp" />
+            </div>
+            <div class="gallery-item item-9">
+                <img src="{% static 'Course_image_video/Course_9.webp' %}" alt="Course_9.webp" />
+            </div>
+            <div class="gallery-item item-10">
+                <img src="{% static 'Course_image_video/Course_3.webp' %}" alt="Course_10.webp" />
+            </div>
+            <div class="gallery-item item-11">
+                <img src="{% static 'Course_image_video/Course_7.webp' %}" alt="Course_11.webp" />
+            </div>
+            <div class="gallery-item item-12">
+                <img src="{% static 'Course_image_video/Course_6.webp' %}" alt="Course_12.webp" />
+            </div>
+            <div class="gallery-item item-13">
+                <img src="{% static 'Course_image_video/Course_2.webp' %}" alt="Course_13.webp" />
+            </div>
+            <div class="gallery-item item-14">
+                <img src="{% static 'Course_image_video/Course_1.webp' %}" alt="Course_14.webp" />
+            </div>
+        </div>
+
+        <!-- Gold Gradient END SVG -->
+        <div class="gallery-svg-container">
+           
+        </div>
+    </div>
+    <div class="course_heading_main_title">
+        <h2 class="course_heading_main_title_text">Ultimate Smile Design Course</h2>
+    </div>
+    <div class="course_heading_main_sub_title">
+        <p class="course_heading_main_sub_title_text">Empowering you to elevate your clinical outcomes while building
+            a distinguished reputation in smile design and becoming a
+            master of Ultimate Smile Design.</p>
+    </div>
+
+</section>
+
+<!-- Lightbox HTML -->
+<div id="imgLightbox" class="img-lightbox-overlay" tabindex="-1">
+    <button id="imgLightboxClose" class="img-lightbox-close" aria-label="Close lightbox">&times;</button>
+    <div class="img-lightbox-inner">
+        <img id="imgLightboxImg" src="" alt="">
+    </div>
+</div>
+
+<!-- All java script here -->
+<script>
+    var _lightboxScrollY = 0;
+
+    function openLightbox(src, alt) {
+        var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+        document.body.style.paddingRight = scrollbarWidth + 'px';
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+        document.getElementById('imgLightboxImg').src = src;
+        document.getElementById('imgLightboxImg').alt = alt || '';
+        document.getElementById('imgLightbox').classList.add('active');
+        document.getElementById('imgLightboxClose').focus();
+    }
+
+    function closeLightbox() {
+        document.getElementById('imgLightbox').classList.remove('active');
+        document.getElementById('imgLightboxImg').src = '';
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+    }
+
+    document.addEventListener('click', function (e) {
+        if (e.target.closest('#imgLightboxClose')) { closeLightbox(); return; }
+        if (e.target.id === 'imgLightbox') { closeLightbox(); }
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && document.getElementById('imgLightbox').classList.contains('active'))
+            closeLightbox();
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        gsap.registerPlugin(ScrollTrigger);
+        ScrollTrigger.config({
+            ignoreMobileResize: true
+        });
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        if (isTouchDevice) {
+            ScrollTrigger.normalizeScroll({
+                allowNestedScroll: true
+            });
+        }
+
+        const items = document.querySelectorAll(".gallery-item");
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".gallery-perspective",
+                start: "top top",
+                end: "+=4000",
+                scrub: 1.5,
+                pin: true,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+            },
+        });
+
+        items.forEach((item, index) => {
+            const zInitial = -2000 - index * 500;
+            const zFinal = 2000;
+            gsap.set(item, {
+                z: zInitial,
+                opacity: 1,
+                scale: 2,
+            });
+
+            tl.to(
+                item,
+                {
+                    z: zFinal,
+                    opacity: 1,
+                    ease: "power1.inOut",
+                },
+                index * 0.12,
+            ).to(
+                item,
+                {
+                    opacity: 0,
+                    duration: 0.3,
+                    ease: "power2.in",
+                },
+                index * 0.12 + 0.6,
+            );
+        });
+
+        // ── Gold 'END' SVG scroll animation ────────────────────────────────
+        const svgContainer = document.querySelector(".gallery-svg-container");
+        const svgPaths = document.querySelectorAll("#headlines path");
+        svgPaths.forEach(path => {
+            const length = path.getTotalLength();
+            path.style.strokeDasharray = length;
+            path.style.strokeDashoffset = length;
+        });
+
+        const lastItemIndex = items.length - 1;
+        const svgStartTime = lastItemIndex * 0.12 + 0.3;
+
+        tl.to(svgContainer, {
+            opacity: 1,
+            duration: 0.6,
+            ease: "power2.out"
+        }, svgStartTime);
+
+        svgPaths.forEach((path, pathIndex) => {
+            tl.to(path, {
+                strokeDashoffset: 0,
+                duration: 0.8,
+                ease: "power1.inOut"
+            }, svgStartTime + 0.1 + pathIndex * 0.15);
+        });
+
+        tl.fromTo(svgContainer, {
+            scale: 0.8,
+        }, {
+            scale: 1.1,
+            duration: 1.5,
+            ease: "power2.out"
+        }, svgStartTime);
+
+        // items.forEach((item) => {
+        //   gsap.to(item, {
+        //     y: "random(-30, 30)",
+        //     x: "random(-30, 30)",
+        //     rotation: "random(-4, 4)",
+        //     duration: "random(3, 5)",
+        //     repeat: -1,
+        //     yoyo: true,
+        //     ease: "sine.inOut",
+        //   });
+        // });
+
+        // if (window.innerWidth > 1024) {
+        //   window.addEventListener("mousemove", (e) => {
+        //     const x = (e.clientX / window.innerWidth - 0.5) * 10;
+        //     const y = (e.clientY / window.innerHeight - 0.5) * 10;
+
+        //     gsap.to(".gallery-container", {
+        //       rotationY: x,
+        //       rotationX: -y,
+        //       duration: 0.8,
+        //       ease: "power2.out",
+        //     });
+        //   });
+        // }
+
+        document.getElementById('galleryContainer').addEventListener('click', function (e) {
+            var clientX = e.clientX;
+            var clientY = e.clientY;
+            var matchedItems = [];
+
+            items.forEach(function (item) {
+                var opacity = parseFloat(window.getComputedStyle(item).opacity) || 0;
+                var zVal = parseFloat(gsap.getProperty(item, "z")) || 0;
+                if (opacity > 0.1 && zVal < 1100) {
+                    var rect = item.getBoundingClientRect();
+                    if (clientX >= rect.left && clientX <= rect.right &&
+                        clientY >= rect.top && clientY <= rect.bottom) {
+                        matchedItems.push(item);
+                    }
+                }
+            });
+
+            if (matchedItems.length > 0) {
+                matchedItems.sort(function (a, b) {
+                    var zA = parseFloat(gsap.getProperty(a, "z")) || 0;
+                    var zB = parseFloat(gsap.getProperty(b, "z")) || 0;
+                    return zB - zA;
+                });
+                var frontItem = matchedItems[0];
+                var img = frontItem.querySelector('img');
+                if (img) openLightbox(img.src, img.alt);
+            }
+        });
+
+        window.addEventListener("orientationchange", () => {
+            setTimeout(() => {
+                ScrollTrigger.refresh(true);
+            }, 250);
+        });
+
+    });
+</script>
+
+<!-- <script>
+    document.addEventListener("contextmenu", e => e.preventDefault());
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "F12") {
+            e.preventDefault();
+        }
+        if (e.ctrlKey && e.shiftKey && e.key === "I") {
+            e.preventDefault();
+        }
+        if (e.ctrlKey && e.shiftKey && e.key === "J") {
+            e.preventDefault();
+        }
+        if (e.ctrlKey && e.shiftKey && e.key === "C") {
+            e.preventDefault();
+        }
+        if (e.ctrlKey && e.key === "u") {
+            e.preventDefault();
+        }
+    });
+
+    setInterval(() => {
+        const threshold = 160;
+        if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+            document.body.innerHTML = "";
+        }
+    }, 1000);
+</script> -->
+
+
+{% endblock %}
