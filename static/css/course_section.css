@@ -6,7 +6,7 @@
 
 .gallery-sticky-wrapper {
   width: 100%;
-  height: calc(100dvh - 70px);
+  height: calc(100svh - 70px);
   position: relative;
   display: flex;
   align-items: center;
@@ -22,7 +22,7 @@
   width: 100%;
   height: auto;
   /* background-color: #fff; */
-  z-index: 9;
+  z-index: 1;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -53,7 +53,7 @@
   width: 660px;
   height: auto;
   /* border: 1px solid red; */
-  z-index: 9;
+  z-index: 1;
   position: absolute;
   bottom: 20px;
   left: 10%;
@@ -248,10 +248,6 @@
 .img-lightbox-close:hover {
   background: rgba(212, 175, 55, 0.25);
   transform: scale(1.12) rotate(90deg);
-}
-
-::-webkit-scrollbar {
-  display: none;
 }
 
 /* Video Archive Section Styles */

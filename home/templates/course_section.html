@@ -2,6 +2,19 @@
 {% block css%}
 <link href="{% static 'css/course_section.css' %}" rel="stylesheet" />
 {% endblock %}
+<style>
+  .gallery-perspective {
+    height: calc(100svh + 5000px) !important;
+    overflow: visible !important;
+  }
+  .gallery-sticky-wrapper {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 70px !important;
+    height: calc(100svh - 70px) !important;
+    overflow: hidden !important;
+  }
+</style>
 {% block content %}
 <section class="gallery-perspective">
     <div class="gallery-sticky-wrapper">
@@ -104,15 +117,17 @@
             </div>
         </div>
 
+        <!-- Moved titles inside sticky wrapper -->
+        <div class="course_heading_main_title">
+            <h2 class="course_heading_main_title_text">Ultimate Smile Design Course</h2>
+        </div>
+        <div class="course_heading_main_sub_title">
+            <p class="course_heading_main_sub_title_text">Empowering you to elevate your clinical outcomes while building
+                a distinguished reputation in smile design and becoming a
+                master of Ultimate Smile Design.</p>
+        </div>
     </div>
-    <div class="course_heading_main_title">
-        <h2 class="course_heading_main_title_text">Ultimate Smile Design Course</h2>
-    </div>
-    <div class="course_heading_main_sub_title">
-        <p class="course_heading_main_sub_title_text">Empowering you to elevate your clinical outcomes while building
-            a distinguished reputation in smile design and becoming a
-            master of Ultimate Smile Design.</p>
-    </div>
+
 
 </section>
 
@@ -124,8 +139,6 @@
     </div>
 </div>
 
-<!-- Lenis Smooth Scroll -->
-<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 
 <!-- All java script here -->
 <script>
@@ -161,41 +174,18 @@
     });
 
     document.addEventListener("DOMContentLoaded", function () {
-        // Initialize Lenis for smooth scrolling
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
-        });
 
-        lenis.on('scroll', ScrollTrigger.update);
-
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
-        });
-
-        gsap.ticker.lagSmoothing(0);
 
         gsap.registerPlugin(ScrollTrigger);
-        ScrollTrigger.config({
-            ignoreMobileResize: true
-        });
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        if (isTouchDevice) {
-            ScrollTrigger.normalizeScroll({
-                allowNestedScroll: true
-            });
-        }
+
 
         const items = document.querySelectorAll(".gallery-item");
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: ".gallery-perspective",
-                start: "top +70px",
-                end: "+=5000",
+                start: "top 70px",
+                end: "bottom bottom",
                 scrub: 1,
-                pin: true,
-                anticipatePin: 1,
-                invalidateOnRefresh: true,
             },
         });
 
