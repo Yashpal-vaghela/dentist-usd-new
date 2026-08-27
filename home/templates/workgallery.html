@@ -259,17 +259,20 @@
 
     initAutoplay();
 
-    // Re-measure and restart when viewport is resized (handles height changes that
-    // affect image size via clamp/min-width — e.g. going from 919px to 551px height).
+    // Re-measure and restart only when viewport width is resized
+    let lastTrackWidth = window.innerWidth;
     let resizeTimer;
     window.addEventListener('resize', function () {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(function () {
-        if (autoplayTween) autoplayTween.kill();
-        recalculate();
-        renderDepth();
-        initAutoplay();
-      }, 250);
-    });
+      if (window.innerWidth !== lastTrackWidth) {
+        lastTrackWidth = window.innerWidth;
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          if (autoplayTween) autoplayTween.kill();
+          recalculate();
+          renderDepth();
+          initAutoplay();
+        }, 250);
+      }
+    }, { passive: true });
   });
 </script>

@@ -1,17 +1,17 @@
-{% load static %} {% block css%}
+{% load static %} 
+{% block css%}
 <link href="{% static 'css/hero_section.css' %}" rel="stylesheet" />
 <link rel="preload" href="{% static 'video/hero_section_video.mp4' %}" as="video" type="video/mp4">
-{% endblock %} {% block content %}
+{% endblock %} 
+{% block content %}
 
 <section class="hero-section-premium" id="home">
   <div class="video-background-container">
     <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata" poster="{% static 'images/video_poster_image.webp' %}">
-      {% comment %} <source src="{% static 'video/hero_section_video_mobile_screen.mp4' %}" type="video/mp4"/> {% endcomment %}
-      {% comment %} <source src="{% static 'video/hero_section_video.mp4' %}" type="video/mp4"/> {% endcomment %}
       <!-- Mobile Video -->
-      <source media="(max-width: 992px)" src="https://daedzhbgqwmn0.cloudfront.net/hero_section_video_mobile_screen.mp4" type="video/mp4"/>
+      <source media="(max-width: 992px)" src="https://daedzhbgqwmn0.cloudfront.net/hero_section_video_mobile_screen_new.mp4" type="video/mp4"/>
       <!-- Desktop Video -->
-      <source src="https://daedzhbgqwmn0.cloudfront.net/hero_section_video.mp4" type="video/mp4"/>
+      <source src="https://daedzhbgqwmn0.cloudfront.net/hero_section_video_new.mp4" type="video/mp4"/>
     </video>
   </div>
   <div class="hero-content-wrapper">

@@ -1,6 +1,5 @@
 {% load static %}
 <link href="{% static 'css/new_review_section.css' %}" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 <div class="review_section_main" id="testimonial">
   <div class="container overflow-hidden">
@@ -17,12 +16,11 @@
     <div class="review_swiper_wrapper">
       <div class="swiper reviewSwiper">
         <div class="swiper-wrapper">
-
           {% for review in reviews %}
           <div class="swiper-slide">
             <div class="review_card_1_main">
               <div class="doctor_image_container">
-                <img src="{{ review.image.url }}" alt="{{ review.doctor_name }}" class="img-fluid">
+                <img src="{{ review.image.url }}" alt="{{ review.doctor_name }}">
               </div>
               <div class="review_discription_and_rating_main">
                 <h3 class="doctor_name">{{ review.doctor_name }}</h3>
@@ -71,9 +69,11 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-  const reviewSwiper = new Swiper(".reviewSwiper", {
+  let reviewSwiper;
+  function initReviewSwiper() {
+    if (typeof Swiper === "undefined") return;
+    reviewSwiper = new Swiper(".reviewSwiper", {
     slidesPerView: "auto",
     centeredSlides: true,
     loop: true,
@@ -107,7 +107,14 @@
       clickable: true,
     },
 
-  });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReviewSwiper);
+  } else {
+    initReviewSwiper();
+  }
 
   const popupOverlay = document.getElementById('reviewPopupOverlay');
   const popupCloseBtn = document.getElementById('reviewPopupCloseBtn');
@@ -123,20 +130,22 @@
       popupText.textContent = btn.getAttribute('data-review');
       popupOverlay.classList.add('active');
       document.body.style.overflow = 'hidden';
-      reviewSwiper.autoplay.stop();
+      if (reviewSwiper && reviewSwiper.autoplay) reviewSwiper.autoplay.stop();
     });
   });
 
   function closeReviewPopup() {
     popupOverlay.classList.remove('active');
     document.body.style.overflow = '';
-    reviewSwiper.autoplay.start();
+    if (reviewSwiper && reviewSwiper.autoplay) reviewSwiper.autoplay.start();
   }
 
-  popupCloseBtn.addEventListener('click', closeReviewPopup);
-  popupOverlay.addEventListener('click', function (e) {
-    if (e.target === popupOverlay) closeReviewPopup();
-  });
+  if (popupCloseBtn) popupCloseBtn.addEventListener('click', closeReviewPopup);
+  if (popupOverlay) {
+    popupOverlay.addEventListener('click', function (e) {
+      if (e.target === popupOverlay) closeReviewPopup();
+    });
+  }
 
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeReviewPopup();

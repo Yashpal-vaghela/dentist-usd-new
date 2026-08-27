@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
 {% endblock css %}
 
-<div class="gallery-carousel-section">
+<div class="gallery-carousel-section" id="gallery">
     <div class="corner corner-top-left"></div>
     <div class="corner corner-top-right"></div>
     <h2 id="curveText" class="slider-heading cool" data-aos="fade-down-left">
@@ -36,108 +36,58 @@ const carousel = new Snap({
     grabCursor: true,
     centered: true,
     loop: true,
-    gap: 10,
-    duration: 2000,
-    easing: 'ease-in-out',
+    gap: 15,
+    duration: 600,
+    freemode: true,
 });
 
-let isVisible = false;
-let autoplayTimer;
+let isVisible = true;
+let isInteracting = false;
+const speed = 1.0;
 
-let isDragging = false;
-let stopTimeout;
-let lastPointerType = 'mouse';
-let lastUpdateTime = Date.now();
-
-function startAutoplay() {
-    stopAutoplay();
-
-    autoplayTimer = setInterval(() => {
-        if (!isDragging && isVisible) {
-            carousel.next();
-        }
-    }, 1500);
+function animate() {
+    if (isVisible && !isInteracting) {
+        carousel.iterateTarget(speed);
+    }
+    requestAnimationFrame(animate);
 }
 
-function stopAutoplay() {   
-    clearInterval(autoplayTimer);
-}
+requestAnimationFrame(animate);
 
+// Intersection Observer: pause when section is out of screen
+const section = document.querySelector('.gallery-carousel-section') || container;
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            isVisible = true; 
-            startAutoplay();     
-        } else {
-            isVisible = false;  
-            stopAutoplay();
-        }
+        isVisible = entry.isIntersecting;
     });
 }, {
-    threshold: 0.4
+    threshold: 0.05
 });
 
-observer.observe(container);
+observer.observe(section);
 
-container.querySelectorAll('.slide').forEach(slide => {
-    slide.addEventListener('mouseenter', () => {
-        if (lastPointerType === 'mouse') stopAutoplay();
-    });
-    slide.addEventListener('mouseleave', () => {
-        if (isVisible && !isDragging) startAutoplay();
-    });
+// Pause on drag / hover interaction
+container.addEventListener('mouseenter', () => {
+    isInteracting = true;
 });
 
-container.addEventListener('pointerdown', (e) => {
-    lastPointerType = e.pointerType || 'mouse';
-    isDragging = true;
-    stopAutoplay();
+container.addEventListener('mouseleave', () => {
+    isInteracting = false;
 });
 
-window.addEventListener('pointerup', (e) => {
-    if (isDragging) {
-        lastPointerType = e.pointerType || 'mouse';
-        isDragging = false;
-        waitForSnapToStop();
-    }
-});
-window.addEventListener('pointercancel', (e) => {
-    if (isDragging) {
-        lastPointerType = e.pointerType || 'mouse';
-        isDragging = false;
-        waitForSnapToStop();
-    }
+container.addEventListener('pointerdown', () => {
+    isInteracting = true;
 });
 
-function waitForSnapToStop() {
-    clearTimeout(stopTimeout);
+window.addEventListener('pointerup', () => {
+    isInteracting = false;
+});
 
-    stopTimeout = setTimeout(() => {
-        const timeSinceLastUpdate = Date.now() - lastUpdateTime;
-
-        if (timeSinceLastUpdate > 100) {
-            if (isVisible) {
-                if (lastPointerType === 'mouse' && container.querySelector('.slide:hover')) {
-                    return;
-                }
-                
-                setTimeout(() => {
-                    if (isVisible && !isDragging) {
-                        carousel.next();
-                        startAutoplay();
-                    }
-                }, 1000); 
-            }
-        } else {
-            waitForSnapToStop();
-        }
-    }, 100);
-}
-
+window.addEventListener('pointercancel', () => {
+    isInteracting = false;
+});
 
 carousel.on('update', () => {
-    lastUpdateTime = Date.now();
-
     const isMobile = window.innerWidth <= 600;
     const depth = isMobile ? 100 : 200;
     const rotation = isMobile ? 20 : 10;
@@ -160,43 +110,14 @@ carousel.on('update', () => {
     });
 });
 
+let lastGalleryWidth = window.innerWidth;
 window.addEventListener('resize', () => {
-    if (carousel && carousel.resize) carousel.resize();
-});
+    if (window.innerWidth !== lastGalleryWidth) {
+        lastGalleryWidth = window.innerWidth;
+        if (carousel && carousel.resize) carousel.resize();
+    }
+}, { passive: true });
 
 container.classList.add('ready');
-
-// The gallery might change heights/layout after module load,
-// which breaks AOS animations in subsequent sections (e.g., dental_services.html).
-// Force AOS to refresh its layout calculations so it triggers correctly.
-setTimeout(() => {
-    if (typeof AOS !== 'undefined') {
-        AOS.refresh();
-    }
-}, 300);
-</script>
-<script>
-    function disableAOSForSection() {
-        if (window.innerWidth <= 576) {
-            // target section ke andar jitne bhi AOS elements hai
-            const elements = document.querySelectorAll('.Dental_services [data-aos]');
-
-            elements.forEach((el) => {
-                el.removeAttribute('data-aos');
-                el.removeAttribute('data-aos-delay');
-                el.removeAttribute('data-aos-duration');
-            });
-
-            if (typeof AOS !== 'undefined') {
-                AOS.refreshHard(); // update AOS
-            }
-        }
-    }
-
-    // page load pe run
-    disableAOSForSection();
-
-    // resize pe bhi check
-    window.addEventListener('resize', disableAOSForSection);
 </script>
 {% endblock javascript %}

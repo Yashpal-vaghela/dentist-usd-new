@@ -1,6 +1,7 @@
-* {
-  margin: 0;
-  padding: 0;
+.contact-section,
+.contact-section *,
+.contact-section *::before,
+.contact-section *::after {
   box-sizing: border-box;
 }
 

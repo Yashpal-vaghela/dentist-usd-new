@@ -88,15 +88,15 @@
                     <div class="video-scroll-track">
                         <!-- Placeholder videos, replace src with actual video files -->
                         <video class="archive-video archive-vid-0"
-                            src="{% static 'Course_image_video/Course_video_1.mp4' %}" loop muted playsinline></video>
+                            src="https://daedzhbgqwmn0.cloudfront.net/Course_video_1.mp4" loop muted playsinline></video>
                         <video class="archive-video archive-vid-1"
-                            src="{% static 'Course_image_video/Course_video_2_old.mp4' %}" loop muted autoplay playsinline></video>
+                            src="https://daedzhbgqwmn0.cloudfront.net/Course_video_2.mp4" loop muted autoplay playsinline></video>
                         <video class="archive-video archive-vid-2"
-                            src="{% static 'Course_image_video/Course_video_2.mp4' %}" loop muted autoplay playsinline></video>
+                            src="https://daedzhbgqwmn0.cloudfront.net/Course_video_3.mp4" loop muted autoplay playsinline></video>
                         <video class="archive-video archive-vid-3"
-                            src="{% static 'Course_image_video/Course_video_4.mp4' %}" loop muted autoplay playsinline></video>
+                            src="https://daedzhbgqwmn0.cloudfront.net/Course_video_4.mp4" loop muted autoplay playsinline></video>
                         <video class="archive-video archive-vid-4"
-                            src="{% static 'Course_image_video/Course_video_5.mp4' %}" loop muted autoplay playsinline></video>
+                            src="https://daedzhbgqwmn0.cloudfront.net/Course_video_5.mp4" loop muted autoplay playsinline></video>
                     </div>
                 </div>
             </div>
@@ -327,23 +327,6 @@
             stepTimes.push(stepStart + 0.8);
         }
 
-        // for (let i = 0; i < 4; i++) { // 4 transitions between 5 videos
-        //     let stepStart = transitionStartTime + 1.2 + (i * videoDuration);
-
-        //     // Slide the video track up by 773px each step (768px video + 5px gap)
-        //     tl.to('.video-scroll-track', { y: -(i + 1) * 773, duration: 0.5 }, stepStart);
-
-        //     // Fade out current text and thumbnail
-        //     tl.to(`.archive-desc-${i}`, { opacity: 0, y: -20, duration: 0.5 }, stepStart);
-        //     tl.to(`.video-thumb[data-index="${i}"]`, { opacity: 0.4, borderColor: 'transparent', scale: 1, duration: 0.5 }, stepStart);
-
-        //     // Fade in next text and thumbnail
-        //     tl.fromTo(`.archive-desc-${i + 1}`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, stepStart + 0.3);
-        //     tl.to(`.video-thumb[data-index="${i + 1}"]`, { opacity: 1, borderColor: '#c49d47', scale: 1.10, duration: 0.5 }, stepStart + 0.3);
-
-        //     stepTimes.push(stepStart + 0.8); // Save the time when this video is fully active
-        // }
-
         // Add click events to thumbnails to scrub to the correct section
         document.querySelectorAll('.video-thumb').forEach(thumb => {
             thumb.addEventListener('click', function () {
@@ -358,30 +341,54 @@
         });
 
 
+        // Pause floating items when offscreen to save battery and GPU
+        const floatingTweens = [];
         items.forEach((item) => {
-            gsap.to(item, {
-                y: "random(-30, 30)",
-                x: "random(-30, 30)",
-                rotation: "random(-4, 4)",
+            const tween = gsap.to(item, {
+                y: "random(-20, 20)",
+                x: "random(-20, 20)",
+                rotation: "random(-3, 3)",
                 duration: "random(3, 5)",
                 repeat: -1,
                 yoyo: true,
                 ease: "sine.inOut",
             });
+            floatingTweens.push(tween);
         });
 
-        if (window.innerWidth > 1024) {
-            window.addEventListener("mousemove", (e) => {
-                const x = (e.clientX / window.innerWidth - 0.5) * 10;
-                const y = (e.clientY / window.innerHeight - 0.5) * 10;
-
-                gsap.to(".gallery-container", {
-                    rotationY: x,
-                    rotationX: -y,
-                    duration: 0.8,
-                    ease: "power2.out",
+        const courseSection = document.querySelector(".gallery-perspective");
+        if (courseSection && window.IntersectionObserver) {
+            const courseObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        floatingTweens.forEach(tw => tw.resume());
+                    } else {
+                        floatingTweens.forEach(tw => tw.pause());
+                    }
                 });
-            });
+            }, { threshold: 0.05 });
+            courseObserver.observe(courseSection);
+        }
+
+        if (window.innerWidth > 1024) {
+            let mouseTicking = false;
+            window.addEventListener("mousemove", (e) => {
+                if (!mouseTicking) {
+                    requestAnimationFrame(() => {
+                        const x = (e.clientX / window.innerWidth - 0.5) * 10;
+                        const y = (e.clientY / window.innerHeight - 0.5) * 10;
+
+                        gsap.to(".gallery-container", {
+                            rotationY: x,
+                            rotationX: -y,
+                            duration: 0.8,
+                            ease: "power2.out",
+                        });
+                        mouseTicking = false;
+                    });
+                    mouseTicking = true;
+                }
+            }, { passive: true });
         }
 
         document.getElementById('galleryContainer').addEventListener('click', function (e) {
@@ -411,12 +418,6 @@
                 var img = frontItem.querySelector('img');
                 if (img) openLightbox(img.src, img.alt);
             }
-        });
-
-        window.addEventListener("orientationchange", () => {
-            setTimeout(() => {
-                ScrollTrigger.refresh(true);
-            }, 250);
         });
 
     });

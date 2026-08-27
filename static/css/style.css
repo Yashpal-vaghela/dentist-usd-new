@@ -73,7 +73,8 @@
 
 /* --- BASICS & SCROLLBARS --- */
 html {
-  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -82,7 +83,10 @@ body {
   color: var(--color-text-primary);
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  overflow-x: clip;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Base Anchor Styling */

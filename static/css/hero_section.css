@@ -49,23 +49,9 @@
   content: "";
   position: absolute;
   width: 100%;
-  height: 282px;
-  background: linear-gradient(to top, #000, transparent);
-  /* background: url("/static/images/hero_section_bottom_border.webp");
-  background-size: cover; */
+  height: 150px;
+  background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.8) 20%, rgba(0, 0, 0, 0) 100%);
   bottom: -2px;
-  left: 0;
-  pointer-events: none;
-}
-.hero-content-wrapper::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 170px;
-  /* background: linear-gradient(to bottom, #000, transparent); */
-  background: url("/static/images/hero_section_top_border.webp");
-  background-size: cover;
-  top: 0;
   left: 0;
   pointer-events: none;
 }
