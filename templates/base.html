@@ -116,11 +116,22 @@
             </div>
     </footer>
 
-    <!-- Swiper.js CDN-->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <!-- CORE JS LIBRARIES (Loaded once globally) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    <!-- Vanilla Javascript for Premium Micro-interactions & Mobile Menu Drawer -->
+    <!-- Global Scroll & UI Handling -->
     <script>
+        // Global ScrollTrigger mobile viewport stabilization
+        if (typeof ScrollTrigger !== 'undefined') {
+            ScrollTrigger.config({
+                ignoreMobileResize: true,
+                autoRefreshEvents: "visibilitychange,DOMContentLoaded,load"
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const hamburgerBtn = document.getElementById('usd-hamburger-btn');
             const drawerCloseBtn = document.getElementById('usd-drawer-close-btn');
@@ -128,12 +139,13 @@
             const drawerOverlay = document.getElementById('usd-drawer-overlay');
             const navMobileLinks = document.querySelectorAll('.usd-nav-mobile-link');
             const navDesktopLinks = document.querySelectorAll('.usd-nav-link');
+            const header = document.querySelector('.usd-header');
 
             function toggleMenu() {
-                hamburgerBtn.classList.toggle('active');
-                drawer.classList.toggle('active');
-                drawerOverlay.classList.toggle('active');
-                document.body.classList.toggle('no-scroll');
+                const isActive = drawer.classList.toggle('active');
+                hamburgerBtn.classList.toggle('active', isActive);
+                drawerOverlay.classList.toggle('active', isActive);
+                document.body.classList.toggle('no-scroll', isActive);
             }
 
             function closeMenu() {
@@ -143,9 +155,9 @@
                 document.body.classList.remove('no-scroll');
             }
 
-            hamburgerBtn.addEventListener('click', toggleMenu);
-            drawerCloseBtn.addEventListener('click', closeMenu);
-            drawerOverlay.addEventListener('click', closeMenu);
+            if (hamburgerBtn) hamburgerBtn.addEventListener('click', toggleMenu);
+            if (drawerCloseBtn) drawerCloseBtn.addEventListener('click', closeMenu);
+            if (drawerOverlay) drawerOverlay.addEventListener('click', closeMenu);
 
             // Handle smooth drawer close on link selection
             navMobileLinks.forEach(link => {
@@ -156,19 +168,19 @@
                 });
             });
 
-            // Smooth scroll anchor transitions
+            // Smooth scroll anchor transitions with header offset
             const allLinks = document.querySelectorAll('a[href^="#"]');
             allLinks.forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
-                    if (href === '#') return;
+                    if (!href || href === '#' || href.length <= 1) return;
                     
                     const targetElement = document.querySelector(href);
                     if (targetElement) {
                         e.preventDefault();
-                        const headerOffset = 80;
-                        const elementPosition = targetElement.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        const headerOffset = 70;
+                        const elementTop = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = Math.max(0, elementTop - headerOffset);
 
                         window.scrollTo({
                             top: offsetPosition,
@@ -178,69 +190,75 @@
                 });
             });
 
-            // Active section tracking on scroll
-            const sections = document.querySelectorAll('#home, #about-usd, #why-usd, #workflow, #gallery, #testimonial, #contact');
-            const header = document.querySelector('.usd-header');
-            
+            // Active section tracking on scroll (Optimized with requestAnimationFrame & cached bounds)
+            const sectionElements = document.querySelectorAll('#home, #about-usd, #why-usd, #workflow, #gallery, #testimonial, #contact');
             let cachedSections = [];
 
-            function cacheSectionDimensions() {
-                cachedSections = Array.from(sections).map(sec => ({
-                    id: sec.getAttribute('id'),
-                    top: sec.offsetTop - 120, // accounting for fixed header height
-                    height: sec.offsetHeight
-                }));
+            function updateCachedDimensions() {
+                cachedSections = Array.from(sectionElements).map(sec => {
+                    const rect = sec.getBoundingClientRect();
+                    const top = rect.top + window.pageYOffset - 120;
+                    return {
+                        id: sec.getAttribute('id'),
+                        top: top,
+                        bottom: top + sec.offsetHeight
+                    };
+                });
             }
 
-            // Cache dimensions initially
-            cacheSectionDimensions();
+            updateCachedDimensions();
 
-            // Recache only when width changes (rotation), ignoring vertical address-bar resizes
+            // Only recache when window width changes (avoiding mobile vertical scroll resize events)
             let lastWidth = window.innerWidth;
-            window.addEventListener('resize', () => {
+            window.addEventListener('resize', function() {
                 if (window.innerWidth !== lastWidth) {
                     lastWidth = window.innerWidth;
-                    cacheSectionDimensions();
+                    updateCachedDimensions();
                 }
-            });
-            
-            function trackScroll() {
-                let current = '';
-                const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            }, { passive: true });
 
-                // Toggle scrolled class for premium glass dynamic opacity
-                if (scrollPosition > 30) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || 0;
+
+                        // Header glassmorphism background toggle
+                        if (header) {
+                            if (scrollPosition > 30) {
+                                header.classList.add('scrolled');
+                            } else {
+                                header.classList.remove('scrolled');
+                            }
+                        }
+
+                        // Determine active section from cached bounds (Zero layout thrashing!)
+                        let current = 'home';
+                        for (let i = 0; i < cachedSections.length; i++) {
+                            const sec = cachedSections[i];
+                            if (scrollPosition >= sec.top - 100 && scrollPosition < sec.bottom - 100) {
+                                current = sec.id;
+                                break;
+                            }
+                        }
+
+                        navDesktopLinks.forEach(link => {
+                            const href = link.getAttribute('href');
+                            if (href === `#${current}` || (current === 'home' && (href === '/' || href === '#home'))) {
+                                link.classList.add('active');
+                            } else {
+                                link.classList.remove('active');
+                            }
+                        });
+
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
-
-                // Query cached coordinates instead of offsetTop/offsetHeight properties directly
-                cachedSections.forEach(sec => {
-                    if (scrollPosition >= sec.top && scrollPosition < sec.top + sec.height) {
-                        current = sec.id;
-                    }
-                });
-
-                sections.forEach(section => {
-                    const rect = section.getBoundingClientRect();
-                    // A section is considered active if it spans across the 200px mark from the top of the viewport
-                    if (rect.top <= 200 && rect.bottom > 200) {
-                        current = section.getAttribute('id');
-                    }
-                });
-
-                navDesktopLinks.forEach(link => {
-                    link.classList.remove('active');
-                    const href = link.getAttribute('href');
-                    if (href === `#${current}` || (current === 'home' && href === '/')) {
-                        link.classList.add('active');
-                    }
-                });
             }
 
-            window.addEventListener('scroll', trackScroll);
-            trackScroll(); // trigger once on load
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll(); // initial check
         });
     </script>
     {% block javascript %} {% endblock javascript %}
