@@ -150,49 +150,6 @@
   position: relative;
 }
 
-.right_logo_main {
-  width: 100%;
-  height: 78px;
-  margin-top: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.usd_gary_logo {
-  width: 189px;
-  height: 78px;
-  object-fit: contain;
-}
-
-.light_image_main {
-  width: 275px;
-  height: 270px;
-  margin-top: 35px;
-  transform: rotate(-2.3deg);
-  margin-left: -8px;
-}
-
-.contact_light_image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.bottom_char_img_main {
-  width: 100%;
-  height: 377px;
-  margin-top: 20px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-}
-
-.bottom_char_img {
-  width: 560px;
-  object-fit: contain;
-}
-
 .left_side_main {
   width: 50%;
   height: auto;
@@ -359,7 +316,7 @@ textarea.input_filds::-webkit-scrollbar {
 /* Arrow Rotation on Click / Active State */
 .input_icon_with_flag_main.active .arrow_icon,
 .input_icon_with_flag_main.active .arrow_icon img {
-  transform: rotate(90deg);
+  transform: rotate(180deg);
 }
 
 /* Country Dropdown Styles */
